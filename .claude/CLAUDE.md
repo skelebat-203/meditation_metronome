@@ -21,4 +21,12 @@ This project is local-only (no network access), so it uses the LOCAL severity ma
 - Headless Chromium via Playwright is a local dev-only dependency (`devDependencies` in the root `package.json`, pinned exact). It is never shipped in the app. Browsers live in `~/.var/app/com.vscodium.codium/cache/ms-playwright/`.
 - Setup in a fresh checkout or worktree: `npm ci`, then `npx playwright install chromium` if the browser is missing.
 - Load it in Node with `require("playwright")` from the project root and open `index.html` by `file://` URL. Keep test scripts in the session scratchpad, not the repo.
+- Lighthouse is also a local dev-only dependency. It cannot audit `file://` URLs, so serve the app on loopback first and point it at Playwright's Chromium:
+  ```
+  python3 -m http.server 8765 --bind 127.0.0.1 &
+  CHROME_PATH=$(node -e 'console.log(require("playwright").chromium.executablePath())') \
+    npx lighthouse http://127.0.0.1:8765/index.html --only-categories=accessibility \
+    --chrome-flags="--headless=new --no-sandbox" --output=json --output-path={scratchpad}/lh.json
+  ```
+  Stop the server afterwards. `--no-sandbox` is included because Chrome's own sandbox may fail inside the editor's Flatpak (untested without it).
 - This is for agent checks only. The user tests in the system Firefox and Chrome, which stays the authority for the `Verify:` lines.
