@@ -1,20 +1,32 @@
 'use strict';
 
-// Music player: plays APP.MUSIC.TRACKS in order, wrapping from the last track to the first, forever.
+// Music player: plays APP.MUSIC.TRACKS in shuffled order, reshuffling after each full pass, forever.
 // One <audio> element; the next track loads when the current one ends.
 
 const Music = (function () {
   const tracks = APP.MUSIC.TRACKS;
   const audio = new Audio();
-  let index = 0;
+  let order = shuffledIndices(tracks.length);
+  let pos = 0; // position of the current track in `order`
+  let index = order[0];
   let playing = false;
 
   audio.preload = 'auto';
   audio.volume = APP.MUSIC.DEFAULT_VOLUME;
 
   function load(i) {
-    index = ((i % tracks.length) + tracks.length) % tracks.length;
+    index = i;
     audio.src = tracks[index].src;
+  }
+
+  // Loads the next track in the shuffled order; after a full pass, reshuffles without repeating the last track.
+  function loadNext() {
+    pos++;
+    if (pos >= order.length) {
+      order = shuffledIndices(tracks.length, index);
+      pos = 0;
+    }
+    load(order[pos]);
   }
 
   // play() returns a promise in modern browsers; a rejection (e.g. autoplay block) is logged, not thrown.
@@ -75,7 +87,7 @@ const Music = (function () {
       return;
     }
     showNotice('Could not play "' + title + '". Skipping to the next track.');
-    load(index + 1);
+    loadNext();
     play();
   }
 
@@ -86,7 +98,7 @@ const Music = (function () {
   audio.addEventListener('playing', function () { failures = 0; });
 
   audio.addEventListener('ended', function () {
-    load(index + 1);
+    loadNext();
     if (playing) play();
   });
 
@@ -126,7 +138,13 @@ const Music = (function () {
   }
 
   // Switches track; keeps playing if already playing. Starts the track from the beginning.
+  // The chosen track starts a new shuffled pass, so every other track still plays once before a repeat.
   function setTrack(i) {
+    order = shuffledIndices(tracks.length);
+    const at = order.indexOf(i);
+    order[at] = order[0];
+    order[0] = i;
+    pos = 0;
     load(i);
     if (playing) play();
   }
@@ -135,8 +153,9 @@ const Music = (function () {
     audio.volume = Math.min(1, Math.max(0, v));
   }
 
+  // The first track of the session's shuffled order.
   function randomTrackIndex() {
-    return Math.floor(Math.random() * tracks.length);
+    return order[0];
   }
 
   // Settings preview: plays track i on its own element at volume v for APP.MUSIC.PREVIEW_MS,

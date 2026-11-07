@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.2.13 — docs: landmark rule, revisit-before-launch doc (0004), shuffled music spec, v0.3 credits item. Next: track shuffle, then user check of new media and v0.3.0.
+v0.2.14 — music plays in shuffled order, reshuffled after each pass (shared shuffle helper in js/shuffle.js). Next: user check of new media and v0.3.0.
 
 ## v0.2 plan of action
 

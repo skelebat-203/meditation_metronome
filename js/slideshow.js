@@ -12,17 +12,8 @@ const Slideshow = (function () {
   let timer = null;
   let shown = false;
 
-  // Fisher-Yates shuffle. If `avoidFirst` is given, it never lands first, so no image repeats across a pass boundary.
   function shuffle(avoidFirst) {
-    const a = sources.map(function (_, i) { return i; });
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const t = a[i]; a[i] = a[j]; a[j] = t;
-    }
-    if (a.length > 1 && a[0] === avoidFirst) {
-      const t = a[0]; a[0] = a[1]; a[1] = t;
-    }
-    return a;
+    return shuffledIndices(sources.length, avoidFirst);
   }
 
   function nextIndex() {
