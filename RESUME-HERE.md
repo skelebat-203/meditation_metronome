@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.1.3 — app skeleton merged; agent browser testing added; next: step 2 (metronome).
+v0.1.3 — metronome merged (step 2); next: step 3 (music player).
 
 ## v0.1 plan of action
 
@@ -19,7 +19,7 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `index.html`, `css/`, `js/constants.js`
    - Verify: opens in Firefox and Chrome on Linux with no console errors
    - Deps: 0
-2. **Metronome** (v0.1/2) — on/off, 1 tick per second, three tick sounds via Web Audio.
+2. **Metronome** (v0.1/2) — on/off, 1 tick per second, three tick sounds via Web Audio; `prepare()` warms up audio before Start. ✅ (v0.1.3)
    - Source: roadmap v0.1 item 2; `0002` § Metronome
    - Files: `js/metronome.js`
    - Verify: ticks stay on time over 5 minutes; each sound selectable
@@ -47,4 +47,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group B: steps 1 → 2, 3, 4 → 5 (they share `index.html`, constants and app wiring)
 - Reviews: steps 6, 7 (main session, with the user)
 - Run mode: **single session with fresh restarts**. Few items, they touch shared files, and the UI design needs frequent approval.
-- Status: ✅ A · ☐ B · ☐ reviews
+- Status: ✅ A · ⏳ B (steps 1–2 done) · ☐ reviews
