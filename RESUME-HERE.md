@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.1.5 — screens and settings done (step 5); next: step 6 (accessibility audit).
+v0.2.0 — v0.1 complete (accessibility audit and security review done); next: v0.2 plan of action.
 
 ## v0.1 plan of action
 
@@ -39,12 +39,14 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `index.html`, `js/app.js`, `js/settings.js`, `css/`
    - Verify: saved settings persist across reloads; session settings do not
    - Deps: 0–4
-6. **Accessibility audit** (v0.1/6) — with the user.
-7. **Security review** (v0.1/7) — with the user; bumps to v0.2.0.
+6. **Accessibility audit** (v0.1/6) — with the user. ✅ (v0.1.6)
+   - Report: `docs/audits/accessibility/accessibility-v0.1.md`
+7. **Security review** (v0.1/7) — with the user; bumps to v0.2.0. ✅ (v0.2.0)
+   - Report: `docs/audits/security/security-v0.1.md` (SEC-02 open for v0.2)
 
 ### Execution
 - Group A: step 0 (main session, with the user)
 - Group B: steps 1 → 2, 3, 4 → 5 (they share `index.html`, constants and app wiring)
 - Reviews: steps 6, 7 (main session, with the user)
 - Run mode: **single session with fresh restarts**. Few items, they touch shared files, and the UI design needs frequent approval.
-- Status: ✅ A · ✅ B · ☐ reviews
+- Status: ✅ A · ✅ B · ✅ reviews
