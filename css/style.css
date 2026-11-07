@@ -345,3 +345,28 @@ body.controls-hidden .controls {
 .track-preview {
   margin-top: var(--space-gap);
 }
+
+.credits-link {
+  margin-top: var(--space-section);
+}
+
+/* Credits */
+.credits ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.credits li {
+  margin-bottom: var(--space-section);
+}
+
+.credits h3 {
+  margin: 0;
+  font-size: var(--font-size-base);
+}
+
+.credits p {
+  margin: 0;
+  overflow-wrap: anywhere; /* long source URLs wrap instead of overflowing */
+}

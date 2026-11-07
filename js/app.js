@@ -9,6 +9,7 @@ const SCREEN_TITLES = {};
 SCREEN_TITLES[APP.SCREEN_IDS.LAUNCH] = 'Meditation Metronome';
 SCREEN_TITLES[APP.SCREEN_IDS.MEDITATION] = 'Meditating — Meditation Metronome';
 SCREEN_TITLES[APP.SCREEN_IDS.SETTINGS] = 'Settings — Meditation Metronome';
+SCREEN_TITLES[APP.SCREEN_IDS.CREDITS] = 'Credits — Meditation Metronome';
 
 const form = $('#settings-form');
 const timerEl = $('#session-timer');
@@ -56,7 +57,9 @@ window.addEventListener('popstate', function () {
     endSession();
     return;
   }
-  if (current === APP.SCREEN_IDS.SETTINGS) {
+  if (current === APP.SCREEN_IDS.CREDITS) {
+    showScreen(APP.SCREEN_IDS.SETTINGS, $('[data-action="open-credits"]'));
+  } else if (current === APP.SCREEN_IDS.SETTINGS) {
     Metronome.setVolume(Settings.getSession().metronomeVolume); // undo any preview volume
     Music.stopPreview();
     if (inSession) {
@@ -347,6 +350,35 @@ form.addEventListener('input', renderVolumes);
 
 form.addEventListener('submit', function (e) { e.preventDefault(); });
 
+// ---------- Credits ----------
+
+// Builds the credits list once from CREDITS (js/credits.js). Source is plain text: the app opens no links.
+function renderCredits() {
+  const root = $('#credits-list');
+  CREDITS.forEach(function (group) {
+    const section = document.createElement('section');
+    section.className = 'settings-group';
+    const h2 = document.createElement('h2');
+    h2.textContent = group.heading;
+    const ul = document.createElement('ul');
+    group.items.forEach(function (item) {
+      const li = document.createElement('li');
+      const h3 = document.createElement('h3');
+      h3.textContent = item.title;
+      li.appendChild(h3);
+      [['Author', item.author], ['Source', item.source], ['License', item.license]].forEach(function (row) {
+        const p = document.createElement('p');
+        p.textContent = row[0] + ': ' + row[1];
+        li.appendChild(p);
+      });
+      ul.appendChild(li);
+    });
+    section.appendChild(h2);
+    section.appendChild(ul);
+    root.appendChild(section);
+  });
+}
+
 // ---------- Actions ----------
 
 const ACTIONS = {
@@ -354,6 +386,7 @@ const ACTIONS = {
   'end': function () { history.back(); },
   'open-settings': openSettings,
   'back': function () { history.back(); },
+  'open-credits': function () { goTo(APP.SCREEN_IDS.CREDITS); },
   'preview-track': function () { Music.preview(Number(form.track.value), Number(form.musicVolume.value) / 100); },
   'apply-persistent': function () { applyAndClose(true); },
   'apply-session': function () { applyAndClose(false); },
@@ -367,6 +400,7 @@ $$('[data-action]').forEach(function (btn) {
 
 $('#start').textContent = 'Start ' + APP.START_WORDS[Math.floor(Math.random() * APP.START_WORDS.length)];
 Music.setTrack(Settings.getSession().track);
+renderCredits();
 Slideshow.mount(slideshowEl);
 Slideshow.show();
 renderToggles();

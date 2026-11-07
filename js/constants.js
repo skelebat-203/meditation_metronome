@@ -6,6 +6,7 @@ const APP = Object.freeze({
     LAUNCH: 'screen-launch',
     MEDITATION: 'screen-meditation',
     SETTINGS: 'screen-settings',
+    CREDITS: 'screen-credits',
   }),
   METRONOME: Object.freeze({
     INTERVAL_S: 1,

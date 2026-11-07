@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.2.2 — step 5 (session length and marks) done. Next: step 4 (credits screen); group A in parallel.
+v0.2.3 — group C done (steps 5 and 4). Credits list holds placeholder entries until group B updates it. Next: groups A, B.
 
 ## v0.2 plan of action
 
@@ -24,9 +24,9 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `assets/`, `js/music.js`, `js/slideshow.js`, `js/constants.js`, `ATTRIBUTION.md`
    - Verify: music loops and slideshow shuffles with real media; a missing track shows a message instead of silence; total media size noted
    - Deps: 1, 2
-4. **Credits screen** (v0.2/4) — in-app screen, opened from Settings → Credits, listing every asset's attribution.
+4. **Credits screen** (v0.2/4) ✅ (v0.2.3; entries updated in step 3) — in-app screen, opened from Settings → Credits, listing every asset's attribution.
    - Source: roadmap v0.2 item 4; `0003` § Settings screen (Credits row)
-   - Files: `index.html`, `js/app.js`, `js/credits.js`, `css/`
+   - Files: `index.html`, `js/app.js`, `js/credits.js`, `css/` (step 3 must update `js/credits.js` to mirror `ATTRIBUTION.md`)
    - Verify: every `ATTRIBUTION.md` entry appears; keyboard and screen reader can reach and leave it; user reviews at version end
    - Deps: 3 (final asset list)
 5. **Session length and marks** (v0.2/5) ✅ (v0.2.2) — countdown that ends the session with an end chime; mark chime every N minutes (default on, 5 min); chimes are longer versions of the selected tick sound; Images toggle moves from launch screen to Settings only; 10-second test option.
@@ -45,4 +45,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group C: steps 4, 5 (UI; parallel with A; credits list final after B)
 - Reviews: steps 6, 7 (agent drafts; **pause for user review** before v0.3.0 and the merge to `main`)
 - Run mode: **grouped subagents**. Gates moved to version end, and groups touch separate files.
-- Status: ☐ A · ☐ B · ⏳ C (5 ✅, 4 ☐) · ☐ reviews
+- Status: ☐ A · ☐ B · ✅ C · ☐ reviews
