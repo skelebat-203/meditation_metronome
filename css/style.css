@@ -198,6 +198,25 @@ body[data-screen="screen-meditation"] .slideshow::after {
 
 .btn-toggle .toggle-state::before { content: "· "; }
 
+.length-picker {
+  display: flex;
+  align-items: center;
+  gap: var(--space-gap);
+  padding-left: var(--space-gap);
+  border-radius: var(--radius);
+  background: var(--color-surface); /* keeps the label readable over the image */
+}
+
+.settings-group select,
+.length-select {
+  min-height: var(--target-min);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+}
+
 /* Pressed: fill + weight, not color alone. */
 .btn-toggle[aria-pressed="true"] {
   background: var(--color-pressed-bg);
@@ -284,14 +303,6 @@ body.controls-hidden .controls {
 .settings-group select {
   width: 100%;
   min-height: var(--target-min);
-}
-
-.settings-group select {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  background: var(--color-bg);
-  color: var(--color-text);
-  font: inherit;
 }
 
 .switch {

@@ -21,7 +21,7 @@
       <ul class="toggle-row" aria-label="This session">
         <li><button type="button" class="btn btn-toggle" data-toggle="music" aria-pressed="true"><span aria-hidden="true">♪</span> Music <span class="toggle-state" aria-hidden="true"></span></button></li>
         <li><button type="button" class="btn btn-toggle" data-toggle="metronome" aria-pressed="true"><span aria-hidden="true">◷</span> Metronome <span class="toggle-state" aria-hidden="true"></span></button></li>
-        <li><button type="button" class="btn btn-toggle" data-toggle="images" aria-pressed="true"><span aria-hidden="true">▣</span> Images <span class="toggle-state" aria-hidden="true"></span></button></li>
+        <li class="length-picker"><label for="launch-length"><span aria-hidden="true">⏲</span> Session length</label> <select id="launch-length" class="length-select" data-choices="length"></select></li>
       </ul>
     </div>
   </main>
@@ -62,6 +62,14 @@
               <div class="tick-sound"><label><input type="radio" name="tickSound" value="wood-block"> Wood block</label> <button type="button" class="btn btn-small" data-preview="wood-block" aria-label="Play wood block">▶</button></div>
               <div class="tick-sound"><label><input type="radio" name="tickSound" value="bell"> Bell</label> <button type="button" class="btn btn-small" data-preview="bell" aria-label="Play bell">▶</button></div>
           </fieldset>
+        </section>
+        <section class="settings-group" aria-labelledby="settings-session">
+          <h2 id="settings-session">Session</h2>
+          <label class="setting" for="session-length"><span>Session length</span></label>
+          <select id="session-length" name="sessionLength" data-choices="length"></select>
+          <label class="setting"><span>Marks</span> <input type="checkbox" id="marks" name="marks" class="switch"></label>
+          <label class="setting" for="mark-interval"><span>Mark every</span></label>
+          <select id="mark-interval" name="markInterval" data-choices="interval"></select>
         </section>
         <section class="settings-group" aria-labelledby="settings-display">
           <h2 id="settings-display">Display</h2>

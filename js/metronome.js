@@ -32,6 +32,18 @@ const BELL_PARTIALS = [
 ];
 const BELL_ATTACK_S = 0.005;
 
+// Chimes: longer versions of the selected tick sound (0002 § Session length and marks).
+const CLICK_CHIME_S = 1.2;          // noise burst becomes a resonant swell
+const CLICK_CHIME_Q = 12;
+const WOOD_CHIME_S = 1.5;
+const BELL_CHIME_STRETCH = 1.6;     // bell partial decays × this
+const NOISE_BUFFER_S = CLICK_CHIME_S;
+// Mark: one strike. End: three strikes, lower pitch, so the two are easy to tell apart.
+const CHIMES = {
+  mark: { strikes: 1, gapS: 0, pitch: 1 },
+  end: { strikes: 3, gapS: 0.7, pitch: 0.75 },
+};
+
 const Metronome = (function () {
   let ctx = null;
   let master = null;       // volume
@@ -50,7 +62,7 @@ const Metronome = (function () {
       master = ctx.createGain();
       master.gain.value = volume;
       master.connect(ctx.destination);
-      noiseBuffer = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * CLICK_DURATION_S), ctx.sampleRate);
+      noiseBuffer = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * NOISE_BUFFER_S), ctx.sampleRate);
       const data = noiseBuffer.getChannelData(0);
       for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
     }
@@ -65,44 +77,57 @@ const Metronome = (function () {
     return g;
   }
 
-  function playClick(out, time) {
+  // Each player plays one tick at `time`, or a chime when `pitch` is given; returns its length in seconds.
+  function playClick(out, time, pitch) {
+    const duration = pitch ? CLICK_CHIME_S : CLICK_DURATION_S;
     const src = ctx.createBufferSource();
     src.buffer = noiseBuffer;
     const filter = ctx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.value = CLICK_FILTER_HZ;
-    const g = envelope(CLICK_GAIN, time, CLICK_DURATION_S);
+    filter.type = pitch ? 'bandpass' : 'lowpass';
+    filter.frequency.value = CLICK_FILTER_HZ * (pitch || 1);
+    if (pitch) filter.Q.value = CLICK_CHIME_Q;
+    const g = envelope(CLICK_GAIN, time, duration);
     src.connect(filter).connect(g).connect(out);
     src.start(time);
+    src.stop(time + duration);
+    return duration;
   }
 
-  function playWood(out, time) {
+  function playWood(out, time, pitch) {
+    const duration = pitch ? WOOD_CHIME_S : WOOD_DURATION_S;
+    const freq = WOOD_FREQ_HZ * (pitch || 1);
     const osc = ctx.createOscillator();
     osc.type = 'triangle';
-    osc.frequency.value = WOOD_FREQ_HZ;
+    osc.frequency.value = freq;
     const filter = ctx.createBiquadFilter();
     filter.type = 'bandpass';
-    filter.frequency.value = WOOD_FREQ_HZ;
+    filter.frequency.value = freq;
     filter.Q.value = WOOD_FILTER_Q;
-    const g = envelope(WOOD_GAIN, time, WOOD_DURATION_S);
+    const g = envelope(WOOD_GAIN, time, duration);
     osc.connect(filter).connect(g).connect(out);
     osc.start(time);
-    osc.stop(time + WOOD_DURATION_S);
+    osc.stop(time + duration);
+    return duration;
   }
 
-  function playBell(out, time) {
+  function playBell(out, time, pitch) {
+    const stretch = pitch ? BELL_CHIME_STRETCH : 1;
+    let longest = 0;
     BELL_PARTIALS.forEach(function (p) {
+      const decay = p.decay * stretch;
+      longest = Math.max(longest, decay);
       const osc = ctx.createOscillator();
       osc.type = 'sine';
-      osc.frequency.value = BELL_FREQ_HZ * p.ratio;
+      osc.frequency.value = BELL_FREQ_HZ * (pitch || 1) * p.ratio;
       const g = ctx.createGain();
       g.gain.setValueAtTime(SILENCE, time);
       g.gain.exponentialRampToValueAtTime(p.gain, time + BELL_ATTACK_S);
-      g.gain.exponentialRampToValueAtTime(SILENCE, time + p.decay);
+      g.gain.exponentialRampToValueAtTime(SILENCE, time + decay);
       osc.connect(g).connect(out);
       osc.start(time);
-      osc.stop(time + p.decay);
+      osc.stop(time + decay);
     });
+    return longest;
   }
 
   const PLAYERS = {};
@@ -162,5 +187,28 @@ const Metronome = (function () {
     PLAYERS[name](master, ctx.currentTime);
   }
 
-  return Object.freeze({ prepare: prepare, start: start, stop: stop, isRunning: isRunning, setSound: setSound, setVolume: setVolume, preview: preview });
+  // Plays a mark or end chime of the selected sound now, at metronome volume, whether or not
+  // the metronome is running. Returns how long it lasts, in ms.
+  function chime(kind) {
+    const c = CHIMES[kind];
+    if (!c) throw new Error('Unknown chime: ' + kind);
+    ensureContext();
+    let endS = 0;
+    for (let i = 0; i < c.strikes; i++) {
+      const offset = START_DELAY_S + i * c.gapS;
+      endS = Math.max(endS, offset + PLAYERS[sound](master, ctx.currentTime + offset, c.pitch));
+    }
+    return endS * 1000;
+  }
+
+  // Fades queued and future ticks to silence over `ms`, then stops.
+  function fadeOut(ms) {
+    if (timerId === null) return;
+    const bus = runBus;
+    bus.gain.setValueAtTime(1, ctx.currentTime);
+    bus.gain.linearRampToValueAtTime(0, ctx.currentTime + ms / 1000);
+    setTimeout(function () { if (runBus === bus) stop(); }, ms);
+  }
+
+  return Object.freeze({ chime: chime, fadeOut: fadeOut, prepare: prepare, start: start, stop: stop, isRunning: isRunning, setSound: setSound, setVolume: setVolume, preview: preview });
 })();

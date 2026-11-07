@@ -9,6 +9,12 @@ const Settings = (function () {
   const KEY = APP.SETTINGS.STORAGE_KEY;
   const DEFAULTS = APP.SETTINGS.DEFAULTS;
   const SOUNDS = Object.values(APP.METRONOME.SOUNDS);
+  const SESSION = APP.SESSION;
+
+  // Interval choices in seconds: the test option, then 5–60 min in 5-minute steps.
+  const INTERVALS = [SESSION.TEST_S];
+  for (let s = SESSION.STEP_S; s <= SESSION.MAX_S; s += SESSION.STEP_S) INTERVALS.push(s);
+  const LENGTHS = [0].concat(INTERVALS); // 0 = off
 
   // Keeps only known keys with the right type; anything else falls back to the default.
   function sanitize(raw) {
@@ -18,6 +24,8 @@ const Settings = (function () {
       out[k] = typeof v === typeof DEFAULTS[k] ? v : DEFAULTS[k];
     });
     if (SOUNDS.indexOf(out.tickSound) === -1) out.tickSound = DEFAULTS.tickSound;
+    if (LENGTHS.indexOf(out.sessionLength) === -1) out.sessionLength = DEFAULTS.sessionLength;
+    if (INTERVALS.indexOf(out.markInterval) === -1) out.markInterval = DEFAULTS.markInterval;
     out.musicVolume = Math.min(1, Math.max(0, out.musicVolume));
     out.metronomeVolume = Math.min(1, Math.max(0, out.metronomeVolume));
     return out;
@@ -57,5 +65,7 @@ const Settings = (function () {
     getSession: function () { return copy(session); },
     setSession: setSession,
     setPersistent: setPersistent,
+    lengthChoices: function () { return LENGTHS.slice(); },
+    intervalChoices: function () { return INTERVALS.slice(); },
   });
 })();

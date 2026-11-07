@@ -41,6 +41,15 @@ const APP = Object.freeze({
   START_WORDS: Object.freeze(['recovering', 'relaxing', 'centering', 'breathing']),
   CONTROLS_IDLE_MS: 4000, // meditation-screen controls hide after this long without input
   TIMER_UPDATE_MS: 1000,
+  SESSION: Object.freeze({
+    CHECK_MS: 250, // how often session length and marks are checked
+    // Session length and marks interval choices, in seconds. 0 = off (length only).
+    // TEST_S is a temporary manual-test option; remove before v0.4 (0002 § Session length and marks).
+    TEST_S: 10,
+    STEP_S: 300, // 5 min
+    MAX_S: 3600, // 60 min
+    FADE_MS: 3000, // music/metronome fade-out when the session length ends
+  }),
   SETTINGS: Object.freeze({
     STORAGE_KEY: 'meditation-metronome.settings',
     // Saved defaults. The music track is not saved: each app open starts on a random track.
@@ -51,6 +60,9 @@ const APP = Object.freeze({
       metronomeVolume: 0.7,
       tickSound: 'soft-click',
       images: true,
+      sessionLength: 0, // seconds; 0 = off
+      marks: true,
+      markInterval: 300, // seconds
       timer: false,
       keepAwake: true,
     }),

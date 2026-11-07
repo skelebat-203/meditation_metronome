@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.2.1 — v0.2 plan revised (timer and marks added; agent-run with gates at version end). Next: groups A and C.
+v0.2.2 — step 5 (session length and marks) done. Next: step 4 (credits screen); group A in parallel.
 
 ## v0.2 plan of action
 
@@ -29,7 +29,7 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `index.html`, `js/app.js`, `js/credits.js`, `css/`
    - Verify: every `ATTRIBUTION.md` entry appears; keyboard and screen reader can reach and leave it; user reviews at version end
    - Deps: 3 (final asset list)
-5. **Session length and marks** (v0.2/5) — countdown that ends the session with an end chime; mark chime every N minutes (default on, 5 min); chimes are longer versions of the selected tick sound; Images toggle moves from launch screen to Settings only; 10-second test option.
+5. **Session length and marks** (v0.2/5) ✅ (v0.2.2) — countdown that ends the session with an end chime; mark chime every N minutes (default on, 5 min); chimes are longer versions of the selected tick sound; Images toggle moves from launch screen to Settings only; 10-second test option.
    - Source: roadmap v0.2 item 5; `0002` § Session length and marks, § Launch screen, § Settings screen; `0003` launch and settings wireframes
    - Files: `index.html`, `js/app.js`, `js/settings.js`, `js/metronome.js` (or new `js/chime.js`), `js/constants.js`, `css/`
    - Verify: 10 s length ends session with end chime and returns to launch; 10 s marks chime repeatedly; mark and end chimes differ per tick sound; settings persist; keyboard/screen reader reach the new controls
@@ -45,4 +45,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group C: steps 4, 5 (UI; parallel with A; credits list final after B)
 - Reviews: steps 6, 7 (agent drafts; **pause for user review** before v0.3.0 and the merge to `main`)
 - Run mode: **grouped subagents**. Gates moved to version end, and groups touch separate files.
-- Status: ☐ A · ☐ B · ☐ C · ☐ reviews
+- Status: ☐ A · ☐ B · ⏳ C (5 ✅, 4 ☐) · ☐ reviews

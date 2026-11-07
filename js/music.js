@@ -30,6 +30,7 @@ const Music = (function () {
 
   // Starts playback; call from a user gesture. Resumes the current track if one is loaded.
   function start() {
+    clearInterval(fadeId);
     if (playing) return;
     playing = true;
     if (!audio.src) load(index);
@@ -39,6 +40,24 @@ const Music = (function () {
   function stop() {
     playing = false;
     audio.pause();
+  }
+
+  // Lowers the volume to 0 over `ms`, then stops. The next start() restores volume via setVolume().
+  const FADE_STEPS = 20;
+  let fadeId = null;
+  function fadeOut(ms) {
+    if (!playing) return;
+    const from = audio.volume;
+    let step = 0;
+    clearInterval(fadeId);
+    fadeId = setInterval(function () {
+      step++;
+      audio.volume = Math.max(0, from * (1 - step / FADE_STEPS));
+      if (step >= FADE_STEPS || !playing) {
+        clearInterval(fadeId);
+        stop();
+      }
+    }, ms / FADE_STEPS);
   }
 
   // Switches track; keeps playing if already playing. Starts the track from the beginning.
@@ -78,6 +97,7 @@ const Music = (function () {
     stopPreview: stopPreview,
     start: start,
     stop: stop,
+    fadeOut: fadeOut,
     isPlaying: function () { return playing; },
     setTrack: setTrack,
     getTrackIndex: function () { return index; },
