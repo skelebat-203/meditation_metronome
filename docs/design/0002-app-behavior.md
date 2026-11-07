@@ -50,13 +50,13 @@ Controls:
 ## Session length and marks
 Not a score or streak; only sound cues.
 - **Session length** (countdown): when it reaches zero, the end chime plays, music and metronome fade out, and the app returns to the launch screen once the chime finishes. Off = session runs until End.
-- **Marks**: a long chime every `{interval}` minutes, counted from Start. No mark plays at the same moment as the end chime.
+- **Marks**: a long chime every `{interval}` minutes, counted from Start. Sound only; no screen-reader announcement (the chime is the cue). No mark plays at the same moment as the end chime.
 - **One beat clock**: ticks, marks and the end chime are timed on the same beat clock, counted from Start. A mark or the end chime falls exactly on a beat and replaces the tick on that beat (no tick plus chime). This holds after the tick sound changes mid-session; the chimes then use the new sound.
 - **Chime sounds**: Web Audio, no files. Each is a distinct, longer version of the selected tick sound (soft click / wood block / bell). The mark chime and the end chime differ from each other, so the user can tell them apart.
 - **Test option (temporary)**: a 10-second choice in both Session length and Marks interval for manual testing. Remove before the first public release (v0.4).
 
 ## Music
-- ~10 tracks, played in a continuous loop.
+- ~10 tracks, played in shuffled order (not just a random start track); reshuffled after each full pass; loops forever.
 - Opus, ~48 kbps, loops of ~2–3 minutes per track.
 
 ## Images
@@ -72,7 +72,3 @@ Not a score or streak; only sound cues.
 ## Platform
 - Minimum Android version: 5.0 (API 21). Avoid very new web features; Android 5–7 WebViews stopped updating in 2022–2023.
 - WebView lockdown (keeps old-device risk low): loads only bundled local files; no INTERNET permission; no JavaScript-to-Android bridge; no remote content.
-
-## Open questions
-
-1. **Start track vs. Persistent track.** On load the start track is random. If the user picks a track and presses Persistent, should future sessions start with that track instead of a random one?

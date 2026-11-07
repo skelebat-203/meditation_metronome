@@ -16,6 +16,7 @@ This project is local-only (no network access), so it uses the LOCAL severity ma
 - Plain HTML, CSS and JavaScript; media in `assets/`. No framework, no build step, no CDN or remote resources.
 - The app makes no network access of any kind. Do not add the Android INTERNET permission. (The git repo has a remote; push rules are in the global `version-control.md`.)
 - **One commit per patch version.** Each version number (e.g. v0.2.1) gets exactly one commit; never make a second commit with the same version. Follow-up fixes or doc changes either amend that commit, only if it has not been pushed, or wait and go into the next version's commit. Overrides the global checkpoint-commit rule for this project.
+- All visible UI, including notices and messages, sits inside a landmark, normally `<main>`; no stray elements after `</main>`.
 - Assets must be CC0, public domain, or CC BY, and listed in `ATTRIBUTION.md` before they are committed.
 
 ## Browser testing (agents)

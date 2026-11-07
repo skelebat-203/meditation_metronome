@@ -57,8 +57,9 @@ Run as a single session with fresh restarts. Agent browser testing (Playwright, 
 2. App icon, name, splash screen.
 3. Keep screen awake during a session (per `0002`).
 4. Test on GrapheneOS, including what happens when the screen is turned off.
-5. Accessibility audit.
-6. Security review.
+5. Credits from a single source: stop `js/credits.js` and `ATTRIBUTION.md` drifting (one generated from the other, or a check that they match).
+6. Accessibility audit.
+7. Security review.
 
 ## v0.4 — F-Droid release
 
@@ -84,7 +85,10 @@ Run as a single session with fresh restarts. Agent browser testing (Playwright, 
 ## Future (unscoped)
 
 - Settings: let the user add their own music and images.
+- Settings: music repeat mode — loop the whole (shuffled) list, or repeat a single track.
 
 ## v1.0 — Full launch
 
 Releases before v1.0 go to beta testers. v1.0 is the full public launch, after background playback (v0.6) is done.
+
+Before launch: review every item in [`0004-revisit-before-launch.md`](0004-revisit-before-launch.md).
