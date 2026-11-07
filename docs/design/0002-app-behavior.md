@@ -31,6 +31,7 @@ Back without pressing either button discards the changes.
 
 Controls:
 - Music on/off, volume, and track (dropdown)
+- Track preview: plays the selected track for 5 s, fades it out over 2 s, then stops. Starting another preview or leaving Settings stops it.
 - Metronome on/off and volume
 - Tick sound: soft click / wood block / bell
 - Images on/off

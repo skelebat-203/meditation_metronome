@@ -386,7 +386,7 @@ const ACTIONS = {
   'end': function () { history.back(); },
   'open-settings': openSettings,
   'back': function () { history.back(); },
-  'open-credits': function () { goTo(APP.SCREEN_IDS.CREDITS); },
+  'open-credits': function () { Music.stopPreview(); goTo(APP.SCREEN_IDS.CREDITS); },
   'preview-track': function () { Music.preview(Number(form.track.value), Number(form.musicVolume.value) / 100); },
   'apply-persistent': function () { applyAndClose(true); },
   'apply-session': function () { applyAndClose(false); },

@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.2.6 — real media wired in (10 Opus tracks ≈ 10.1 MB, 20 WebP images ≈ 2.7 MB; total ≈ 12.9 MB); placeholders and their credits removed; track playback errors show a visible message (SEC-02). Next: reviews (steps 6, 7).
+v0.2.7 — Settings track preview plays 5 s, then fades out over 2 s and stops. Next: reviews (steps 7, 8).
 
 ## v0.2 plan of action
 
@@ -34,15 +34,21 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `index.html`, `js/app.js`, `js/settings.js`, `js/metronome.js` (or new `js/chime.js`), `js/constants.js`, `css/`
    - Verify: 10 s length ends session with end chime and returns to launch; 10 s marks chime repeatedly; mark and end chimes differ per tick sound; settings persist; keyboard/screen reader reach the new controls
    - Deps: none
-6. **Accessibility audit** (v0.2/6) — Lighthouse ≥ 90 plus manual focus and screen reader checks; agent drafts, user reviews.
+6. **Track preview fade** (v0.2/6) ✅ (v0.2.7) — in Settings, the track preview plays 5 s, fades out over 2 s, then stops; a new preview, Back or Credits stops the current one.
+   - Source: roadmap v0.2 item 6; `0002` § Settings screen
+   - Files: `js/music.js`, `js/constants.js`, `js/app.js`
+   - Verify: preview stops at ~7 s with a volume ramp from 5 s; starting another preview restarts it; leaving Settings stops it
+   - Deps: 3
+7. **Accessibility audit** (v0.2/7) — Lighthouse ≥ 90 plus manual focus and screen reader checks; agent drafts, user reviews.
    - Report: `docs/audits/accessibility/accessibility-v0.2.md`
-7. **Security review** (v0.2/7) — agent drafts, user reviews; on approval bumps to v0.3.0 and `v0.2` merges to `main`.
+8. **Security review** (v0.2/8) — agent drafts, user reviews; on approval bumps to v0.3.0 and `v0.2` merges to `main`.
    - Report: `docs/audits/security/security-v0.2.md`
 
 ### Execution
 - Group A: steps 1, 2 (media sourcing; separate folders, parallel)
 - Group B: step 3 (after A)
 - Group C: steps 4, 5 (UI; parallel with A; credits list final after B)
-- Reviews: steps 6, 7 (agent drafts; **pause for user review** before v0.3.0 and the merge to `main`)
+- Group D: step 6, then reviews
+- Reviews: steps 7, 8 (agent drafts; **pause for user review** before v0.3.0 and the merge to `main`)
 - Run mode: **grouped subagents**. Gates moved to version end, and groups touch separate files.
-- Status: ✅ A · ✅ B · ✅ C · ☐ reviews
+- Status: ✅ A · ✅ B · ✅ C · ⏳ D · ☐ reviews

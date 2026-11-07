@@ -116,12 +116,14 @@ const Music = (function () {
     return Math.floor(Math.random() * tracks.length);
   }
 
-  // Settings preview: plays the first APP.MUSIC.PREVIEW_MS of track i on its own element, at volume v.
+  // Settings preview: plays track i on its own element at volume v for APP.MUSIC.PREVIEW_MS,
+  // then fades it out over APP.MUSIC.PREVIEW_FADE_MS and stops. A new preview replaces the old one.
   const previewAudio = new Audio();
   let previewTimer = null;
+  let previewFadeId = null;
 
   function preview(i, v) {
-    clearTimeout(previewTimer);
+    stopPreview();
     previewAudio.src = tracks[i].src;
     previewAudio.volume = Math.min(1, Math.max(0, v));
     const p = previewAudio.play();
@@ -131,11 +133,22 @@ const Music = (function () {
         if (previewAudio.error) showNotice('Could not play "' + tracks[i].title + '".');
       });
     }
-    previewTimer = setTimeout(stopPreview, APP.MUSIC.PREVIEW_MS);
+    previewTimer = setTimeout(fadePreview, APP.MUSIC.PREVIEW_MS);
+  }
+
+  function fadePreview() {
+    const from = previewAudio.volume;
+    let step = 0;
+    previewFadeId = setInterval(function () {
+      step++;
+      previewAudio.volume = Math.max(0, from * (1 - step / FADE_STEPS));
+      if (step >= FADE_STEPS) stopPreview();
+    }, APP.MUSIC.PREVIEW_FADE_MS / FADE_STEPS);
   }
 
   function stopPreview() {
     clearTimeout(previewTimer);
+    clearInterval(previewFadeId);
     previewAudio.pause();
   }
 

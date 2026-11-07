@@ -47,8 +47,9 @@ Run as a single session with fresh restarts. Agent browser testing (Playwright, 
 3. Compress media for mobile size; wire it into the app.
 4. In-app credits screen that shows the attributions.
 5. Session length (countdown that ends the session) and marks (long chime every N minutes), per `0002` § Session length and marks. Session length replaces the Images toggle on the launch screen.
-6. Accessibility audit.
-7. Security review.
+6. Settings track preview: play 5 s, fade out over 2 s, then stop (`0002` § Settings screen).
+7. Accessibility audit.
+8. Security review.
 
 ## v0.3 — Android package
 

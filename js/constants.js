@@ -32,7 +32,8 @@ const APP = Object.freeze({
       Object.freeze({ title: 'Winter Reflections', src: 'assets/music/winter-reflections.opus' }),
     ]),
     DEFAULT_VOLUME: 0.5, // 0..1
-    PREVIEW_MS: 5000, // settings track preview length
+    PREVIEW_MS: 5000, // settings track preview: full-volume play time
+    PREVIEW_FADE_MS: 2000, // then fades out over this long and stops
     NOTICE_MS: 8000, // how long a playback-error message stays on screen
   }),
   IMAGES: Object.freeze({
