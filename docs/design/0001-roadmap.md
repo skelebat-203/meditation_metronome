@@ -77,6 +77,10 @@ Behavior spec: [`0002-app-behavior.md`](0002-app-behavior.md).
 3. Accessibility audit.
 4. Security review.
 
+## Future (unscoped)
+
+- Settings: let the user add their own music and images.
+
 ## v1.0 — Full launch
 
 Releases before v1.0 go to beta testers. v1.0 is the full public launch, after background playback (v0.6) is done.

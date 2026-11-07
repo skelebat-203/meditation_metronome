@@ -3,13 +3,13 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.0.1 — project set up; no app code yet.
+v0.1.1 — UI wireframes approved; no app code yet.
 
 ## v0.1 plan of action
 
 Versions follow the global versioning rules (patch +1 per completed-work commit, `Plan-Step: v0.1/N` trailer). The final step bumps to v0.2.0. UI steps need the user's approval.
 
-0. **UI design** (v0.1/0) — rough wireframes of the launch, meditation and settings screens. ⏳
+0. **UI design** (v0.1/0) — rough wireframes of the launch, meditation and settings screens. ✅ (v0.1.1)
    - Source: roadmap v0.1 item 0; `0002` § Screens
    - Files: `docs/design/0003-ui-design.md` (+ wireframe images if needed)
    - Verify: user approves the wireframes
@@ -47,4 +47,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group B: steps 1 → 2, 3, 4 → 5 (they share `index.html`, constants and app wiring)
 - Reviews: steps 6, 7 (main session, with the user)
 - Run mode: **single session with fresh restarts**. Few items, they touch shared files, and the UI design needs frequent approval.
-- Status: ⏳ A · ☐ B · ☐ reviews
+- Status: ✅ A · ☐ B · ☐ reviews

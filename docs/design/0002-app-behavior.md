@@ -7,28 +7,37 @@ What the app does and how it behaves. Scope and build order live in the [roadmap
 ### Launch screen
 - **Start button**, centered. Label is `Start {word}`; `{word}` is picked at random on each app open from: recovering, relaxing, centering, breathing.
 - **Three on/off toggles** in a row under the Start button: Music, Metronome, Images. They start from the saved defaults (all on by default) and apply only to the next session. Persistent changes are made in saved settings.
-- **Settings button**, top right. Opens the settings screen (saved settings).
+- On each app open, the start track and start image are chosen at random.
+- **Settings button**, top right. Opens the settings screen.
 - Nothing plays until the user taps Start.
 
 ### Meditation screen
 - Full-screen image slideshow, music and metronome, per the toggles.
-- **Session settings button**. Opens the settings screen (session settings).
+- **End button**, top left. Ends the session and returns to the launch screen (Android Back does the same).
+- **Session settings button**, top right. Opens the settings screen.
+- **Session timer** (if on): elapsed time since Start.
 - Controls hide after a few seconds idle and reappear on tap.
 
 ### Settings screen
-Two modes, same controls:
+One screen, opened from either the launch or meditation screen. Changes are applied with one of two buttons:
 
-| Mode | Opened from | Changes apply to |
-|---|---|---|
-| Saved settings | Launch screen | Every future session (persist across app restarts) |
-| Session settings | Meditation screen | Only the active session; discarded when it ends |
+| Button | Applies to |
+|---|---|
+| Persistent | Saved as defaults for every future session, and applied now |
+| This session | The current session only (from the launch screen: the next session). Defaults unchanged |
+
+Back without pressing either button discards the changes.
 
 Controls:
-- Music on/off and volume
+- Music on/off, volume, and track (dropdown)
 - Metronome on/off and volume
-- Images on/off
 - Tick sound: soft click / wood block / bell
+- Images on/off
+- Session timer (default off)
 - Keep screen awake (default on)
+
+## Display
+- Portrait and landscape. Images fill the screen and are cropped to fit; source images are at least 1920 px on the long side.
 
 ## Metronome
 - 1 tick per second.
@@ -52,3 +61,6 @@ Controls:
 - Minimum Android version: 5.0 (API 21). Avoid very new web features; Android 5–7 WebViews stopped updating in 2022–2023.
 - WebView lockdown (keeps old-device risk low): loads only bundled local files; no INTERNET permission; no JavaScript-to-Android bridge; no remote content.
 
+## Open questions
+
+1. **Start track vs. Persistent track.** On load the start track is random. If the user picks a track and presses Persistent, should future sessions start with that track instead of a random one?
