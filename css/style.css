@@ -155,7 +155,23 @@ body[data-screen="screen-meditation"] .slideshow::after {
   align-items: center;
   justify-content: center;
   gap: var(--space-section);
-  height: 100%;
+  flex: 1;
+}
+
+/* Launch lays out in flow (Settings above Start) and scrolls instead of clipping when text is enlarged. */
+.screen-launch {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.screen-launch .btn-top-right {
+  position: static;
+  align-self: flex-end;
+}
+
+.screen-launch[hidden] {
+  display: none;
 }
 
 .btn-start {
@@ -168,6 +184,8 @@ body[data-screen="screen-meditation"] .slideshow::after {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-gap);
   margin: 0;
   padding: 0;
@@ -192,8 +210,10 @@ body[data-screen="screen-meditation"] .slideshow::after {
   transition: opacity var(--controls-fade);
 }
 
+/* Hidden controls ignore taps, so the tap that reveals them cannot also press End. */
 body.controls-hidden .controls {
   opacity: 0;
+  pointer-events: none;
 }
 
 .session-timer {
@@ -206,6 +226,13 @@ body.controls-hidden .controls {
   font-size: var(--font-size-timer);
   font-variant-numeric: tabular-nums;
   text-shadow: 0 0 0.5rem var(--color-bg);
+}
+
+/* Backing keeps the timer readable over light images. */
+.session-timer span {
+  padding: 0 var(--space-gap);
+  border-radius: var(--radius);
+  background: var(--color-surface);
 }
 
 @media (prefers-reduced-motion: reduce) {

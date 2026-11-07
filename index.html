@@ -19,9 +19,9 @@
     <div class="launch-center">
       <button type="button" id="start" class="btn btn-start" data-action="start">Start</button>
       <ul class="toggle-row" aria-label="This session">
-        <li><button type="button" class="btn btn-toggle" data-toggle="music" aria-pressed="true"><span aria-hidden="true">♪</span> Music <span class="toggle-state"></span></button></li>
-        <li><button type="button" class="btn btn-toggle" data-toggle="metronome" aria-pressed="true"><span aria-hidden="true">◷</span> Metronome <span class="toggle-state"></span></button></li>
-        <li><button type="button" class="btn btn-toggle" data-toggle="images" aria-pressed="true"><span aria-hidden="true">▣</span> Images <span class="toggle-state"></span></button></li>
+        <li><button type="button" class="btn btn-toggle" data-toggle="music" aria-pressed="true"><span aria-hidden="true">♪</span> Music <span class="toggle-state" aria-hidden="true"></span></button></li>
+        <li><button type="button" class="btn btn-toggle" data-toggle="metronome" aria-pressed="true"><span aria-hidden="true">◷</span> Metronome <span class="toggle-state" aria-hidden="true"></span></button></li>
+        <li><button type="button" class="btn btn-toggle" data-toggle="images" aria-pressed="true"><span aria-hidden="true">▣</span> Images <span class="toggle-state" aria-hidden="true"></span></button></li>
       </ul>
     </div>
   </main>
@@ -32,7 +32,7 @@
       <button type="button" class="btn btn-large btn-top-left" data-action="end"><span aria-hidden="true">■</span> End</button>
       <button type="button" class="btn btn-large btn-top-right" data-action="open-settings"><span aria-hidden="true">⚙</span> Session settings</button>
     </div>
-    <p id="session-timer" class="session-timer" role="timer" hidden>0:00</p>
+    <p id="session-timer" class="session-timer" role="timer" hidden><span>0:00</span></p>
   </main>
 
   <main id="screen-settings" class="screen screen-settings" aria-labelledby="settings-title" hidden>
@@ -56,7 +56,7 @@
           <label class="setting"><span>Metronome</span> <input type="checkbox" id="metronome" name="metronome" class="switch"></label>
           <label class="setting" for="metronome-volume"><span>Metronome volume</span> <output for="metronome-volume" class="volume-value" aria-hidden="true"></output></label>
           <input type="range" id="metronome-volume" name="metronomeVolume" min="0" max="100" step="5">
-          <fieldset id="tick-sound" class="tick-sounds" role="radiogroup">
+          <fieldset id="tick-sound" class="tick-sounds">
             <legend>Tick sound</legend>
             <div class="tick-sound"><label><input type="radio" name="tickSound" value="soft-click"> Soft click</label> <button type="button" class="btn btn-small" data-preview="soft-click" aria-label="Play soft click">▶</button></div>
               <div class="tick-sound"><label><input type="radio" name="tickSound" value="wood-block"> Wood block</label> <button type="button" class="btn btn-small" data-preview="wood-block" aria-label="Play wood block">▶</button></div>

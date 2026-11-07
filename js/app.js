@@ -12,6 +12,7 @@ SCREEN_TITLES[APP.SCREEN_IDS.SETTINGS] = 'Settings — Meditation Metronome';
 
 const form = $('#settings-form');
 const timerEl = $('#session-timer');
+const timerTextEl = $('#session-timer span');
 const slideshowEl = $('#slideshow');
 const statusEl = $('#status');
 
@@ -92,7 +93,7 @@ function formatElapsed(ms) {
 }
 
 function updateTimer() {
-  timerEl.textContent = formatElapsed(Date.now() - sessionStartMs);
+  timerTextEl.textContent = formatElapsed(Date.now() - sessionStartMs);
 }
 
 function requestWakeLock() {
