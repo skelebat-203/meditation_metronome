@@ -27,16 +27,18 @@ Behavior spec: [`0002-app-behavior.md`](0002-app-behavior.md).
 - Only **CC0, public domain, or CC BY** assets. No CC BY-NC or CC BY-ND: F-Droid treats them as non-free.
 - Every asset is recorded in `ATTRIBUTION.md`: title, author, source URL, license.
 
-## v0.1 — Core app (placeholder media)
+## v0.1 — Core app (placeholder media) ✅ complete (v0.1.1 – v0.2.0)
 
-0. UI design: rough wireframes of the launch, meditation and settings screens; approved by the user before any app code.
-1. App skeleton: `index.html`, CSS and JS files; full-screen layout; shared constants file.
-2. Metronome: on/off control, 1-second tick, three selectable tick sounds generated with the Web Audio API (no audio files).
-3. Music player: plays a list of tracks in a loop; placeholder tracks.
-4. Image slideshow: slow cross-fade, shuffled order, reshuffles after each full pass; placeholder images.
-5. Launch screen, meditation screen and settings screen (saved + session settings), per `0002`.
-6. Accessibility audit.
-7. Security review.
+0. UI design: rough wireframes of the launch, meditation and settings screens; approved by the user before any app code. ✅ (v0.1.1) — `0003-ui-design.md`
+1. App skeleton: `index.html`, CSS and JS files; full-screen layout; shared constants file. ✅ (v0.1.2)
+2. Metronome: on/off control, 1-second tick, three selectable tick sounds generated with the Web Audio API (no audio files); `prepare()` warms up audio before Start. ✅ (v0.1.3)
+3. Music player: plays a list of tracks in a loop; placeholder tracks. ✅ (v0.1.3)
+4. Image slideshow: 60 s per image, 5 s cross-fade, shuffled order, reshuffles after each full pass, reduced-motion support; placeholder images. ✅ (v0.1.4)
+5. Launch screen, meditation screen and settings screen (saved + session settings), per `0002`. ✅ (v0.1.5)
+6. Accessibility audit. ✅ (v0.1.6) — `docs/audits/accessibility/accessibility-v0.1.md`
+7. Security review. ✅ (v0.2.0) — `docs/audits/security/security-v0.1.md`; SEC-02 (silent music failures) carried to v0.2.
+
+Run as a single session with fresh restarts. Agent browser testing (Playwright, Lighthouse) added as local dev-only tooling.
 
 ## v0.2 — Real media
 
