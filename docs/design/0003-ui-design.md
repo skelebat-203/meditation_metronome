@@ -81,7 +81,7 @@ Visual style: dark and calm (deep blue/black background, soft white text).
 └──────────────────────────────────────────┘
 ```
 
-- End and Session settings buttons are **large or extra large** (size decided in the low-res UI design).
+- End and Session settings buttons are **large or extra large** (exact size decided while building the screens, v0.1 step 5).
 - Controls fade out after a few seconds idle; any tap brings them back. The timer stays visible if it is on.
 - With controls hidden, nothing is on screen but the image (and the timer, if on).
 - Images fill the screen and are cropped to fit (`object-fit: cover`). Source images must be large enough to crop for both orientations: at least 1920 px on the long side, with the subject near the center.

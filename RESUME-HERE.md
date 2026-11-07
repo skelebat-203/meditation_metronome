@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.1.1 — UI wireframes approved; no app code yet.
+v0.1.3 — app skeleton merged; agent browser testing added; next: step 2 (metronome).
 
 ## v0.1 plan of action
 
@@ -14,7 +14,7 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `docs/design/0003-ui-design.md` (+ wireframe images if needed)
    - Verify: user approves the wireframes
    - Deps: none
-1. **App skeleton** (v0.1/1) — `index.html`, CSS, JS, shared constants file; full-screen layout.
+1. **App skeleton** (v0.1/1) — `index.html`, CSS, JS, shared constants file; full-screen layout. ✅ (v0.1.2)
    - Source: roadmap v0.1 item 1
    - Files: `index.html`, `css/`, `js/constants.js`
    - Verify: opens in Firefox and Chrome on Linux with no console errors
