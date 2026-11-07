@@ -1,0 +1,22 @@
+# Claude worktrees and local settings
+.claude/worktrees/
+.claude/settings.local.json
+
+# Dependencies and build output
+node_modules/
+dist/
+build/
+android/app/build/
+android/.gradle/
+*.apk
+*.aab
+
+# Secrets
+.env
+*.keystore
+*.jks
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
