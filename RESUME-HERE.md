@@ -3,13 +3,13 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.2.3 — group C done (steps 5 and 4). Credits list holds placeholder entries until group B updates it. Next: groups A, B.
+v0.2.4 — 10 music tracks added (compressed Opus). Next: images (step 2), then wiring (step 3).
 
 ## v0.2 plan of action
 
 Versions follow the global versioning rules (patch +1 per completed-work commit, `Plan-Step: v0.2/N` trailer). The final step bumps to v0.3.0. The main session coordinates subagents, each in its own worktree; work lands on the `v0.2` integration branch, and `main` gets it only after the user's end-of-version review. Human gates: blocking questions, and the end-of-version review (media picks, credits screen, timer/marks UI, a11y and security reports, plus any UI/UX changes or new features the user notes).
 
-1. **Source music** (v0.2/1) — agent finds and downloads ~10 meditative tracks (CC0 / public domain / CC BY only). Picks reviewed by the user at version end. If sourcing runs into problems, stop and ask.
+1. **Source music** (v0.2/1) ✅ (v0.2.4) — agent finds and downloads ~10 meditative tracks (CC0 / public domain / CC BY only). Picks reviewed by the user at version end. If sourcing runs into problems, stop and ask.
    - Source: roadmap v0.2 item 1; roadmap § Asset licensing
    - Files: `assets/music/`, `ATTRIBUTION.md`
    - Verify: every track listed in `ATTRIBUTION.md` (title, author, source URL, license) before commit; no NC/ND licenses
