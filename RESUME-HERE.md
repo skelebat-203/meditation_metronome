@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.1.3 — metronome merged (step 2); next: step 3 (music player).
+v0.1.3 — music player done (step 3); next: step 4 (image slideshow).
 
 ## v0.1 plan of action
 
@@ -24,7 +24,7 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `js/metronome.js`
    - Verify: ticks stay on time over 5 minutes; each sound selectable
    - Deps: 1
-3. **Music player** (v0.1/3) — looping track list with placeholder tracks.
+3. **Music player** (v0.1/3) — looping track list with placeholder tracks. ✅ (v0.1.3)
    - Source: roadmap v0.1 item 3; `0002` § Music
    - Files: `js/music.js`, `assets/music/`
    - Verify: loops past the last track; volume works
@@ -47,4 +47,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group B: steps 1 → 2, 3, 4 → 5 (they share `index.html`, constants and app wiring)
 - Reviews: steps 6, 7 (main session, with the user)
 - Run mode: **single session with fresh restarts**. Few items, they touch shared files, and the UI design needs frequent approval.
-- Status: ✅ A · ⏳ B (steps 1–2 done) · ☐ reviews
+- Status: ✅ A · ⏳ B (steps 1–3 done) · ☐ reviews

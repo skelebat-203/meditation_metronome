@@ -17,4 +17,13 @@ const APP = Object.freeze({
     DEFAULT_SOUND: 'soft-click',
     DEFAULT_VOLUME: 0.7, // 0..1
   }),
+  MUSIC: Object.freeze({
+    // Placeholder tracks (v0.1); real tracks arrive in v0.2.
+    TRACKS: Object.freeze([
+      Object.freeze({ title: 'Placeholder 1', src: 'assets/music/placeholder-01.opus' }),
+      Object.freeze({ title: 'Placeholder 2', src: 'assets/music/placeholder-02.opus' }),
+      Object.freeze({ title: 'Placeholder 3', src: 'assets/music/placeholder-03.opus' }),
+    ]),
+    DEFAULT_VOLUME: 0.5, // 0..1
+  }),
 });
