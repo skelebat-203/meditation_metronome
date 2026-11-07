@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.2.4 — 10 music tracks added (compressed Opus). Next: images (step 2), then wiring (step 3).
+v0.2.5 — group A media in place: 10 tracks (Opus) and 20 images (WebP). Next: wiring (step 3).
 
 ## v0.2 plan of action
 
@@ -14,7 +14,7 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `assets/music/`, `ATTRIBUTION.md`
    - Verify: every track listed in `ATTRIBUTION.md` (title, author, source URL, license) before commit; no NC/ND licenses
    - Deps: none
-2. **Source images** (v0.2/2) — agent finds and downloads ~20 meditative images (CC0 / public domain / CC BY only). Picks reviewed by the user at version end. If sourcing runs into problems, stop and ask.
+2. **Source images** (v0.2/2) ✅ (v0.2.5) — agent finds and downloads ~20 meditative images (CC0 / public domain / CC BY only). Picks reviewed by the user at version end. If sourcing runs into problems, stop and ask.
    - Source: roadmap v0.2 item 2; roadmap § Asset licensing
    - Files: `assets/images/`, `ATTRIBUTION.md`
    - Verify: every image listed in `ATTRIBUTION.md` before commit; no NC/ND licenses
@@ -45,4 +45,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group C: steps 4, 5 (UI; parallel with A; credits list final after B)
 - Reviews: steps 6, 7 (agent drafts; **pause for user review** before v0.3.0 and the merge to `main`)
 - Run mode: **grouped subagents**. Gates moved to version end, and groups touch separate files.
-- Status: ☐ A · ☐ B · ✅ C · ☐ reviews
+- Status: ✅ A · ☐ B · ✅ C · ☐ reviews
