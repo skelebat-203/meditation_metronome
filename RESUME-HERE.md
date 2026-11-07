@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.2.7 — Settings track preview plays 5 s, then fades out over 2 s and stops. Next: reviews (steps 7, 8).
+v0.2.8 — accessibility audit drafted (Lighthouse 100; 200% text reflow fixes on launch and settings headers); awaiting user review. Next: security review draft (step 8), then user review.
 
 ## v0.2 plan of action
 
@@ -39,7 +39,7 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `js/music.js`, `js/constants.js`, `js/app.js`
    - Verify: preview stops at ~7 s with a volume ramp from 5 s; starting another preview restarts it; leaving Settings stops it
    - Deps: 3
-7. **Accessibility audit** (v0.2/7) — Lighthouse ≥ 90 plus manual focus and screen reader checks; agent drafts, user reviews.
+7. **Accessibility audit** (v0.2/7) — drafted, awaiting user review (v0.2.8; Lighthouse 100, A11Y-07/08 fixed). Lighthouse ≥ 90 plus manual focus and screen reader checks; agent drafts, user reviews.
    - Report: `docs/audits/accessibility/accessibility-v0.2.md`
 8. **Security review** (v0.2/8) — agent drafts, user reviews; on approval bumps to v0.3.0 and `v0.2` merges to `main`.
    - Report: `docs/audits/security/security-v0.2.md`
@@ -51,4 +51,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group D: step 6, then reviews
 - Reviews: steps 7, 8 (agent drafts; **pause for user review** before v0.3.0 and the merge to `main`)
 - Run mode: **grouped subagents**. Gates moved to version end, and groups touch separate files.
-- Status: ✅ A · ✅ B · ✅ C · ⏳ D · ☐ reviews
+- Status: ✅ A · ✅ B · ✅ C · ✅ D · ⏳ reviews (7 drafted, 8 pending)

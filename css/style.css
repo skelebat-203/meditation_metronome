@@ -187,9 +187,15 @@ body[data-screen="screen-meditation"] .slideshow::after {
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--space-gap);
+  max-width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* Enlarged text: items never grow past the screen; the session-length label and picker stack. */
+.toggle-row li {
+  max-width: 100%;
 }
 
 @media (orientation: landscape) {
@@ -200,6 +206,8 @@ body[data-screen="screen-meditation"] .slideshow::after {
 
 .length-picker {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   gap: var(--space-gap);
   padding-left: var(--space-gap);
@@ -266,6 +274,7 @@ body.controls-hidden .controls {
 
 .settings-header {
   display: flex;
+  flex-wrap: wrap; /* enlarged text: the title drops below Back instead of overflowing */
   align-items: center;
   gap: var(--space-section);
   max-width: var(--settings-max-width);
@@ -273,6 +282,8 @@ body.controls-hidden .controls {
 }
 
 .settings-header h1 {
+  min-width: 0;
+  overflow-wrap: anywhere;
   margin: 0;
   font-size: var(--font-size-h1);
 }
