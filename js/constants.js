@@ -26,4 +26,15 @@ const APP = Object.freeze({
     ]),
     DEFAULT_VOLUME: 0.5, // 0..1
   }),
+  IMAGES: Object.freeze({
+    // Placeholder images (v0.1); real images arrive in v0.2.
+    SOURCES: Object.freeze([
+      'assets/images/placeholder-01.webp',
+      'assets/images/placeholder-02.webp',
+      'assets/images/placeholder-03.webp',
+      'assets/images/placeholder-04.webp',
+    ]),
+    SHOW_MS: 60000, // time each image is shown
+    FADE_MS: 5000, // cross-fade; 0 under prefers-reduced-motion
+  }),
 });

@@ -14,3 +14,7 @@ Third-party assets used in Meditation Metronome. Only CC0, public domain, and CC
 
 | File | Title | Author | Source | License |
 |---|---|---|---|---|
+| `assets/images/placeholder-01.webp` | Placeholder 1 (gradient) | Meditation Metronome project | Generated with ffmpeg `gradients` | CC0 |
+| `assets/images/placeholder-02.webp` | Placeholder 2 (gradient) | Meditation Metronome project | Generated with ffmpeg `gradients` | CC0 |
+| `assets/images/placeholder-03.webp` | Placeholder 3 (gradient) | Meditation Metronome project | Generated with ffmpeg `gradients` | CC0 |
+| `assets/images/placeholder-04.webp` | Placeholder 4 (gradient) | Meditation Metronome project | Generated with ffmpeg `gradients` | CC0 |

@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.1.3 — music player done (step 3); next: step 4 (image slideshow).
+v0.1.4 — image slideshow done (step 4); next: step 5 (screens and settings).
 
 ## v0.1 plan of action
 
@@ -29,7 +29,7 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `js/music.js`, `assets/music/`
    - Verify: loops past the last track; volume works
    - Deps: 1
-4. **Image slideshow** (v0.1/4) — shuffled, 60 s per image, 5 s cross-fade, reduced-motion support.
+4. **Image slideshow** (v0.1/4) — shuffled, 60 s per image, 5 s cross-fade, reduced-motion support. ✅ (v0.1.4)
    - Source: roadmap v0.1 item 4; `0002` § Images
    - Files: `js/slideshow.js`, `assets/images/`
    - Verify: no repeat within a pass; reduced motion switches without a fade
@@ -47,4 +47,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group B: steps 1 → 2, 3, 4 → 5 (they share `index.html`, constants and app wiring)
 - Reviews: steps 6, 7 (main session, with the user)
 - Run mode: **single session with fresh restarts**. Few items, they touch shared files, and the UI design needs frequent approval.
-- Status: ✅ A · ⏳ B (steps 1–3 done) · ☐ reviews
+- Status: ✅ A · ⏳ B (steps 1–4 done) · ☐ reviews
