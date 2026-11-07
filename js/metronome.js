@@ -1,6 +1,6 @@
 'use strict';
 
-// Metronome: one tick per APP.METRONOME.INTERVAL_S, sounds synthesized with Web Audio.
+// Metronome: one beat per APP.METRONOME.INTERVAL_S, sounds synthesized with Web Audio.
 // Ticks are scheduled on the audio clock well ahead of time, so they stay on time
 // even when timers are throttled (background tab, busy main thread).
 
@@ -47,10 +47,16 @@ const CHIMES = {
 const Metronome = (function () {
   let ctx = null;
   let master = null;       // volume
-  let runBus = null;       // per-run bus; disconnected on stop to cut queued ticks
   let noiseBuffer = null;
-  let timerId = null;
-  let nextTickTime = 0;
+  let tickBus = null;      // per-run tick bus; disconnected on stop to cut queued ticks
+  let cueBus = null;       // per-session chime bus; not faded, so the end chime rings out
+  let timerId = null;      // beat clock scheduler
+  let beat = 0;            // index of the next beat to queue, counted from session start
+  let nextBeatTime = 0;
+  let markBeats = 0;       // mark every this many beats; 0 = off
+  let endBeat = 0;         // session ends on this beat; 0 = open-ended
+  let onEnd = null;
+  let endTimer = null;
   let sound = APP.METRONOME.DEFAULT_SOUND;
   let volume = APP.METRONOME.DEFAULT_VOLUME;
 
@@ -135,33 +141,82 @@ const Metronome = (function () {
   PLAYERS[APP.METRONOME.SOUNDS.WOOD_BLOCK] = playWood;
   PLAYERS[APP.METRONOME.SOUNDS.BELL] = playBell;
 
+  // Plays a mark or end chime of the selected sound at `time`; returns its length in ms.
+  function playChime(kind, out, time) {
+    const c = CHIMES[kind];
+    let endS = 0;
+    for (let i = 0; i < c.strikes; i++) {
+      const offset = i * c.gapS;
+      endS = Math.max(endS, offset + PLAYERS[sound](out, time + offset, c.pitch));
+    }
+    return endS * 1000;
+  }
+
+  // Beat clock (0002 § Session length and marks): ticks, marks and the end chime share one clock.
+  // A mark or the end chime replaces the tick on its beat.
   function schedule() {
-    while (nextTickTime < ctx.currentTime + SCHEDULE_AHEAD_S) {
-      PLAYERS[sound](runBus, nextTickTime);
-      nextTickTime += APP.METRONOME.INTERVAL_S;
+    while (nextBeatTime < ctx.currentTime + SCHEDULE_AHEAD_S) {
+      if (endBeat && beat >= endBeat) {
+        const chimeMs = playChime('end', cueBus, nextBeatTime);
+        const cb = onEnd;
+        endTimer = setTimeout(function () { if (cb) cb(chimeMs); }, (nextBeatTime - ctx.currentTime) * 1000);
+        clearInterval(timerId);
+        timerId = null;
+        return;
+      }
+      if (markBeats && beat > 0 && beat % markBeats === 0) playChime('mark', cueBus, nextBeatTime);
+      else if (tickBus) PLAYERS[sound](tickBus, nextBeatTime);
+      beat++;
+      nextBeatTime += APP.METRONOME.INTERVAL_S;
     }
   }
 
-  function start() {
-    if (timerId !== null) return;
+  // Starts the beat clock for a session. `endCallback(chimeMs)` runs when the end chime starts.
+  function beginSession(endCallback) {
+    endSession();
     ensureContext();
-    runBus = ctx.createGain();
-    runBus.connect(master);
-    nextTickTime = ctx.currentTime + START_DELAY_S;
-    schedule();
+    cueBus = ctx.createGain();
+    cueBus.connect(master);
+    onEnd = endCallback;
+    beat = 0;
+    nextBeatTime = ctx.currentTime + START_DELAY_S;
     timerId = setInterval(schedule, SCHEDULER_PERIOD_MS);
   }
 
-  function stop() {
-    if (timerId === null) return;
+  // Stops the beat clock and cuts everything queued.
+  function endSession() {
     clearInterval(timerId);
     timerId = null;
-    runBus.disconnect();
-    runBus = null;
+    clearTimeout(endTimer);
+    stop();
+    if (cueBus) cueBus.disconnect();
+    cueBus = null;
+  }
+
+  // Mark interval and session length in seconds (0 = off). Applies to beats not yet queued.
+  function setCues(markS, lengthS) {
+    markBeats = Math.round(markS / APP.METRONOME.INTERVAL_S);
+    endBeat = Math.round(lengthS / APP.METRONOME.INTERVAL_S);
+    if (endBeat && endBeat < beat) endBeat = beat; // length shortened past now: end on the next beat
+  }
+
+  // Ticks on the session's beat clock (call after beginSession).
+  function start() {
+    if (tickBus) return;
+    ensureContext();
+    tickBus = ctx.createGain();
+    tickBus.connect(master);
+    if (timerId !== null) schedule();
+  }
+
+  function stop() {
+    if (!tickBus) return;
+    tickBus.disconnect();
+    tickBus = null;
   }
 
   function isRunning() {
-    return timerId !== null;
+    return tickBus !== null;
   }
 
   // Takes effect on ticks not yet queued (up to SCHEDULE_AHEAD_S later).
@@ -187,28 +242,14 @@ const Metronome = (function () {
     PLAYERS[name](master, ctx.currentTime);
   }
 
-  // Plays a mark or end chime of the selected sound now, at metronome volume, whether or not
-  // the metronome is running. Returns how long it lasts, in ms.
-  function chime(kind) {
-    const c = CHIMES[kind];
-    if (!c) throw new Error('Unknown chime: ' + kind);
-    ensureContext();
-    let endS = 0;
-    for (let i = 0; i < c.strikes; i++) {
-      const offset = START_DELAY_S + i * c.gapS;
-      endS = Math.max(endS, offset + PLAYERS[sound](master, ctx.currentTime + offset, c.pitch));
-    }
-    return endS * 1000;
-  }
-
   // Fades queued and future ticks to silence over `ms`, then stops.
   function fadeOut(ms) {
-    if (timerId === null) return;
-    const bus = runBus;
+    if (!tickBus) return;
+    const bus = tickBus;
     bus.gain.setValueAtTime(1, ctx.currentTime);
     bus.gain.linearRampToValueAtTime(0, ctx.currentTime + ms / 1000);
-    setTimeout(function () { if (runBus === bus) stop(); }, ms);
+    setTimeout(function () { if (tickBus === bus) stop(); }, ms);
   }
 
-  return Object.freeze({ chime: chime, fadeOut: fadeOut, prepare: prepare, start: start, stop: stop, isRunning: isRunning, setSound: setSound, setVolume: setVolume, preview: preview });
+  return Object.freeze({ beginSession: beginSession, endSession: endSession, setCues: setCues, fadeOut: fadeOut, prepare: prepare, start: start, stop: stop, isRunning: isRunning, setSound: setSound, setVolume: setVolume, preview: preview });
 })();

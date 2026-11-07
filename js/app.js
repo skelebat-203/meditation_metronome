@@ -23,8 +23,6 @@ let sessionStartMs = 0;
 let timerId = null;
 let idleId = null;
 let wakeLock = null;
-let sessionCheckId = null;
-let nextMarkMs = 0;      // elapsed time of the next mark
 let finishing = false;   // end chime playing; launch screen follows
 let finishId = null;
 
@@ -133,35 +131,10 @@ function updateTimer() {
   timerTextEl.textContent = formatElapsed(Date.now() - sessionStartMs);
 }
 
-// Session length and marks, counted from Start. Checked on a short interval against the clock.
-function scheduleMarks() {
-  const s = Settings.getSession();
-  const interval = s.markInterval * 1000;
-  const elapsed = Date.now() - sessionStartMs;
-  nextMarkMs = (Math.floor(elapsed / interval) + 1) * interval;
-}
-
-function checkSession() {
-  const s = Settings.getSession();
-  const elapsed = Date.now() - sessionStartMs;
-  const lengthMs = s.sessionLength * 1000;
-  if (lengthMs && elapsed >= lengthMs) {
-    finishSession();
-    return;
-  }
-  if (elapsed >= nextMarkMs) {
-    // No mark at the same moment as the end chime.
-    if (s.marks && !(lengthMs && nextMarkMs >= lengthMs)) Metronome.chime('mark');
-    scheduleMarks();
-  }
-}
-
 // Session length reached: end chime, fade out, then back to the launch screen once the chime ends.
-function finishSession() {
-  clearInterval(sessionCheckId);
-  sessionCheckId = null;
+// Called by the metronome's beat clock when the end chime starts.
+function finishSession(chimeMs) {
   finishing = true;
-  const chimeMs = Metronome.chime('end');
   Music.fadeOut(APP.SESSION.FADE_MS);
   Metronome.fadeOut(APP.SESSION.FADE_MS);
   finishId = setTimeout(function () {
@@ -213,15 +186,13 @@ function applySession() {
 
   if (s.keepAwake) requestWakeLock(); else releaseWakeLock();
 
-  if (!finishing) {
-    scheduleMarks();
-    if (!sessionCheckId) sessionCheckId = setInterval(checkSession, APP.SESSION.CHECK_MS);
-  }
+  if (!finishing) Metronome.setCues(s.marks ? s.markInterval : 0, s.sessionLength);
 }
 
 function startSession() {
   inSession = true;
   sessionStartMs = Date.now();
+  Metronome.beginSession(finishSession);
   applySession();
   goTo(APP.SCREEN_IDS.MEDITATION);
   showControls();
@@ -233,10 +204,8 @@ function endSession() {
   inSession = false;
   finishing = false;
   clearTimeout(finishId);
-  clearInterval(sessionCheckId);
-  sessionCheckId = null;
   Music.stop();
-  Metronome.stop();
+  Metronome.endSession();
   Slideshow.stop();
   clearInterval(timerId);
   timerId = null;

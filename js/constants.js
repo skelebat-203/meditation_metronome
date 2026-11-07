@@ -66,7 +66,6 @@ const APP = Object.freeze({
   CONTROLS_IDLE_MS: 4000, // meditation-screen controls hide after this long without input
   TIMER_UPDATE_MS: 1000,
   SESSION: Object.freeze({
-    CHECK_MS: 250, // how often session length and marks are checked
     // Session length and marks interval choices, in seconds. 0 = off (length only).
     // TEST_S is a temporary manual-test option; remove before v0.4 (0002 § Session length and marks).
     TEST_S: 10,

@@ -79,7 +79,7 @@ Run as a single session with fresh restarts. Agent browser testing (Playwright, 
 1. Keep the session playing with the screen off: Android foreground service + media notification.
 2. Test on GrapheneOS.
 3. Accessibility audit.
-4. Security review.
+4. Security review; run `npm audit` (deferred from v0.2 by user decision).
 
 ## Future (unscoped)
 
