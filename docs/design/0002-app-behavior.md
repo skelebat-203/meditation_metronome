@@ -6,7 +6,8 @@ What the app does and how it behaves. Scope and build order live in the [roadmap
 
 ### Launch screen
 - **Start button**, centered. Label is `Start {word}`; `{word}` is picked at random on each app open from: recovering, relaxing, centering, breathing.
-- **Three on/off toggles** in a row under the Start button: Music, Metronome, Images. They start from the saved defaults (all on by default) and apply only to the next session. Persistent changes are made in saved settings.
+- **Two on/off toggles** in a row under the Start button: Music, Metronome. They start from the saved defaults (all on by default) and apply only to the next session. Persistent changes are made in saved settings.
+- **Session length** picker beside the toggles (replaces the former Images toggle; Images is now in Settings only). Options: off (open-ended), 5–60 min in 5-minute steps; default off. Applies to the next session only; the saved default is set in Settings. See § Session length and marks.
 - On each app open, the start track and start image are chosen at random.
 - **Settings button**, top right. Opens the settings screen.
 - Nothing plays until the user taps Start.
@@ -33,7 +34,9 @@ Controls:
 - Metronome on/off and volume
 - Tick sound: soft click / wood block / bell
 - Images on/off
-- Session timer (default off)
+- Session length: off / 5–60 min (default off)
+- Marks on/off and interval: 5–60 min in 5-minute steps (default on, 5 min)
+- Session timer (default off) — shows elapsed time; separate from Session length
 - Keep screen awake (default on)
 
 ## Display
@@ -42,6 +45,13 @@ Controls:
 ## Metronome
 - 1 tick per second.
 - Three tick sounds, generated with the Web Audio API (no audio files): soft click, wood block, bell.
+
+## Session length and marks
+Not a score or streak; only sound cues.
+- **Session length** (countdown): when it reaches zero, the end chime plays, music and metronome fade out, and the app returns to the launch screen once the chime finishes. Off = session runs until End.
+- **Marks**: a long chime every `{interval}` minutes, counted from Start. No mark plays at the same moment as the end chime.
+- **Chime sounds**: Web Audio, no files. Each is a distinct, longer version of the selected tick sound (soft click / wood block / bell). The mark chime and the end chime differ from each other, so the user can tell them apart.
+- **Test option (temporary)**: a 10-second choice in both Session length and Marks interval for manual testing. Remove before the first public release (v0.4).
 
 ## Music
 - ~10 tracks, played in a continuous loop.

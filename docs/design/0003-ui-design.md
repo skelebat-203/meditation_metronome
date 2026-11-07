@@ -25,7 +25,7 @@ Visual style: dark and calm (deep blue/black background, soft white text).
 │         [◷ Metro]            │  ← on/off toggles, next session only
 │            on                │
 │                              │
-│          [▣ Img]             │  ← on/off toggles, next session only
+│        [⏲ off ▾]             │  ← session length, next session only
 │            on                │
 │                              │
 │                              │
@@ -42,7 +42,7 @@ Visual style: dark and calm (deep blue/black background, soft white text).
 │          │  Start relaxing  │            │  ← random word each open
 │          └──────────────────┘            │
 │                                          │
-│       [♪ Music] [◷ Metro] [▣ Img]        │  ← on/off toggles, next session only
+│      [♪ Music] [◷ Metro] [⏲ off ▾]       │  ← toggles + session length, next session only
 │          on        on       on           │
 │                                          │
 └──────────────────────────────────────────┘
@@ -108,6 +108,8 @@ One screen. Opened from the launch screen (Settings) or the meditation screen (S
 │                              │
 │  Images             [ on  ]  │
 │                              │
+│  Session length     [off ▾]  │
+│  Marks       [ on ] [5 min▾] │
 │  Session timer      [ off ]  │
 │  Keep screen awake  [ on  ]  │
 │                              │

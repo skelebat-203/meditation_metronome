@@ -46,8 +46,9 @@ Run as a single session with fresh restarts. Agent browser testing (Playwright, 
 2. Source ~20 images (CC0 / CC BY) and record them in `ATTRIBUTION.md`.
 3. Compress media for mobile size; wire it into the app.
 4. In-app credits screen that shows the attributions.
-5. Accessibility audit.
-6. Security review.
+5. Session length (countdown that ends the session) and marks (long chime every N minutes), per `0002` § Session length and marks. Session length replaces the Images toggle on the launch screen.
+6. Accessibility audit.
+7. Security review.
 
 ## v0.3 — Android package
 
@@ -61,7 +62,7 @@ Run as a single session with fresh restarts. Agent browser testing (Playwright, 
 ## v0.4 — F-Droid release
 
 1. Reproducible build; fastlane metadata (description, screenshots).
-2. Submit to F-Droid.
+2. Submit to F-Droid. Remove the 10-second test option from Session length and Marks first (`0002`).
 3. Accessibility audit.
 4. Security review.
 
