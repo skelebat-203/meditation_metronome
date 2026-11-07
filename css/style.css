@@ -396,4 +396,7 @@ body.controls-hidden .controls {
   background: var(--color-surface-strong);
   color: var(--color-text);
   text-align: center;
+  display: flex;
+  align-items: center;
+  gap: var(--space-gap);
 }

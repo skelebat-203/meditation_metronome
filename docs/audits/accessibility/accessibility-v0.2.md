@@ -27,9 +27,9 @@ Lighthouse audits the screen visible on load (launch). Settings, credits and med
 |---|---|---|---|
 | A11Y-07 | Medium | Launch screen at 200% text in portrait (360 px): the Session length picker was wider than the screen, so it and the Metronome toggle ran off both sides (WCAG 1.4.4, 1.4.10). | ✅ fixed: toggle-row items capped at the screen width; the Session length label and picker wrap and stack. |
 | A11Y-08 | Medium | Settings header at 200% text in portrait: the "Settings" title ran off the right edge and squeezed Back (WCAG 1.4.4, 1.4.10). Also affected the Credits header. | ✅ fixed: header wraps; the title drops below Back. |
-| A11Y-09 | Low | Music-error notice hides itself after 8 s (WCAG 2.2.1). It is `role="alert"`, so screen readers announce it at once, and it is informational only (no action needed). | No action; revisit if users report missing it. |
+| A11Y-09 | Low | Music-error notice hides itself after 8 s (WCAG 2.2.1). It is `role="alert"`, so screen readers announce it at once, and it is informational only (no action needed). | ✅ fixed (v0.2.10, user decision): the notice stays 30 s and has a close (✕) button named "Close message", reachable by keyboard; closing it while focused returns focus to the screen heading. |
 | A11Y-10 | Info | On Settings and Credits, focus lands on the heading, so Back is reached with Shift+Tab or after the last control. Same as v0.1; Android Back and browser Back also work. | No action. |
-| A11Y-11 | Info | The music-error notice sits outside `<main>`. It is a live alert, not page content; Lighthouse's landmark check does not apply to it. | No action. |
+| A11Y-11 | Info | The music-error notice sits outside `<main>`. It is a live alert, not page content; Lighthouse's landmark check does not apply to it. | ✅ fixed (v0.2.10, user decision): the notice is placed inside the visible screen's `<main>` and moves with screen changes. |
 
 ## Passed
 

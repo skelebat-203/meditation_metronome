@@ -34,7 +34,7 @@ const APP = Object.freeze({
     DEFAULT_VOLUME: 0.5, // 0..1
     PREVIEW_MS: 5000, // settings track preview: full-volume play time
     PREVIEW_FADE_MS: 2000, // then fades out over this long and stops
-    NOTICE_MS: 8000, // how long a playback-error message stays on screen
+    NOTICE_MS: 30000, // how long a playback-error message stays on screen (A11Y-09); it also has a close button
   }),
   IMAGES: Object.freeze({
     SOURCES: Object.freeze([

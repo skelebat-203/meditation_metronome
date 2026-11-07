@@ -36,6 +36,8 @@ function showScreen(id, focusEl) {
     document.getElementById(screenId).hidden = screenId !== id;
   });
   current = id;
+  const notice = document.getElementById('music-notice');
+  if (notice) document.getElementById(id).appendChild(notice); // keep it in the visible <main>
   document.title = SCREEN_TITLES[id];
   document.body.dataset.screen = id;
   const target = focusEl || $('#' + id + ' h1');

@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.2.9 — credits source URLs fixed (security draft 3.1). Accessibility (step 7) and security (step 8, uncommitted) drafts await user review; then v0.3.0 and merge to `main`.
+v0.2.10 — review fixes: music-error notice stays 30 s with a close button, inside `<main>` (A11Y-09, A11Y-11). Accessibility (step 7) and security (step 8, uncommitted) drafts await user review; then v0.3.0 and merge to `main`.
 
 ## v0.2 plan of action
 

@@ -29,17 +29,40 @@ const Music = (function () {
   let noticeTimer = null;
   let failures = 0;
 
+  // The notice sits inside the visible screen's <main> (A11Y-11); app.js moves it on screen changes.
+  let noticeText = null;
+
+  function hideNotice() {
+    clearTimeout(noticeTimer);
+    const hadFocus = notice.contains(document.activeElement);
+    notice.hidden = true;
+    if (hadFocus) {
+      const heading = notice.parentNode.querySelector('h1');
+      if (heading) heading.focus();
+    }
+  }
+
   function showNotice(text) {
     if (!notice) {
       notice = document.createElement('div');
+      notice.id = 'music-notice';
       notice.className = 'music-notice';
       notice.setAttribute('role', 'alert');
-      document.body.appendChild(notice);
+      noticeText = document.createElement('span');
+      const close = document.createElement('button');
+      close.type = 'button';
+      close.className = 'btn';
+      close.setAttribute('aria-label', 'Close message');
+      close.textContent = '✕';
+      close.addEventListener('click', hideNotice);
+      notice.append(noticeText, close);
     }
-    notice.textContent = text;
+    const screen = document.querySelector('main:not([hidden])');
+    if (screen && notice.parentNode !== screen) screen.appendChild(notice);
+    noticeText.textContent = text;
     notice.hidden = false;
     clearTimeout(noticeTimer);
-    noticeTimer = setTimeout(function () { notice.hidden = true; }, APP.MUSIC.NOTICE_MS);
+    noticeTimer = setTimeout(hideNotice, APP.MUSIC.NOTICE_MS);
   }
 
   function handleFailure() {
