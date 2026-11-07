@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.2.11 — review fixes: music-error notice stays 30 s with a close button, inside `<main>` (A11Y-09, A11Y-11); marks and end chime replace the tick on their beat (one beat clock); `npm audit` deferred to v0.6. Accessibility (step 7) and security (step 8, uncommitted) drafts await user review; then v0.3.0 and merge to `main`.
+v0.2.12 — review fixes: declined music (Calmant, Earth Prelude, Inner Light, Peaceful Desolation, Winter Reflections) replaced with Above the Clouds, Ephemera, Monday Meditation, Penumbra and Post Drone; the senggi beach image (has a person) replaced with Lake Matheson mist. Earlier: music-error notice stays 30 s with a close button (A11Y-09, A11Y-11); marks and end chime on the tick beat clock; `npm audit` deferred to v0.6. Accessibility (step 7) and security (step 8, uncommitted) drafts await user review; then v0.3.0 and merge to `main`.
 
 ## v0.2 plan of action
 
