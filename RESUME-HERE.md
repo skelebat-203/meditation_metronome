@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.2.5 — group A media in place: 10 tracks (Opus) and 20 images (WebP). Next: wiring (step 3).
+v0.2.6 — real media wired in (10 Opus tracks ≈ 10.1 MB, 20 WebP images ≈ 2.7 MB; total ≈ 12.9 MB); placeholders and their credits removed; track playback errors show a visible message (SEC-02). Next: reviews (steps 6, 7).
 
 ## v0.2 plan of action
 
@@ -19,7 +19,7 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `assets/images/`, `ATTRIBUTION.md`
    - Verify: every image listed in `ATTRIBUTION.md` before commit; no NC/ND licenses
    - Deps: none
-3. **Compress and wire in media** (v0.2/3) — compress for mobile size (Opus audio, WebP images); replace placeholders and their `ATTRIBUTION.md` rows; show the user a message when a track fails to play (SEC-02).
+3. **Compress and wire in media** (v0.2/3) ✅ (v0.2.6) — compress for mobile size (Opus audio, WebP images); replace placeholders and their `ATTRIBUTION.md` rows; show the user a message when a track fails to play (SEC-02).
    - Source: roadmap v0.2 item 3; `0002` § Music, § Images; `security-v0.1.md` SEC-02
    - Files: `assets/`, `js/music.js`, `js/slideshow.js`, `js/constants.js`, `ATTRIBUTION.md`
    - Verify: music loops and slideshow shuffles with real media; a missing track shows a message instead of silence; total media size noted
@@ -45,4 +45,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group C: steps 4, 5 (UI; parallel with A; credits list final after B)
 - Reviews: steps 6, 7 (agent drafts; **pause for user review** before v0.3.0 and the merge to `main`)
 - Run mode: **grouped subagents**. Gates moved to version end, and groups touch separate files.
-- Status: ✅ A · ☐ B · ✅ C · ☐ reviews
+- Status: ✅ A · ✅ B · ✅ C · ☐ reviews

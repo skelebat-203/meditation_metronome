@@ -19,22 +19,44 @@ const APP = Object.freeze({
     DEFAULT_VOLUME: 0.7, // 0..1
   }),
   MUSIC: Object.freeze({
-    // Placeholder tracks (v0.1); real tracks arrive in v0.2.
     TRACKS: Object.freeze([
-      Object.freeze({ title: 'Placeholder 1', src: 'assets/music/placeholder-01.opus' }),
-      Object.freeze({ title: 'Placeholder 2', src: 'assets/music/placeholder-02.opus' }),
-      Object.freeze({ title: 'Placeholder 3', src: 'assets/music/placeholder-03.opus' }),
+      Object.freeze({ title: 'Bathed in the Light', src: 'assets/music/bathed-in-the-light.opus' }),
+      Object.freeze({ title: 'Calmant', src: 'assets/music/calmant.opus' }),
+      Object.freeze({ title: 'Earth Prelude', src: 'assets/music/earth-prelude.opus' }),
+      Object.freeze({ title: 'Healing', src: 'assets/music/healing.opus' }),
+      Object.freeze({ title: 'Inner Light', src: 'assets/music/inner-light.opus' }),
+      Object.freeze({ title: 'Meditation Impromptu 01', src: 'assets/music/meditation-impromptu-01.opus' }),
+      Object.freeze({ title: 'Meditation Impromptu 02', src: 'assets/music/meditation-impromptu-02.opus' }),
+      Object.freeze({ title: 'Meditation Impromptu 03', src: 'assets/music/meditation-impromptu-03.opus' }),
+      Object.freeze({ title: 'Peaceful Desolation', src: 'assets/music/peaceful-desolation.opus' }),
+      Object.freeze({ title: 'Winter Reflections', src: 'assets/music/winter-reflections.opus' }),
     ]),
     DEFAULT_VOLUME: 0.5, // 0..1
     PREVIEW_MS: 5000, // settings track preview length
+    NOTICE_MS: 8000, // how long a playback-error message stays on screen
   }),
   IMAGES: Object.freeze({
-    // Placeholder images (v0.1); real images arrive in v0.2.
     SOURCES: Object.freeze([
-      'assets/images/placeholder-01.webp',
-      'assets/images/placeholder-02.webp',
-      'assets/images/placeholder-03.webp',
-      'assets/images/placeholder-04.webp',
+      'assets/images/beech-ferns-gullmarsskogen.webp',
+      'assets/images/birchwood-slavnoe.webp',
+      'assets/images/bois-raquet-high-fens.webp',
+      'assets/images/calm-bliss.webp',
+      'assets/images/chugach-misty-morning.webp',
+      'assets/images/clearwater-falls.webp',
+      'assets/images/duke-forest-mist.webp',
+      'assets/images/engakuji-zen-garden.webp',
+      'assets/images/koyasan-zen-garden.webp',
+      'assets/images/lake-blanche-reflection.webp',
+      'assets/images/lake-gunn-reflection.webp',
+      'assets/images/lake-louise-sunrise.webp',
+      'assets/images/lotus-nelumbo.webp',
+      'assets/images/lotus-pink.webp',
+      'assets/images/marmaris-sunrise.webp',
+      'assets/images/minho-river-reflection.webp',
+      'assets/images/reflection-lake.webp',
+      'assets/images/senggi-beach-sunset.webp',
+      'assets/images/spruce-forest-holma.webp',
+      'assets/images/stonor-forest-mist.webp',
     ]),
     SHOW_MS: 60000, // time each image is shown
     FADE_MS: 5000, // cross-fade; 0 under prefers-reduced-motion

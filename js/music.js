@@ -23,6 +23,45 @@ const Music = (function () {
     if (p && p.catch) p.catch(function (err) { console.warn('Music play failed:', err); });
   }
 
+  // Playback errors (SEC-02): a track that fails to load or decode shows a visible, announced message,
+  // then the player skips to the next track. If every track fails in a row, music stops.
+  let notice = null;
+  let noticeTimer = null;
+  let failures = 0;
+
+  function showNotice(text) {
+    if (!notice) {
+      notice = document.createElement('div');
+      notice.className = 'music-notice';
+      notice.setAttribute('role', 'alert');
+      document.body.appendChild(notice);
+    }
+    notice.textContent = text;
+    notice.hidden = false;
+    clearTimeout(noticeTimer);
+    noticeTimer = setTimeout(function () { notice.hidden = true; }, APP.MUSIC.NOTICE_MS);
+  }
+
+  function handleFailure() {
+    const title = tracks[index].title;
+    console.warn('Music track failed:', tracks[index].src, audio.error);
+    failures++;
+    if (failures >= tracks.length) {
+      playing = false;
+      showNotice('Music could not be played.');
+      return;
+    }
+    showNotice('Could not play "' + title + '". Skipping to the next track.');
+    load(index + 1);
+    play();
+  }
+
+  audio.addEventListener('error', function () {
+    if (playing) handleFailure();
+  });
+
+  audio.addEventListener('playing', function () { failures = 0; });
+
   audio.addEventListener('ended', function () {
     load(index + 1);
     if (playing) play();
@@ -33,7 +72,10 @@ const Music = (function () {
     clearInterval(fadeId);
     if (playing) return;
     playing = true;
+    failures = 0;
     if (!audio.src) load(index);
+    // A track that already failed to load while idle is reported now that the user asked for music.
+    if (audio.error) { handleFailure(); return; }
     play();
   }
 
@@ -83,7 +125,12 @@ const Music = (function () {
     previewAudio.src = tracks[i].src;
     previewAudio.volume = Math.min(1, Math.max(0, v));
     const p = previewAudio.play();
-    if (p && p.catch) p.catch(function (err) { console.warn('Music preview failed:', err); });
+    if (p && p.catch) {
+      p.catch(function (err) {
+        console.warn('Music preview failed:', err);
+        if (previewAudio.error) showNotice('Could not play "' + tracks[i].title + '".');
+      });
+    }
     previewTimer = setTimeout(stopPreview, APP.MUSIC.PREVIEW_MS);
   }
 

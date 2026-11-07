@@ -6,9 +6,6 @@ Third-party assets used in Meditation Metronome. Only CC0, public domain, and CC
 
 | File | Title | Author | Source | License |
 |---|---|---|---|---|
-| `assets/music/placeholder-01.opus` | Placeholder 1 (sine drone) | Meditation Metronome project | Generated with ffmpeg `aevalsrc` | CC0 |
-| `assets/music/placeholder-02.opus` | Placeholder 2 (sine drone) | Meditation Metronome project | Generated with ffmpeg `aevalsrc` | CC0 |
-| `assets/music/placeholder-03.opus` | Placeholder 3 (sine drone) | Meditation Metronome project | Generated with ffmpeg `aevalsrc` | CC0 |
 | `assets/music/earth-prelude.opus` | Earth Prelude | Kevin MacLeod (incompetech.com) | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Earth_Prelude_(MacLeod,_Kevin)_(ISRC_USUAN1100247).oga) | [CC BY 3.0 US](https://creativecommons.org/licenses/by/3.0/us/deed.en) |
 | `assets/music/healing.opus` | Healing | Kevin MacLeod (incompetech.com) | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Healing_(Kevin_MacLeod)_(ISRC_USUAN1200048).oga) | [CC BY 3.0 US](https://creativecommons.org/licenses/by/3.0/us/deed.en) |
 | `assets/music/meditation-impromptu-01.opus` | Meditation Impromptu 01 | Kevin MacLeod (incompetech.com) | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Kevin_MacLeod_-_01_-_Meditation_Impromptu_01.ogg) | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0) |
@@ -26,10 +23,6 @@ Changes to the music: every track was re-encoded from Ogg Vorbis to Opus (48 kbp
 
 | File | Title | Author | Source | License |
 |---|---|---|---|---|
-| `assets/images/placeholder-01.webp` | Placeholder 1 (gradient) | Meditation Metronome project | Generated with ffmpeg `gradients` | CC0 |
-| `assets/images/placeholder-02.webp` | Placeholder 2 (gradient) | Meditation Metronome project | Generated with ffmpeg `gradients` | CC0 |
-| `assets/images/placeholder-03.webp` | Placeholder 3 (gradient) | Meditation Metronome project | Generated with ffmpeg `gradients` | CC0 |
-| `assets/images/placeholder-04.webp` | Placeholder 4 (gradient) | Meditation Metronome project | Generated with ffmpeg `gradients` | CC0 |
 | `assets/images/beech-ferns-gullmarsskogen.webp` | Beech and ferns in Gullmarsskogen | W.carter | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Beech_and_ferns_in_Gullmarsskogen.jpg) | [CC0](http://creativecommons.org/publicdomain/zero/1.0/deed.en) |
 | `assets/images/birchwood-slavnoe.webp` | Birchwood Slavnoe 2012 G1 | George Chernilevsky | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Birchwood_Slavnoe_2012_G1.jpg) | Public domain |
 | `assets/images/bois-raquet-high-fens.webp` | Bois Raquet, in the High Fens – Eifel Nature Park (DSCF6655) | Trougnouf (Benoit Brummer) | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Bois_Raquet,_in_the_High_Fens_%E2%80%93_Eifel_Nature_Park_(DSCF6655).jpg) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0) |

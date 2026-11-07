@@ -370,3 +370,19 @@ body.controls-hidden .controls {
   margin: 0;
   overflow-wrap: anywhere; /* long source URLs wrap instead of overflowing */
 }
+
+/* Music playback-error message (SEC-02), created by js/music.js. */
+.music-notice {
+  position: fixed;
+  left: 50%;
+  bottom: max(var(--space-edge), env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 10;
+  max-width: calc(100% - 2 * var(--space-edge));
+  padding: var(--space-gap) var(--space-edge);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface-strong);
+  color: var(--color-text);
+  text-align: center;
+}
