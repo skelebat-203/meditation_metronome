@@ -3,8 +3,29 @@
   --color-bg: #0b1020;
   --color-text: #eef1f6;
   --font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-size-base: 1rem;
+  --font-size-base: 1.25rem;
   --space-edge: 1rem;
+  --space-gap: 0.75rem;
+  --space-section: 1.5rem;
+  --space-switch: 10px;
+  --color-focus: #9cc4ff;
+  --color-surface: rgba(11, 16, 32, 0.72);
+  --color-surface-strong: rgba(11, 16, 32, 0.92);
+  --color-border: #8a94ad;
+  --color-pressed-bg: #eef1f6;
+  --color-pressed-text: #0b1020;
+  --color-dim: rgba(11, 16, 32, 0.6);
+  --radius: 0.75rem;
+  --target-min: 36px;
+  --target-large: 56px;
+  --font-size-start: 1.5rem;
+  --font-size-large: 1.25rem;
+  --font-size-timer: 2rem;
+  --font-size-h1: 1.75rem;
+  --font-size-h2: 1.5rem;
+  --settings-max-width: 60rem;
+  --settings-column-min: 18rem;
+  --controls-fade: 400ms;
 }
 
 *,
@@ -25,6 +46,7 @@ body {
   color: var(--color-text);
   font-family: var(--font-family);
   font-size: var(--font-size-base);
+  accent-color: var(--color-focus);
 }
 
 [hidden] {
@@ -47,6 +69,20 @@ body {
   position: fixed;
   inset: 0;
   z-index: -1;
+  background: var(--color-bg);
+}
+
+/* Dim the background image behind launch and settings so text stays readable. */
+.slideshow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: var(--color-dim);
+}
+
+body[data-screen="screen-meditation"] .slideshow::after {
+  display: none;
 }
 
 .slideshow img {
@@ -62,4 +98,212 @@ body {
 
 .slideshow img.is-visible {
   opacity: 1;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Buttons */
+.btn {
+  min-width: var(--target-min);
+  min-height: var(--target-min);
+  padding: 0 var(--space-gap);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  border-color: var(--color-focus);
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.btn-large {
+  min-height: var(--target-large);
+  font-size: var(--font-size-large);
+}
+
+.btn-top-left,
+.btn-top-right {
+  position: absolute;
+  top: max(var(--space-edge), env(safe-area-inset-top));
+}
+
+.btn-top-left { left: max(var(--space-edge), env(safe-area-inset-left)); }
+.btn-top-right { right: max(var(--space-edge), env(safe-area-inset-right)); }
+
+/* Launch */
+.launch-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-section);
+  height: 100%;
+}
+
+.btn-start {
+  min-height: var(--target-large);
+  padding: 0 var(--space-section);
+  font-size: var(--font-size-start);
+}
+
+.toggle-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (orientation: landscape) {
+  .toggle-row { flex-direction: row; }
+}
+
+.btn-toggle .toggle-state::before { content: "· "; }
+
+/* Pressed: fill + weight, not color alone. */
+.btn-toggle[aria-pressed="true"] {
+  background: var(--color-pressed-bg);
+  color: var(--color-pressed-text);
+  font-weight: 700;
+}
+
+/* Meditation */
+.controls {
+  transition: opacity var(--controls-fade);
+}
+
+body.controls-hidden .controls {
+  opacity: 0;
+}
+
+.session-timer {
+  position: absolute;
+  bottom: max(var(--space-section), env(safe-area-inset-bottom));
+  left: 0;
+  right: 0;
+  margin: 0;
+  text-align: center;
+  font-size: var(--font-size-timer);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 0.5rem var(--color-bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .controls { transition: none; }
+}
+
+/* Settings */
+.screen-settings {
+  overflow-y: auto;
+  background: var(--color-surface-strong);
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-section);
+  max-width: var(--settings-max-width);
+  margin: 0 auto;
+}
+
+.settings-header h1 {
+  margin: 0;
+  font-size: var(--font-size-h1);
+}
+
+.settings-form {
+  max-width: var(--settings-max-width);
+  margin: 0 auto;
+}
+
+.settings-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--settings-column-min)), 1fr));
+  gap: var(--space-section);
+}
+
+.settings-group h2 {
+  font-size: var(--font-size-h2);
+}
+
+.setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--target-min);
+}
+
+.settings-group input[type="range"],
+.settings-group select {
+  width: 100%;
+  min-height: var(--target-min);
+}
+
+.settings-group select {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.switch {
+  width: var(--target-min);
+  height: var(--target-min);
+  margin: var(--space-switch) 0;
+}
+
+.tick-sounds {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.tick-sound,
+.tick-sounds label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-gap);
+  min-height: var(--target-min);
+}
+
+.tick-sounds input[type="radio"] {
+  width: var(--space-section);
+  height: var(--space-section);
+}
+
+.settings-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-gap);
+  padding-block: var(--space-section);
+}
+
+.volume-value {
+  font-variant-numeric: tabular-nums;
+}
+
+.track-preview {
+  margin-top: var(--space-gap);
 }

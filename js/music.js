@@ -55,7 +55,27 @@ const Music = (function () {
     return Math.floor(Math.random() * tracks.length);
   }
 
+  // Settings preview: plays the first APP.MUSIC.PREVIEW_MS of track i on its own element, at volume v.
+  const previewAudio = new Audio();
+  let previewTimer = null;
+
+  function preview(i, v) {
+    clearTimeout(previewTimer);
+    previewAudio.src = tracks[i].src;
+    previewAudio.volume = Math.min(1, Math.max(0, v));
+    const p = previewAudio.play();
+    if (p && p.catch) p.catch(function (err) { console.warn('Music preview failed:', err); });
+    previewTimer = setTimeout(stopPreview, APP.MUSIC.PREVIEW_MS);
+  }
+
+  function stopPreview() {
+    clearTimeout(previewTimer);
+    previewAudio.pause();
+  }
+
   return Object.freeze({
+    preview: preview,
+    stopPreview: stopPreview,
     start: start,
     stop: stop,
     isPlaying: function () { return playing; },

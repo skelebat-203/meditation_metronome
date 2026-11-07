@@ -10,6 +10,7 @@ const Slideshow = (function () {
   let order = [];
   let pos = 0;
   let timer = null;
+  let shown = false;
 
   // Fisher-Yates shuffle. If `avoidFirst` is given, it never lands first, so no image repeats across a pass boundary.
   function shuffle(avoidFirst) {
@@ -65,9 +66,18 @@ const Slideshow = (function () {
     incoming.src = sources[nextIndex()];
   }
 
+  // Shows the first image without cycling (launch-screen background). No-op once an image is shown.
+  function show() {
+    if (!shown) {
+      shown = true;
+      advance();
+    }
+  }
+
+  // Cycles from the image on screen (or a new one if none is shown yet).
   function start() {
     if (timer) return;
-    advance();
+    show();
     timer = setInterval(advance, APP.IMAGES.SHOW_MS);
   }
 
@@ -79,6 +89,7 @@ const Slideshow = (function () {
 
   return Object.freeze({
     mount: mount,
+    show: show,
     start: start,
     stop: stop,
     isRunning: function () { return timer !== null; },

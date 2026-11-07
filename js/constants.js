@@ -25,6 +25,7 @@ const APP = Object.freeze({
       Object.freeze({ title: 'Placeholder 3', src: 'assets/music/placeholder-03.opus' }),
     ]),
     DEFAULT_VOLUME: 0.5, // 0..1
+    PREVIEW_MS: 5000, // settings track preview length
   }),
   IMAGES: Object.freeze({
     // Placeholder images (v0.1); real images arrive in v0.2.
@@ -36,5 +37,22 @@ const APP = Object.freeze({
     ]),
     SHOW_MS: 60000, // time each image is shown
     FADE_MS: 5000, // cross-fade; 0 under prefers-reduced-motion
+  }),
+  START_WORDS: Object.freeze(['recovering', 'relaxing', 'centering', 'breathing']),
+  CONTROLS_IDLE_MS: 4000, // meditation-screen controls hide after this long without input
+  TIMER_UPDATE_MS: 1000,
+  SETTINGS: Object.freeze({
+    STORAGE_KEY: 'meditation-metronome.settings',
+    // Saved defaults. The music track is not saved: each app open starts on a random track.
+    DEFAULTS: Object.freeze({
+      music: true,
+      musicVolume: 0.5,
+      metronome: true,
+      metronomeVolume: 0.7,
+      tickSound: 'soft-click',
+      images: true,
+      timer: false,
+      keepAwake: true,
+    }),
   }),
 });

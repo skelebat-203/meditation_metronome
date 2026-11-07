@@ -1,10 +1,288 @@
 'use strict';
 
-// Shows one screen and hides the others.
-function showScreen(id) {
+// App wiring: screens, navigation (incl. Android Back via history), session start/end, settings form.
+
+const $ = function (sel, root) { return (root || document).querySelector(sel); };
+const $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+const SCREEN_TITLES = {};
+SCREEN_TITLES[APP.SCREEN_IDS.LAUNCH] = 'Meditation Metronome';
+SCREEN_TITLES[APP.SCREEN_IDS.MEDITATION] = 'Meditating — Meditation Metronome';
+SCREEN_TITLES[APP.SCREEN_IDS.SETTINGS] = 'Settings — Meditation Metronome';
+
+const form = $('#settings-form');
+const timerEl = $('#session-timer');
+const slideshowEl = $('#slideshow');
+const statusEl = $('#status');
+
+let current = null;      // visible screen id
+let inSession = false;
+let sessionStartMs = 0;
+let timerId = null;
+let idleId = null;
+let wakeLock = null;
+
+// ---------- Screens and navigation ----------
+
+// Shows one screen, updates the title and moves focus to its heading (or `focusEl`).
+function showScreen(id, focusEl) {
   Object.values(APP.SCREEN_IDS).forEach(function (screenId) {
     document.getElementById(screenId).hidden = screenId !== id;
   });
+  current = id;
+  document.title = SCREEN_TITLES[id];
+  document.body.dataset.screen = id;
+  const target = focusEl || $('#' + id + ' h1');
+  if (target) {
+    if (!target.hasAttribute('tabindex') && target.tagName === 'H1') target.setAttribute('tabindex', '-1');
+    target.focus();
+  }
 }
 
-showScreen(APP.SCREEN_IDS.LAUNCH);
+// Forward navigation pushes a history entry so Android Back (and the browser's Back) returns.
+function goTo(id) {
+  history.pushState({ screen: id }, '');
+  showScreen(id);
+}
+
+// Back: from settings, return to where it was opened; from meditation, end the session.
+window.addEventListener('popstate', function () {
+  if (current === APP.SCREEN_IDS.SETTINGS) {
+    Metronome.setVolume(Settings.getSession().metronomeVolume); // undo any preview volume
+    Music.stopPreview();
+    if (inSession) {
+      showScreen(APP.SCREEN_IDS.MEDITATION);
+      showControls();
+    } else {
+      showScreen(APP.SCREEN_IDS.LAUNCH, $('[data-action="open-settings"]', $('#' + APP.SCREEN_IDS.LAUNCH)));
+    }
+  } else if (current === APP.SCREEN_IDS.MEDITATION) {
+    endSession();
+  }
+});
+
+// ---------- Launch screen ----------
+
+function renderToggles() {
+  const s = Settings.getSession();
+  $$('[data-toggle]').forEach(function (btn) {
+    const on = s[btn.dataset.toggle];
+    btn.setAttribute('aria-pressed', String(on));
+    $('.toggle-state', btn).textContent = on ? 'on' : 'off';
+  });
+}
+
+$$('[data-toggle]').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    const s = Settings.getSession();
+    s[btn.dataset.toggle] = !s[btn.dataset.toggle];
+    Settings.setSession(s);
+    renderToggles();
+  });
+});
+
+// ---------- Session ----------
+
+function formatElapsed(ms) {
+  const total = Math.floor(ms / 1000);
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const sec = String(total % 60).padStart(2, '0');
+  return h ? h + ':' + String(m).padStart(2, '0') + ':' + sec : m + ':' + sec;
+}
+
+function updateTimer() {
+  timerEl.textContent = formatElapsed(Date.now() - sessionStartMs);
+}
+
+function requestWakeLock() {
+  if (!navigator.wakeLock || wakeLock) return;
+  navigator.wakeLock.request('screen').then(function (lock) {
+    wakeLock = lock;
+    lock.addEventListener('release', function () { wakeLock = null; });
+  }).catch(function (err) { console.warn('Wake lock failed:', err); });
+}
+
+function releaseWakeLock() {
+  if (wakeLock) wakeLock.release();
+  wakeLock = null;
+}
+
+// The browser drops the wake lock when the page is hidden; take it back on return.
+document.addEventListener('visibilitychange', function () {
+  if (inSession && document.visibilityState === 'visible' && Settings.getSession().keepAwake) requestWakeLock();
+});
+
+// Applies session settings to whatever is running. Safe to call any time during a session.
+function applySession() {
+  const s = Settings.getSession();
+  Music.setVolume(s.musicVolume);
+  Metronome.setVolume(s.metronomeVolume);
+  Metronome.setSound(s.tickSound);
+  if (Music.getTrackIndex() !== s.track) Music.setTrack(s.track);
+  if (!inSession) return;
+
+  if (s.music) Music.start(); else Music.stop();
+  if (s.metronome) Metronome.start(); else Metronome.stop();
+  slideshowEl.hidden = !s.images;
+  if (s.images) Slideshow.start(); else Slideshow.stop();
+
+  timerEl.hidden = !s.timer;
+  if (s.timer && !timerId) {
+    updateTimer();
+    timerId = setInterval(updateTimer, APP.TIMER_UPDATE_MS);
+  } else if (!s.timer && timerId) {
+    clearInterval(timerId);
+    timerId = null;
+  }
+
+  if (s.keepAwake) requestWakeLock(); else releaseWakeLock();
+}
+
+function startSession() {
+  inSession = true;
+  sessionStartMs = Date.now();
+  applySession();
+  goTo(APP.SCREEN_IDS.MEDITATION);
+  showControls();
+  statusEl.textContent = 'Session started';
+}
+
+function endSession() {
+  inSession = false;
+  Music.stop();
+  Metronome.stop();
+  Slideshow.stop();
+  clearInterval(timerId);
+  timerId = null;
+  timerEl.hidden = true;
+  releaseWakeLock();
+  clearTimeout(idleId);
+  document.body.classList.remove('controls-hidden');
+  slideshowEl.hidden = false; // launch background
+  renderToggles();
+  showScreen(APP.SCREEN_IDS.LAUNCH, $('#start'));
+  statusEl.textContent = 'Session ended';
+}
+
+// ---------- Meditation controls: hide when idle, show on any input ----------
+
+function showControls() {
+  document.body.classList.remove('controls-hidden');
+  clearTimeout(idleId);
+  idleId = setTimeout(function () {
+    // Never hide while a control has keyboard focus.
+    if (current === APP.SCREEN_IDS.MEDITATION && !$('#' + APP.SCREEN_IDS.MEDITATION).contains(document.activeElement)) {
+      document.body.classList.add('controls-hidden');
+    } else if (current === APP.SCREEN_IDS.MEDITATION) {
+      showControls();
+    }
+  }, APP.CONTROLS_IDLE_MS);
+}
+
+['pointerdown', 'keydown'].forEach(function (type) {
+  document.addEventListener(type, function () {
+    if (current === APP.SCREEN_IDS.MEDITATION) showControls();
+  }, true);
+});
+
+// Hidden controls stay in the DOM; focusing one brings them back.
+$('#' + APP.SCREEN_IDS.MEDITATION).addEventListener('focusin', showControls);
+
+// ---------- Settings form ----------
+
+function fillForm(s) {
+  form.music.checked = s.music;
+  form.musicVolume.value = Math.round(s.musicVolume * 100);
+  form.track.value = String(s.track);
+  form.metronome.checked = s.metronome;
+  form.metronomeVolume.value = Math.round(s.metronomeVolume * 100);
+  renderVolumes();
+  form.tickSound.value = s.tickSound;
+  form.images.checked = s.images;
+  form.timer.checked = s.timer;
+  form.keepAwake.checked = s.keepAwake;
+}
+
+function readForm() {
+  return {
+    music: form.music.checked,
+    musicVolume: Number(form.musicVolume.value) / 100,
+    track: Number(form.track.value),
+    metronome: form.metronome.checked,
+    metronomeVolume: Number(form.metronomeVolume.value) / 100,
+    tickSound: form.tickSound.value,
+    images: form.images.checked,
+    timer: form.timer.checked,
+    keepAwake: form.keepAwake.checked,
+  };
+}
+
+Music.getTracks().forEach(function (t, i) {
+  const opt = document.createElement('option');
+  opt.value = String(i);
+  opt.textContent = t.title;
+  form.track.appendChild(opt);
+});
+
+function openSettings() {
+  fillForm(Settings.getSession());
+  goTo(APP.SCREEN_IDS.SETTINGS);
+}
+
+// Applying closes settings; history.back() lands on the screen settings was opened from.
+function applyAndClose(persistent) {
+  const next = readForm();
+  Music.stopPreview();
+  if (persistent) Settings.setPersistent(next); else Settings.setSession(next);
+  applySession();
+  renderToggles();
+  statusEl.textContent = persistent ? 'Settings saved' : 'Settings applied to this session';
+  history.back();
+}
+
+$$('[data-preview]').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    Metronome.setVolume(Number(form.metronomeVolume.value) / 100);
+    Metronome.preview(btn.dataset.preview);
+  });
+});
+
+// Volume sliders show and announce their value as a percentage.
+function renderVolumes() {
+  [form.musicVolume, form.metronomeVolume].forEach(function (input) {
+    const text = input.value + '%';
+    input.setAttribute('aria-valuetext', text);
+    $('output[for="' + input.id + '"]', form).textContent = text;
+  });
+}
+
+form.addEventListener('input', renderVolumes);
+
+form.addEventListener('submit', function (e) { e.preventDefault(); });
+
+// ---------- Actions ----------
+
+const ACTIONS = {
+  'start': startSession,
+  'end': function () { history.back(); },
+  'open-settings': openSettings,
+  'back': function () { history.back(); },
+  'preview-track': function () { Music.preview(Number(form.track.value), Number(form.musicVolume.value) / 100); },
+  'apply-persistent': function () { applyAndClose(true); },
+  'apply-session': function () { applyAndClose(false); },
+};
+
+$$('[data-action]').forEach(function (btn) {
+  btn.addEventListener('click', function () { ACTIONS[btn.dataset.action](); });
+});
+
+// ---------- Init ----------
+
+$('#start').textContent = 'Start ' + APP.START_WORDS[Math.floor(Math.random() * APP.START_WORDS.length)];
+Music.setTrack(Settings.getSession().track);
+Slideshow.mount(slideshowEl);
+Slideshow.show();
+renderToggles();
+history.replaceState({ screen: APP.SCREEN_IDS.LAUNCH }, '');
+showScreen(APP.SCREEN_IDS.LAUNCH, $('#start'));

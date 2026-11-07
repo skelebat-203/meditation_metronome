@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.1.4 — image slideshow done (step 4); next: step 5 (screens and settings).
+v0.1.5 — screens and settings done (step 5); next: step 6 (accessibility audit).
 
 ## v0.1 plan of action
 
@@ -34,7 +34,7 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `js/slideshow.js`, `assets/images/`
    - Verify: no repeat within a pass; reduced motion switches without a fade
    - Deps: 1
-5. **Screens and settings** (v0.1/5) — launch, meditation, settings (saved + session).
+5. **Screens and settings** (v0.1/5) — launch, meditation, settings (saved + session). ✅ (v0.1.5)
    - Source: roadmap v0.1 item 5; `0002` § Screens
    - Files: `index.html`, `js/app.js`, `js/settings.js`, `css/`
    - Verify: saved settings persist across reloads; session settings do not
@@ -47,4 +47,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group B: steps 1 → 2, 3, 4 → 5 (they share `index.html`, constants and app wiring)
 - Reviews: steps 6, 7 (main session, with the user)
 - Run mode: **single session with fresh restarts**. Few items, they touch shared files, and the UI design needs frequent approval.
-- Status: ✅ A · ⏳ B (steps 1–4 done) · ☐ reviews
+- Status: ✅ A · ✅ B · ☐ reviews
