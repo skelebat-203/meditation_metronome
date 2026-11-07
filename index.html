@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'">
+  <title>Meditation Metronome</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main id="screen-launch" class="screen" aria-label="Launch"></main>
+  <main id="screen-meditation" class="screen" aria-label="Meditation" hidden></main>
+  <main id="screen-settings" class="screen" aria-label="Settings" hidden></main>
+
+  <!-- Classic scripts, not ES modules: modules are blocked when index.html is opened from file://. -->
+  <script src="js/constants.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

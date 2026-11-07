@@ -1,0 +1,43 @@
+/* Design tokens. Shared visual values live here; timing and behavior values live in js/constants.js. */
+:root {
+  --color-bg: #0b1020;
+  --color-text: #eef1f6;
+  --font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-size-base: 1rem;
+  --space-edge: 1rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Each screen fills the viewport, respecting notches and system bars. */
+.screen {
+  position: fixed;
+  inset: 0;
+  padding:
+    max(var(--space-edge), env(safe-area-inset-top))
+    max(var(--space-edge), env(safe-area-inset-right))
+    max(var(--space-edge), env(safe-area-inset-bottom))
+    max(var(--space-edge), env(safe-area-inset-left));
+}
