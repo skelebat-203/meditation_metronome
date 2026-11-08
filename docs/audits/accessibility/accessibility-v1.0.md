@@ -18,7 +18,7 @@ Scope: the one app change since v0.5 is the saved start track (`0004` #3, v0.6.2
 
 | ID | Severity | Finding | Status |
 |---|---|---|---|
-| A11Y-18 | Info | The short description scores grade 10.4 (Flesch-Kincaid; 9.7 before the v0.6.5 wording "1 second metronome"), but only because it is one 13-word sentence with the long words "meditation" and "metronome", which the app name already uses. No plainer wording keeps the meaning. | No action. |
+| A11Y-18 | Info | The short description was reworded at v1.0.0 to "A calm meditation timer with a 1 second tick, music and slow images." (user choice), which brings it under grade 10; the v0.6.5 wording "1 second metronome" scored 10.4. | Fixed (v1.0.0) |
 | A11Y-17 | Info | Carried from v0.5: no cue when the OS stops a background session (GrapheneOS). Accepted in `0004` #5; the store text now warns about it. | No action. |
 
 ## Passed
