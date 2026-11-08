@@ -26,6 +26,8 @@
   --settings-max-width: 60rem;
   --settings-column-min: 18rem;
   --controls-fade: 400ms;
+  --control-margin: 5px;
+  --font-size-timer-mode: 1rem;
 }
 
 *,
@@ -256,10 +258,30 @@ body.controls-hidden .controls {
 }
 
 /* Backing keeps the timer readable over light images. */
-.session-timer span {
+.timer-face {
+  display: inline-block;
   padding: 0 var(--space-gap);
   border-radius: var(--radius);
   background: var(--color-surface);
+}
+
+/* With a Session length set, the timer is a button that switches elapsed / remaining. */
+.timer-toggle {
+  min-height: var(--target-min);
+  margin: var(--control-margin);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.timer-toggle:hover {
+  border-color: var(--color-focus);
+}
+
+.timer-mode {
+  font-size: var(--font-size-timer-mode);
+  vertical-align: middle;
 }
 
 @media (prefers-reduced-motion: reduce) {

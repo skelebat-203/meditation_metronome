@@ -13,7 +13,8 @@ SCREEN_TITLES[APP.SCREEN_IDS.CREDITS] = 'Credits — Meditation Metronome';
 
 const form = $('#settings-form');
 const timerEl = $('#session-timer');
-const timerTextEl = $('#session-timer span');
+const timerStaticEl = $('#timer-static');
+const timerToggleEl = $('#timer-toggle');
 const slideshowEl = $('#slideshow');
 const statusEl = $('#status');
 
@@ -21,6 +22,7 @@ let current = null;      // visible screen id
 let inSession = false;
 let sessionStartMs = 0;
 let timerId = null;
+let showRemaining = false; // Session timer mode; lasts for the current session
 let idleId = null;
 let wakeLock = null;
 let finishing = false;   // end chime playing; launch screen follows
@@ -127,9 +129,31 @@ function formatElapsed(ms) {
   return h ? h + ':' + String(m).padStart(2, '0') + ':' + sec : m + ':' + sec;
 }
 
+// With a Session length set, the timer is a button that switches elapsed / remaining;
+// otherwise it shows elapsed only. Not a live region: mode changes are announced via #status.
 function updateTimer() {
-  timerTextEl.textContent = formatElapsed(Date.now() - sessionStartMs);
+  const lengthMs = Settings.getSession().sessionLength * 1000;
+  const elapsedMs = Date.now() - sessionStartMs;
+  if (!lengthMs) showRemaining = false;
+  timerStaticEl.hidden = !!lengthMs;
+  timerToggleEl.hidden = !lengthMs;
+  if (!lengthMs) {
+    timerStaticEl.textContent = formatElapsed(elapsedMs);
+    return;
+  }
+  $('.timer-mode', timerToggleEl).textContent = showRemaining ? 'remaining' : 'elapsed';
+  // Round remaining up so it reads 0:00 only at the end.
+  $('.timer-value', timerToggleEl).textContent = showRemaining
+    ? formatElapsed(Math.ceil(Math.max(0, lengthMs - elapsedMs) / 1000) * 1000)
+    : formatElapsed(elapsedMs);
+  $('.visually-hidden', timerToggleEl).textContent = showRemaining ? ', switch to elapsed' : ', switch to remaining';
 }
+
+timerToggleEl.addEventListener('click', function () {
+  showRemaining = !showRemaining;
+  updateTimer();
+  statusEl.textContent = showRemaining ? 'Timer shows time remaining' : 'Timer shows time elapsed';
+});
 
 // Session length reached: end chime, fade out, then back to the launch screen once the chime ends.
 // Called by the metronome's beat clock when the end chime starts.
@@ -178,8 +202,8 @@ function applySession() {
   if (s.images) Slideshow.start(); else Slideshow.stop();
 
   timerEl.hidden = !s.timer;
+  if (s.timer) updateTimer(); // Session length may have changed
   if (s.timer && !timerId) {
-    updateTimer();
     timerId = setInterval(updateTimer, APP.TIMER_UPDATE_MS);
   } else if (!s.timer && timerId) {
     clearInterval(timerId);
@@ -193,6 +217,7 @@ function applySession() {
 
 function startSession() {
   inSession = true;
+  showRemaining = false;
   sessionStartMs = Date.now();
   Metronome.beginSession(finishSession);
   applySession();

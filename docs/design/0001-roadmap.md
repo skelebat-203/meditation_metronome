@@ -60,8 +60,9 @@ Run as grouped subagents on a `v0.2` integration branch, with one user review at
 3. Keep screen awake during a session (per `0002`).
 4. Test on GrapheneOS, including what happens when the screen is turned off.
 5. Credits from a single source: stop `js/credits.js` and `ATTRIBUTION.md` drifting (one generated from the other, or a check that they match).
-6. Accessibility audit.
-7. Security review.
+6. Session timer: tap to switch elapsed/remaining (`0002` § Meditation screen). ✅ (v0.3.8)
+7. Accessibility audit.
+8. Security review.
 
 ## v0.4 — F-Droid release
 

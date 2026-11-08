@@ -32,7 +32,10 @@
       <button type="button" class="btn btn-large btn-top-left" data-action="end"><span aria-hidden="true">■</span> End</button>
       <button type="button" class="btn btn-large btn-top-right" data-action="open-settings"><span aria-hidden="true">⚙</span> Session settings</button>
     </div>
-    <p id="session-timer" class="session-timer" role="timer" hidden><span>0:00</span></p>
+    <div id="session-timer" class="session-timer" hidden>
+      <span id="timer-static" class="timer-face">0:00</span>
+      <button type="button" id="timer-toggle" class="timer-face timer-toggle" hidden><span class="timer-mode"></span> <span class="timer-value">0:00</span><span class="visually-hidden">, switch</span></button>
+    </div>
   </main>
 
   <main id="screen-settings" class="screen screen-settings" aria-labelledby="settings-title" hidden>

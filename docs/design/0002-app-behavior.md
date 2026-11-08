@@ -16,7 +16,7 @@ What the app does and how it behaves. Scope and build order live in the [roadmap
 - Full-screen image slideshow, music and metronome, per the toggles.
 - **End button**, top left. Ends the session and returns to the launch screen (Android Back does the same).
 - **Session settings button**, top right. Opens the settings screen.
-- **Session timer** (if on): elapsed time since Start.
+- **Session timer** (if on): elapsed time since Start. With a Session length set, the timer is a button: tapping it (or Enter/Space) switches between time elapsed and time remaining (Session length minus elapsed). Default is elapsed; the choice lasts for the current session. A word label ("elapsed" / "remaining") shows the mode. Its accessible name states the mode and value; it is not a live region, and a mode change is announced once via the status region. With Session length off, the timer is not a button and shows elapsed only. It stays visible and tappable when the controls hide; a tap on it also shows the controls.
 - Controls hide after a few seconds idle and reappear on tap.
 
 ### Settings screen

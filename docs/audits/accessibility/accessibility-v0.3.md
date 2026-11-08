@@ -1,8 +1,8 @@
 # Accessibility audit — v0.3
 
-Roadmap: v0.3 step 6. Target: WCAG 2.2 AA. Severity scale: `issue-severity-matrix_LOCAL.md` (bug lens). Status: drafted by the agent, awaiting user review.
+Roadmap: v0.3 step 7. Target: WCAG 2.2 AA. Severity scale: `issue-severity-matrix_LOCAL.md` (bug lens). Status: drafted by the agent, awaiting user review.
 
-Scope: changes since v0.2 — Android WebView wrapper, app icon and splash, Keep screen awake via the web Screen Wake Lock API. No web screen layout changed in v0.3.
+Scope: changes since v0.2 — Android WebView wrapper, app icon and splash, Keep screen awake via the web Screen Wake Lock API, and the Session timer elapsed/remaining toggle (step 6). No other web screen layout changed in v0.3.
 
 ## Method
 
@@ -11,6 +11,7 @@ Scope: changes since v0.2 — Android WebView wrapper, app icon and splash, Keep
 | Lighthouse ≥ 90 | Lighthouse 13.5.0, Playwright Chromium, served on loopback | ✅ 100 (launch screen) |
 | Keyboard tab order, launch | Playwright | ✅ unchanged from v0.2 |
 | Keep screen awake control | Playwright: labelled checkbox "Keep screen awake" in Settings | ✅ done |
+| Session timer toggle (step 6) | Playwright: button "elapsed 0:01, switch to remaining"; tap, Enter and Space switch modes; remaining counts down; mode announced once via `#status`; no live region or `role="timer"` on the timer; tappable while controls hidden; 40 px tall with 5 px margin; with Session length off, no button | ✅ done |
 | Wrapper code review (label, content description, font scaling, orientation, Back) | `MainActivity.java`, manifest, resources | ✅ done |
 | Icon and splash contrast | Calculated from `colors.xml` | ✅ done |
 | Large text in the APK (200% system font) | Code fix built; on-device check | pending — user (step 4) |
@@ -33,4 +34,4 @@ Scope: changes since v0.2 — Android WebView wrapper, app icon and splash, Keep
 - Orientation not locked; rotation and resize do not reload the page or end a session (`configChanges`).
 - Android Back walks the app's screen history, then leaves the app (same as browser Back).
 - Icon and splash: `#EEF1F6` glyph on `#0B1020` ≈ 16:1; system bars use the app background, so no light flash on start.
-- No web screen changed; v0.2 keyboard, focus-return and 200% reflow results still apply.
+- No other web screen changed; v0.2 keyboard, focus-return and 200% reflow results still apply.

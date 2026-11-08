@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.3.7 — steps 0–5 done (step 4 device test passed, fixes landed); step 6 accessibility audit drafted; step 7 security review drafted (uncommitted); next: review of both reports.
+v0.3.8 — steps 0–6 done (step 4 device test passed, fixes landed; step 6 session timer toggle landed); step 7 accessibility audit drafted; step 8 security review drafted (uncommitted); next: review of both reports.
 
 ## v0.3 plan of action
 
@@ -36,14 +36,20 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `js/credits.js`, `scripts/check-credits.js`, `package.json`
    - Verify: `npm run check-credits` passes (exit 0); after any edit to `ATTRIBUTION.md`, `js/credits.js` or `assets/`, run it again — a mismatch or unlisted asset fails with exit 1 and names the entry
    - Deps: none
-6. **Accessibility audit** (v0.3/6) — agent drafts; user reviews.
+6. **Session timer: tap to switch elapsed/remaining** (v0.3/6) — with Session length set, the timer is a button that switches elapsed / remaining for the current session (default elapsed); word label shows the mode; name states mode and value; mode change announced once via `#status`; not blocked by controls auto-hide. With length off, elapsed only, not a button. ✅ (v0.3.8)
+   - Source: roadmap v0.3 item 6; `0002` § Meditation screen
+   - Files: `index.html`, `css/style.css`, `js/app.js`, `docs/audits/accessibility/accessibility-v0.3.md`
+   - Verify: Session length 10 s + timer on: tap shows remaining and counts down; Enter/Space toggle; length off: no button; accessible name correct; Lighthouse ≥ 90; debug APK builds with no permissions
+   - Deps: none
+7. **Accessibility audit** (v0.3/7) — agent drafts; user reviews.
    - Report: `docs/audits/accessibility/accessibility-v0.3.md` — drafted, awaiting user review (v0.3.6)
-7. **Security review** (v0.3/7) — agent drafts; user reviews; bumps to v0.4.0 and `v0.3` merges to `main`.
+8. **Security review** (v0.3/8) — agent drafts; user reviews; bumps to v0.4.0 and `v0.3` merges to `main`.
    - Report: `docs/audits/security/security-v0.3.md`
 
 ### Execution
 - Group A: steps 0, 1, 2, 3 (Android; sequential)
 - Group B: step 5 (web only; parallel with A)
-- Reviews: step 4 with the user; steps 6, 7 drafted by agent, **pause for user review** before v0.4.0 and the merge to `main`
+- Group U: step 6 (web only; user feature added mid-version)
+- Reviews: step 4 with the user; steps 7, 8 drafted by agent, **pause for user review** before v0.4.0 and the merge to `main`
 - Run mode: **grouped subagents**. Gates are at version end; A and B touch separate files.
-- Status: ✅ A · ✅ B · ☐ reviews
+- Status: ✅ A · ✅ B · ✅ U · ☐ reviews
