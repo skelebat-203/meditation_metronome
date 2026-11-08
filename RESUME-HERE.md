@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.6.2 — v1.0 step 1 done (0004 reviewed; saved start track fixed). Next: reviews (steps 4, 5).
+v0.6.3 — v1.0 accessibility audit drafted (awaiting user review). Next: security review (step 5).
 
 ## v1.0 plan of action
 
@@ -15,7 +15,7 @@ Work toward the launch is versioned v0.6.x; the launch itself is v1.0.0. v1.0 is
 3. **F-Droid submission prep** (v1.0/3) ✅ (v0.6.1) — fill the recipe: author name, license (GPL-3.0-only / -or-later), category, real versionCode, `UpdateCheckData` if needed (security-v0.4 7.1, 7.2).
    - Files: `docs/fdroid/`, `package.json` (`versionCode`), `android/app/build.gradle`
    - Deps: user answers
-4. **Accessibility audit** (v1.0/4) — agent drafts; user reviews.
+4. **Accessibility audit** (v1.0/4) — agent drafts; user reviews. Drafted (v0.6.3): [`accessibility-v1.0.md`](docs/audits/accessibility/accessibility-v1.0.md).
 5. **Security review** (v1.0/5) — agent drafts; user reviews; bumps to v1.0.0.
 6. **Release** (v1.0/6) — tag v1.0.0, GitHub release and F-Droid merge request from the user's accounts, with step-by-step help.
 
