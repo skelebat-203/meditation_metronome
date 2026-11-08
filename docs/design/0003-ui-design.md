@@ -19,12 +19,12 @@ Visual style: dark and calm (deep blue/black background, soft white text).
 │     │  Start relaxing  │     │  ← random word each open
 │     └──────────────────┘     │
 │                              │
-│   ⏲ Session length [off ▾]   │  ← session length, next session only
-│                              │
-│         [♪ Music]            │  ← on/off toggles, next session only
-│            on                │
+│       ⏲ Length [off ▾]       │  ← session length, next session only
 │                              │
 │         [◷ Metro]            │  ← on/off toggles, next session only
+│            on                │
+│                              │
+│         [♪ Music]            │  ← on/off toggles, next session only
 │            on                │
 │                              │
 │                              │
@@ -40,8 +40,8 @@ Visual style: dark and calm (deep blue/black background, soft white text).
 │          ┌──────────────────┐            │
 │          │  Start relaxing  │            │  ← random word each open
 │          └──────────────────┘            │
-│        ⏲ Session length [off ▾]          │  ← session length, next session only
-│          [♪ Music] [◷ Metro]             │  ← on/off toggles, next session only
+│            ⏲ Length [off ▾]              │  ← session length, next session only
+│          [◷ Metro] [♪ Music]             │  ← on/off toggles, next session only
 │             on        on                 │
 │                                          │
 └──────────────────────────────────────────┘

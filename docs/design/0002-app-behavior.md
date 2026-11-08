@@ -6,8 +6,9 @@ What the app does and how it behaves. Scope and build order live in the [roadmap
 
 ### Launch screen
 - **Start button**, centered. Label is `Start {word}`; `{word}` is picked at random on each app open from: recovering, relaxing, centering, breathing.
-- **Two on/off toggles** in a row under the Start button: Music, Metronome. They start from the saved defaults (all on by default) and apply only to the next session. Persistent changes are made in saved settings.
-- **Session length** picker between the Start button and the toggles (replaces the former Images toggle; Images is now in Settings only). Options: off (open-ended), 5–60 min in 5-minute steps; default off. Applies to the next session only; the saved default is set in Settings. See § Session length and marks.
+- Order, top to bottom: Start, Length, then the Metronome and Music toggles.
+- **Two on/off toggles** in a row under the Length picker: Metronome, Music. They start from the saved defaults (all on by default) and apply only to the next session. Persistent changes are made in saved settings.
+- **Length** picker (Session length; labeled "Length" on the launch screen) between the Start button and the toggles (replaces the former Images toggle; Images is now in Settings only). Options: off (open-ended), 5–60 min in 5-minute steps; default off. Applies to the next session only; the saved default is set in Settings. See § Session length and marks.
 - On each app open, the start track and start image are chosen at random.
 - **Settings button**, top right. Opens the settings screen.
 - Nothing plays until the user taps Start.
