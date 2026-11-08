@@ -18,10 +18,10 @@
     </button>
     <div class="launch-center">
       <button type="button" id="start" class="btn btn-start" data-action="start">Start</button>
+      <div class="length-picker"><label for="launch-length"><span aria-hidden="true">⏲</span> Session length</label> <select id="launch-length" class="length-select" data-choices="length"></select></div>
       <ul class="toggle-row" aria-label="This session">
         <li><button type="button" class="btn btn-toggle" data-toggle="music" aria-pressed="true"><span aria-hidden="true">♪</span> Music <span class="toggle-state" aria-hidden="true"></span></button></li>
         <li><button type="button" class="btn btn-toggle" data-toggle="metronome" aria-pressed="true"><span aria-hidden="true">◷</span> Metronome <span class="toggle-state" aria-hidden="true"></span></button></li>
-        <li class="length-picker"><label for="launch-length"><span aria-hidden="true">⏲</span> Session length</label> <select id="launch-length" class="length-select" data-choices="length"></select></li>
       </ul>
     </div>
   </main>
@@ -34,7 +34,7 @@
     </div>
     <div id="session-timer" class="session-timer" hidden>
       <span id="timer-static" class="timer-face">0:00</span>
-      <button type="button" id="timer-toggle" class="timer-face timer-toggle" hidden><span class="timer-mode"></span> <span class="timer-value">0:00</span><span class="visually-hidden">, switch</span></button>
+      <button type="button" id="timer-toggle" class="timer-face timer-toggle" hidden><span class="timer-value">0:00</span> <span class="timer-mode"></span><span class="visually-hidden">, switch</span></button>
     </div>
   </main>
 

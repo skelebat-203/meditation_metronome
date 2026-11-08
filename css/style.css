@@ -207,6 +207,7 @@ body[data-screen="screen-meditation"] .slideshow::after {
 .btn-toggle .toggle-state::before { content: "· "; }
 
 .length-picker {
+  max-width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -280,8 +281,8 @@ body.controls-hidden .controls {
 }
 
 .timer-mode {
+  display: block; /* mode word sits under the count */
   font-size: var(--font-size-timer-mode);
-  vertical-align: middle;
 }
 
 @media (prefers-reduced-motion: reduce) {
