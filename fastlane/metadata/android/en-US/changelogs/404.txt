@@ -1,0 +1,7 @@
+First release on F-Droid.
+
+* Metronome with three tick sounds
+* Calm music and a slow image slideshow
+* Session length with an end chime, and mark chimes
+* Timer for time passed or time left
+* Keep the screen awake

@@ -1,0 +1,23 @@
+Meditation Metronome helps you sit still and keep track of time. It plays a soft tick once each second to help you stay with your breath.
+
+What it does:
+
+* Metronome: one tick each second. Pick a soft click, a wood block or a bell.
+* Calm music: pick a track or let the app choose one.
+* Images: a slow slideshow of calm pictures.
+* Session length: set how long to sit. A chime plays at the end.
+* Marks: a soft chime at set times, so you know how far along you are.
+* Timer: show the time that has passed or the time that is left.
+* Keep the screen awake while you sit.
+
+Each part can be turned on or off. You can save your settings or use them just for one session.
+
+Your privacy:
+
+* Works fully offline. The app never connects to the internet.
+* No ads and no tracking.
+* No permissions needed.
+
+Music and image credits are listed in the app.
+
+Please note: the session stops when you leave the app or turn off the screen. Playback in the background is planned for a later version.

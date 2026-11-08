@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.4.3 — group A done: test option removed; reproducible release build and F-Droid recipe draft (`docs/fdroid/`). Next: group B, reviews.
+v0.4.4 — groups A and B done: release build, F-Droid recipe draft (`docs/fdroid/`), F-Droid store listing (`fastlane/`). Next: reviews.
 
 ## v0.4 plan of action
 
@@ -19,7 +19,7 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `android/`, `scripts/`
    - Verify: two clean builds match byte-for-byte; no permissions; recipe builds from a clean checkout
    - Deps: 1
-3. **Fastlane metadata** (v0.4/3) — title, short and full description, changelog, phone screenshots.
+3. ✅ (v0.4.4) **Fastlane metadata** (v0.4/3) — title, short and full description, changelog, phone screenshots.
    - Source: roadmap v0.4 item 1
    - Files: `fastlane/metadata/android/en-US/`
    - Verify: F-Droid metadata layout; reading level grade 10 or lower; user reviews at version end
@@ -37,4 +37,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group B: step 3 (after 1, so screenshots show the final pickers; parallel with 2)
 - Reviews: steps 5, 6 drafted by agent; **pause for user review**; step 4 after approval
 - Run mode: **grouped subagents**.
-- Status: ✅ A · ☐ B · ☐ reviews · ☐ submit
+- Status: ✅ A · ✅ B · ☐ reviews · ☐ submit

@@ -43,4 +43,5 @@ This project is local-only (no network access), so it uses the LOCAL severity ma
   export GRADLE_USER_HOME={main}/.tools/gradle
   ```
 - Build a debug APK from the checkout or worktree: `cd android && ./gradlew assembleDebug`. The web files (`index.html`, `css/`, `js/`, `assets/`) are copied into the APK at build time; there is no second copy in git. Output: `android/app/build/outputs/apk/debug/app-debug.apk`.
+- Release build: `cd android && ./gradlew assembleRelease` outputs `android/app/build/outputs/apk/release/app-release-unsigned.apk`. Two clean builds must be byte-identical.
 - Check permissions: `$ANDROID_HOME/build-tools/35.0.0/aapt dump permissions {apk}` (no INTERNET allowed).
