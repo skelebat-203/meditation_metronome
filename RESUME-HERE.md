@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v1.1.7 — Play Console text approved (`docs/play/console-text.md`); privacy page live on GitHub Pages; upload key made (in `.tools/signing/` and LastPass). Next: Play Console signup (blocked by Google's new-account check; retry 2026-11-09), tester recruiting, then PEPK export of the F-Droid key.
+v1.1.8 — Play Console checklist added (`docs/play/console-checklist.md`); text approved (`docs/play/console-text.md`); signed AAB built (1.1.7); privacy page live on GitHub Pages; upload key made (in `.tools/signing/` and LastPass). Next: Play Console signup (blocked by Google's new-account check; retry 2026-11-09), tester recruiting, then PEPK export of the F-Droid key.
 
 ## v1.1 plan of action
 
