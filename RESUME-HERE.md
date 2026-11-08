@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v1.0.2 — F-Droid paused: MR !56340 closed (3-month maintenance policy); resubmit on or after 2027-02-08. GitHub release v1.0.0 carries the developer-signed APK. Next: v1.1 Google Play (roadmap v1.1), starting with the user's Play developer account.
+v1.1.0 — roadmap restored (v1.0.2 had overwritten it with 8,803 copies of the v1.1 section). F-Droid paused: MR !56340 closed; resubmit on or after 2027-02-08. Next: v1.1 Google Play (roadmap v1.1), starting with the user's Play developer account.
 
 ## v1.0 plan of action
 
