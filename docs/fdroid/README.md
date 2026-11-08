@@ -37,3 +37,11 @@ Answer in the merge request comments.
 - New versions: bump `version` and `versionCode` in `package.json`, add `fastlane/metadata/android/en-US/changelogs/{versionCode}.txt`, then push a `v{version}` tag. F-Droid finds and builds it.
 - F-Droid signs the APK with its own key, so an APK you build and sign yourself cannot update an F-Droid install (and the reverse).
 - Reproducible builds (later): the release build is deterministic, so you can later publish your own signed APK and add `Binaries:` and `AllowedAPKSigningKeys:` to the recipe. F-Droid then ships your signed APK after checking its own build matches.
+
+## Signing releases (reproducible builds)
+
+The app uses F-Droid reproducible builds: F-Droid rebuilds each tagged release and publishes the developer-signed APK only if its build matches.
+
+- Key: `.tools/signing/release.keystore` (PKCS12; copy `release.p12`), password in `.tools/signing/release-keystore-password.txt`. Both are git-ignored and backed up by the user. Losing the key means no more updates for this app ID.
+- Certificate SHA-256 (in the recipe as `AllowedAPKSigningKeys`): `6be464bd4e82ed7f241713fb8eb30faee196fe7b04c741b4738c0e0c72e528d4`
+- For each release: tag `v{version}`, build `assembleRelease` from the tag, sign with `apksigner sign --ks .tools/signing/release.keystore --ks-key-alias meditationmetronome --ks-pass file:.tools/signing/release-keystore-password.txt --out meditation-metronome-v{version}.apk app-release-unsigned.apk`, and attach that exact file name to the GitHub release before F-Droid checks the tag.

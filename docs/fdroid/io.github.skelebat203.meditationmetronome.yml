@@ -11,14 +11,17 @@ AutoName: Meditation Metronome
 
 RepoType: git
 Repo: https://github.com/skelebat-203/meditation_metronome.git
+Binaries: https://github.com/skelebat-203/meditation_metronome/releases/download/v%v/meditation-metronome-v%v.apk
 
 Builds:
   - versionName: 1.0.0
     versionCode: 10000
-    commit: v1.0.0
+    commit: 07f99fe38188b64507ca404e92f0b0de720893f2
     subdir: android/app
     gradle:
       - yes
+
+AllowedAPKSigningKeys: 6be464bd4e82ed7f241713fb8eb30faee196fe7b04c741b4738c0e0c72e528d4
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags

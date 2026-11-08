@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v1.0.0 — launch build; reviews approved. Next: tag v1.0.0 and GitHub release, then the user's F-Droid merge request (step 6).
+v1.0.1 — v1.0.0 tagged and released on GitHub (developer-signed APK); F-Droid merge request open: https://gitlab.com/fdroid/fdroiddata/-/merge_requests/56340. Next: answer F-Droid review comments; then close v1.0.
 
 ## v1.0 plan of action
 
@@ -17,7 +17,7 @@ Work toward the launch is versioned v0.6.x; the launch itself is v1.0.0. v1.0 is
    - Deps: user answers
 4. **Accessibility audit** (v1.0/4) ✅ (v0.6.3, v1.0.0) — agent drafts; user reviews. Approved: [`accessibility-v1.0.md`](docs/audits/accessibility/accessibility-v1.0.md).
 5. **Security review** (v1.0/5) ✅ (v1.0.0) — `docs/audits/security/security-v1.0.md`; approved.
-6. **Release** (v1.0/6) — tag v1.0.0, GitHub release and F-Droid merge request from the user's accounts, with step-by-step help.
+6. **Release** (v1.0/6) ⏳ — tag and GitHub release done (v1.0.0); F-Droid MR !56340 open, reproducible builds enabled (developer-signed). — tag v1.0.0, GitHub release and F-Droid merge request from the user's accounts, with step-by-step help.
 
 ### Execution
 - Step 1 with the user first (may change scope).

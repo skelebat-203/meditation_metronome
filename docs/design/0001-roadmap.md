@@ -96,7 +96,7 @@ Run as grouped subagents on a `v0.4` integration branch.
 
 Releases before v1.0 go to beta testers (APKs, not app stores). v1.0 is the full public launch on F-Droid, after background playback (v0.5) is done. Google Play moved to v1.1 by user decision.
 
-1. Submit to F-Droid: fill the recipe (`docs/fdroid/`) — author name, license (GPL-3.0-only or -or-later), category, real versionCode, `UpdateCheckData` if F-Droid can't read the version (security-v0.4 7.1, 7.2); tag the release; merge request to `fdroiddata` from the user's GitLab account. Recipe ✅ (v0.6.1); tag, GitHub release and merge request at v1.0.0.
+1. Submit to F-Droid: fill the recipe (`docs/fdroid/`) — author name, license (GPL-3.0-only or -or-later), category, real versionCode, `UpdateCheckData` if F-Droid can't read the version (security-v0.4 7.1, 7.2); tag the release; merge request to `fdroiddata` from the user's GitLab account. Recipe ✅ (v0.6.1); tag and GitHub release ✅ (v1.0.0); reproducible builds enabled (developer-signed); merge request open: https://gitlab.com/fdroid/fdroiddata/-/merge_requests/56340.
 2. Update the store listing text (it says background playback is planned). ✅ (v0.6.1, v1.0.0)
 3. Accessibility audit. ✅ (v0.6.3) — `docs/audits/accessibility/accessibility-v1.0.md`; Lighthouse 100.
 4. Security review. ✅ (v1.0.0) — `docs/audits/security/security-v1.0.md`; 7.1 (versionCode range) fixed in v0.6.4.
