@@ -73,7 +73,7 @@ const APP = Object.freeze({
   }),
   SETTINGS: Object.freeze({
     STORAGE_KEY: 'meditation-metronome.settings',
-    // Saved defaults. The music track is not saved: each app open starts on a random track.
+    // Saved defaults. The music track is saved separately (settings.js), only via Persistent.
     DEFAULTS: Object.freeze({
       music: true,
       musicVolume: 0.5,

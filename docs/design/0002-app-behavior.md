@@ -9,7 +9,7 @@ What the app does and how it behaves. Scope and build order live in the [roadmap
 - Order, top to bottom: Start, Length, then the Metronome and Music toggles.
 - **Two on/off toggles** in a row under the Length picker: Metronome, Music. They start from the saved defaults (all on by default) and apply only to the next session. Persistent changes are made in saved settings.
 - **Length** picker (Session length; labeled "Length" on the launch screen) between the Start button and the toggles (replaces the former Images toggle; Images is now in Settings only). Options: off (open-ended), 5–60 min in 5-minute steps; default off. Applies to the next session only; the saved default is set in Settings. See § Session length and marks.
-- On each app open, the start track and start image are chosen at random.
+- On each app open, the start image is chosen at random. The start track is random unless one was saved (see § Music).
 - **Settings button**, top right. Opens the settings screen.
 - Nothing plays until the user taps Start.
 
@@ -57,6 +57,7 @@ Not a score or streak; only sound cues.
 
 ## Music
 - ~10 tracks, played in shuffled order (not just a random start track); reshuffled after each full pass; loops forever.
+- Start track: if a track was chosen in Settings and saved with Persistent, every future session starts with it, then plays the shuffled rest of the pass. With no saved track the start track is random. A track chosen with This session is not saved. (`0004` #3, v0.6.2)
 - Opus, ~48 kbps, loops of ~2–3 minutes per track.
 
 ## Images
