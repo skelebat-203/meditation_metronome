@@ -1,7 +1,8 @@
 'use strict';
 
 // Asset credits shown on the Credits screen. Mirrors ATTRIBUTION.md: when an asset is added,
-// replaced or removed there, update the matching entry here.
+// replaced or removed there, update the matching entry here (same order), then run
+// `npm run check-credits` to confirm they match.
 
 const CREDITS = Object.freeze([
   Object.freeze({

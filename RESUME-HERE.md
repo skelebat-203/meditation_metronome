@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.3.0 — v0.2 complete (summary in the roadmap); next: v0.3 step 0.
+v0.3.1 — v0.3 step 5 done (credits check); next: v0.3 step 0 (Group A).
 
 ## v0.3 plan of action
 
@@ -31,10 +31,10 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Deps: 1
 4. **GrapheneOS test** (v0.3/4) — with the user on device, including screen-off behavior; results recorded in `0002` § Screen.
    - Deps: 1–3
-5. **Credits from a single source** (v0.3/5) — `js/credits.js` and `ATTRIBUTION.md` can't drift (one generated from the other, or a check that they match).
+5. **Credits from a single source** (v0.3/5) — `js/credits.js` and `ATTRIBUTION.md` can't drift: `ATTRIBUTION.md` is the source; `scripts/check-credits.js` (Node, no deps) checks every entry's title, author, source URL and license (credits may add a `(modified: ...)` note) in order, and that every file in `assets/` is listed and exists. ✅ (v0.3.1)
    - Source: roadmap v0.3 item 5
-   - Files: `js/credits.js`, `ATTRIBUTION.md`, possibly `scripts/`
-   - Verify: a mismatch is caught or impossible
+   - Files: `js/credits.js`, `scripts/check-credits.js`, `package.json`
+   - Verify: `npm run check-credits` passes (exit 0); after any edit to `ATTRIBUTION.md`, `js/credits.js` or `assets/`, run it again — a mismatch or unlisted asset fails with exit 1 and names the entry
    - Deps: none
 6. **Accessibility audit** (v0.3/6) — agent drafts; user reviews.
    - Report: `docs/audits/accessibility/accessibility-v0.3.md`
@@ -46,4 +46,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group B: step 5 (web only; parallel with A)
 - Reviews: step 4 with the user; steps 6, 7 drafted by agent, **pause for user review** before v0.4.0 and the merge to `main`
 - Run mode: **grouped subagents**. Gates are at version end; A and B touch separate files.
-- Status: ☐ A · ☐ B · ☐ reviews
+- Status: ☐ A · ✅ B · ☐ reviews
