@@ -29,6 +29,22 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
+    buildTypes {
+        release {
+            // F-Droid builds this unsigned and signs it itself. Not debuggable, so WebView debugging stays off.
+            debuggable false
+            minifyEnabled false
+            // No git commit info in the APK: keeps builds identical across checkouts.
+            vcsInfo.include false
+        }
+    }
+
+    // No Google-signed dependency-info block in the APK/bundle (F-Droid rejects it).
+    dependenciesInfo {
+        includeInApk false
+        includeInBundle false
+    }
+
     buildFeatures {
         buildConfig false
     }

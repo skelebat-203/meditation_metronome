@@ -1,0 +1,24 @@
+Categories:
+  - Sports & Health
+License: GPL-3.0-or-later
+AuthorName: {author_name}
+SourceCode: https://github.com/skelebat-203/meditation_metronome
+IssueTracker: https://github.com/skelebat-203/meditation_metronome/issues
+
+AutoName: Meditation Metronome
+
+RepoType: git
+Repo: https://github.com/skelebat-203/meditation_metronome.git
+
+Builds:
+  - versionName: 0.4.{N}
+    versionCode: 40{N}
+    commit: v0.4.{N}
+    subdir: android/app
+    gradle:
+      - yes
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+CurrentVersion: 0.4.{N}
+CurrentVersionCode: 40{N}
