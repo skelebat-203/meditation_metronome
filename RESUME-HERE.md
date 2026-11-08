@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.4.4 — groups A and B done: release build, F-Droid recipe draft (`docs/fdroid/`), F-Droid store listing (`fastlane/`). Next: reviews.
+v0.4.5 — groups A and B done; accessibility audit (step 5) drafted, awaiting user review. Security review (step 6) drafted, uncommitted. Next: user review.
 
 ## v0.4 plan of action
 
@@ -27,7 +27,7 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 4. **Submit to F-Droid** (v0.4/4) — outward-facing: prepared by the agent, submitted only after the user's go-ahead.
    - Source: roadmap v0.4 item 2
    - Deps: 2, 3, reviews
-5. **Accessibility audit** (v0.4/5) — agent drafts; user reviews.
+5. **Accessibility audit** (v0.4/5) — agent drafts; user reviews. Drafted (v0.4.5), awaiting user review.
    - Report: `docs/audits/accessibility/accessibility-v0.4.md`
 6. **Security review** (v0.4/6) — agent drafts; user reviews; bumps to v0.5.0 and `v0.4` merges to `main`.
    - Report: `docs/audits/security/security-v0.4.md`
@@ -37,4 +37,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group B: step 3 (after 1, so screenshots show the final pickers; parallel with 2)
 - Reviews: steps 5, 6 drafted by agent; **pause for user review**; step 4 after approval
 - Run mode: **grouped subagents**.
-- Status: ✅ A · ✅ B · ☐ reviews · ☐ submit
+- Status: ✅ A · ✅ B · ⏳ reviews · ☐ submit
