@@ -80,8 +80,8 @@ Run as grouped subagents on a `v0.4` integration branch.
 
 ## v0.5 — Background playback
 
-1. Keep the session playing with the screen off: Android foreground service + media notification.
-2. Test on GrapheneOS.
+1. Keep the session playing with the screen off: Android foreground service + media notification. ✅ (v0.5.1) — marked complete by user decision: testers report background playback already works on Android; no foreground service built.
+2. Test on GrapheneOS. ✅ (v0.5.1) — from the v0.3 device test: on GrapheneOS, switching apps or turning the screen off stops the session (tracked in `0004`).
 3. Accessibility audit.
 4. Security review; run `npm audit` (deferred from v0.2 by user decision; last pre-1.0 subversion).
 
