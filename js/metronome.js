@@ -38,12 +38,12 @@ const CLICK_CHIME_Q = 12;
 const WOOD_CHIME_S = 1.5;
 const BELL_CHIME_STRETCH = 1.6;     // bell partial decays × this
 const END_CHIME_STRETCH = 1.5;     // each end-chime strike rings this much longer than a mark
-const END_CHIME_GAP_S = 1.5;       // time between end-chime strikes
+const END_CHIME_GAPS_S = [2.5, 3]; // gaps between the end chime's strikes, slowing down
 const NOISE_BUFFER_S = CLICK_CHIME_S * END_CHIME_STRETCH;
 // Mark: one strike. End: three strikes, lower pitch, so the two are easy to tell apart.
 const CHIMES = {
-  mark: { strikes: 1, gapS: 0, pitch: 1, stretch: 1 },
-  end: { strikes: 3, gapS: END_CHIME_GAP_S, pitch: 0.75, stretch: END_CHIME_STRETCH },
+  mark: { gapsS: [], pitch: 1, stretch: 1 },
+  end: { gapsS: END_CHIME_GAPS_S, pitch: 0.75, stretch: END_CHIME_STRETCH },
 };
 
 const Metronome = (function () {
@@ -147,8 +147,10 @@ const Metronome = (function () {
   function playChime(kind, out, time) {
     const c = CHIMES[kind];
     let endS = 0;
-    for (let i = 0; i < c.strikes; i++) {
-      const offset = i * c.gapS;
+    let offset = 0;
+    // One strike, then one more after each gap.
+    for (let i = 0; i <= c.gapsS.length; i++) {
+      if (i > 0) offset += c.gapsS[i - 1];
       endS = Math.max(endS, offset + PLAYERS[sound](out, time + offset, c.pitch, c.stretch));
     }
     return endS * 1000;

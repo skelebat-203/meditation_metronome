@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.3.8 — steps 0–6 done (step 4 device test passed, fixes landed; step 6 session timer toggle landed); step 7 accessibility audit drafted; step 8 security review drafted (uncommitted); next: review of both reports.
+v0.3.9 — end chime slowed to widening gaps (2.5 s, 3 s). Next: user phone check of timer toggle and end chime; review a11y and security drafts; then v0.4.0.
 
 ## v0.3 plan of action
 
