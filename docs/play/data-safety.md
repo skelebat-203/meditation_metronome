@@ -34,5 +34,5 @@ None collected, none shared. Every category (location, personal info, financial 
 | Ads | No ads |
 | App access | All features available without login |
 | Content rating | Fill in the questionnaire; expect the lowest rating (no violence, no user content, no sharing) |
-| Target audience | User decision (suggest 13+ to stay out of the Families rules) |
+| Target audience | All ages, including under 13 (user decision 2026-11-08). Families policy applies: complete the Families declarations; no ads, no data collected. |
 | Government app / financial / health | No |

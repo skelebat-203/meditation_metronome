@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v1.1.3 — v1.1 steps 3–5 done on `worktree-v1.1-group-a` (unsigned AAB, privacy policy + Data safety draft, Play listing check). Next: step 1 (Play account) and step 2 (signing) with the user; fix the screenshot ratio and icon alpha (`docs/play/listing.md`).
+v1.1.4 — target audience set to all ages (Families policy). v1.1 steps 3–5 done on `worktree-v1.1-group-a` (unsigned AAB, privacy policy + Data safety draft, Play listing check). Next: step 1 (Play account) and step 2 (signing) with the user; fix the screenshot ratio and icon alpha (`docs/play/listing.md`).
 
 ## v1.1 plan of action
 
