@@ -38,7 +38,7 @@ const CLICK_CHIME_Q = 12;
 const WOOD_CHIME_S = 1.5;
 const BELL_CHIME_STRETCH = 1.6;     // bell partial decays × this
 const END_CHIME_STRETCH = 1.5;     // each end-chime strike rings this much longer than a mark
-const END_CHIME_GAPS_S = [2.5, 3]; // gaps between the end chime's strikes, slowing down
+const END_CHIME_GAPS_S = [2, 2.5]; // gaps between the end chime's strikes, slowing down
 const NOISE_BUFFER_S = CLICK_CHIME_S * END_CHIME_STRETCH;
 // Mark: one strike. End: three strikes, lower pitch, so the two are easy to tell apart.
 const CHIMES = {
