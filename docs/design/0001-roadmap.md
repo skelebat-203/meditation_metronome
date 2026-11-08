@@ -91,6 +91,8 @@ Run as grouped subagents on a `v0.3` integration branch. Android build tools liv
 
 - Settings: let the user add their own music and images.
 - Settings: music repeat mode — loop the whole (shuffled) list, or repeat a single track.
+- Settings: Move save options into a save menu at the top right
+- Add 1 and 3 minute options to length.
 
 ## v1.0 — Full launch
 

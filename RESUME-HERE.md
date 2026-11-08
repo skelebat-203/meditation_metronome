@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.4.0 — v0.3 complete (summary in the roadmap); next: v0.4 step 1.
+v0.4.1 — future item added (save menu); v0.4 started. Next: groups A and B.
 
 ## v0.4 plan of action
 
