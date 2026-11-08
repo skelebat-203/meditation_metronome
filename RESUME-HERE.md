@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.3.5 — v0.3 Group A done (steps 0–3: build tools, WebView wrapper, icon/splash, keep screen awake); next: step 4 (GrapheneOS test with the user).
+v0.3.6 — v0.3 Group A done (steps 0–3); step 6 accessibility audit drafted; step 7 security review drafted (uncommitted); next: step 4 (GrapheneOS test with the user) and review of both reports.
 
 ## v0.3 plan of action
 
@@ -37,7 +37,7 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Verify: `npm run check-credits` passes (exit 0); after any edit to `ATTRIBUTION.md`, `js/credits.js` or `assets/`, run it again — a mismatch or unlisted asset fails with exit 1 and names the entry
    - Deps: none
 6. **Accessibility audit** (v0.3/6) — agent drafts; user reviews.
-   - Report: `docs/audits/accessibility/accessibility-v0.3.md`
+   - Report: `docs/audits/accessibility/accessibility-v0.3.md` — drafted, awaiting user review (v0.3.6)
 7. **Security review** (v0.3/7) — agent drafts; user reviews; bumps to v0.4.0 and `v0.3` merges to `main`.
    - Report: `docs/audits/security/security-v0.3.md`
 

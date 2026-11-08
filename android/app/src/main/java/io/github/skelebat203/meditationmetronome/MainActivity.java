@@ -19,6 +19,7 @@ public class MainActivity extends Activity {
 
     private static final String ASSET_ROOT = "file:///android_asset/web/";
     private static final String START_URL = ASSET_ROOT + "index.html";
+    private static final int PERCENT = 100;
 
     private WebView webView;
 
@@ -34,6 +35,9 @@ public class MainActivity extends Activity {
         WebSettings s = webView.getSettings();
         s.setJavaScriptEnabled(true);
         s.setDomStorageEnabled(true); // saved settings use localStorage
+        // WebView ignores the system font size; follow it so large text works (WCAG 1.4.4).
+        // fontScale is not in configChanges, so a change recreates the activity and reapplies this.
+        s.setTextZoom(Math.round(getResources().getConfiguration().fontScale * PERCENT));
         // Assets stay readable via file:///android_asset; everything else on disk is closed.
         s.setAllowFileAccess(false);
         s.setAllowContentAccess(false);
