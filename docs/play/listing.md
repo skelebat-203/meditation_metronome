@@ -10,7 +10,7 @@ Source: `fastlane/metadata/android/en-US/`. Limits checked 2026-11-08 against th
 | Short description | 80 characters | 67 |
 | Full description | 4,000 characters | 961 |
 | Icon | 32-bit PNG with alpha, 512 × 512, up to 1,024 KB | 512 × 512 RGBA PNG, 8 KB (re-saved in v1.1.5; same pixels, fully opaque) |
-| Feature graphic | 1024 × 500, JPEG or 24-bit PNG, no alpha | New: `images/featureGraphic.png`, 1024 × 500 RGB PNG, from `calm-bliss.webp` (CC0) with the app icon. Listed in `ATTRIBUTION.md`. Needs user approval. |
+| Feature graphic | 1024 × 500, JPEG or 24-bit PNG, no alpha | New: `images/featureGraphic.png`, 1024 × 500 RGB PNG, from `calm-bliss.webp` (CC0) with the white metronome glyph and a dark glow, no square (approved). Listed in `ATTRIBUTION.md`. |
 | Screenshot count | 2 to 8 | 6 |
 | Screenshot format | JPEG or 24-bit PNG, no alpha, 320 to 3,840 px, long side at most 2× short side | 1080 × 2160 RGB PNG (2:1), no status bar |
 
@@ -18,7 +18,7 @@ Screenshots (v1.1.5, taken with Playwright at 432 × 864, scale 2.5): 1 home, 2 
 
 ## Needs changing
 
-Nothing open. A feature graphic without the dark square is waiting for user approval.
+Nothing open.
 
 ## Text
 

@@ -50,4 +50,4 @@ Changes to the images: every image was converted from JPEG to WebP (about 130–
 
 | File | Made from | License |
 |---|---|---|
-| `fastlane/metadata/android/en-US/images/featureGraphic.png` | `assets/images/calm-bliss.webp` (CC0, see Images) with the app icon (project's own) on top | [CC0](http://creativecommons.org/publicdomain/zero/1.0/deed.en) source; the project's license for the icon |
+| `fastlane/metadata/android/en-US/images/featureGraphic.png` | `assets/images/calm-bliss.webp` (CC0, see Images) with the app icon's metronome glyph (project's own) on top | [CC0](http://creativecommons.org/publicdomain/zero/1.0/deed.en) source; the project's license for the icon |
