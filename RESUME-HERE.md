@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.3.4 — v0.3 step 2 done (placeholder icon, name, splash; user reviews at version end); next: step 3 (keep screen awake).
+v0.3.5 — v0.3 Group A done (steps 0–3: build tools, WebView wrapper, icon/splash, keep screen awake); next: step 4 (GrapheneOS test with the user).
 
 ## v0.3 plan of action
 
@@ -24,7 +24,7 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `android/` resources
    - Verify: icon and name show in launcher; splash shows on start; user reviews at version end
    - Deps: 1
-3. **Keep screen awake** (v0.3/3) — honors the Keep screen awake setting during a session. Open design question: the WebView lockdown forbids a JS-to-Android bridge, so use the web Screen Wake Lock API where the WebView supports it; ask the user before adding any bridge.
+3. **Keep screen awake** (v0.3/3) — honors the Keep screen awake setting during a session. Open design question: the WebView lockdown forbids a JS-to-Android bridge, so use the web Screen Wake Lock API where the WebView supports it; ask the user before adding any bridge. ✅ (v0.3.5)
    - Source: roadmap v0.3 item 3; `0002` § Screen, § Platform
    - Files: `js/`, possibly `android/`
    - Verify: screen stays on through a session with the setting on; turns off normally with it off
@@ -46,4 +46,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group B: step 5 (web only; parallel with A)
 - Reviews: step 4 with the user; steps 6, 7 drafted by agent, **pause for user review** before v0.4.0 and the merge to `main`
 - Run mode: **grouped subagents**. Gates are at version end; A and B touch separate files.
-- Status: ⏳ A (0–2 ✅) · ✅ B · ☐ reviews
+- Status: ✅ A · ✅ B · ☐ reviews

@@ -146,6 +146,8 @@ function finishSession(chimeMs) {
 function requestWakeLock() {
   if (!navigator.wakeLock || wakeLock) return;
   navigator.wakeLock.request('screen').then(function (lock) {
+    // The session may have ended while the request was pending.
+    if (!inSession) { lock.release(); return; }
     wakeLock = lock;
     lock.addEventListener('release', function () { wakeLock = null; });
   }).catch(function (err) { console.warn('Wake lock failed:', err); });
