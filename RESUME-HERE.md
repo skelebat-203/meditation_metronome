@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v1.1.4 — target audience set to all ages (Families policy). v1.1 steps 3–5 done on `worktree-v1.1-group-a` (unsigned AAB, privacy policy + Data safety draft, Play listing check). Next: step 1 (Play account) and step 2 (signing) with the user; fix the screenshot ratio and icon alpha (`docs/play/listing.md`).
+v1.1.5 — new 1080 × 2160 screenshots (6) and RGBA icon for Play. v1.1 steps 3–5 done on `worktree-v1.1-group-a`. Next: user approves the new feature graphic; step 1 (Play account) and step 2 (signing) with the user.
 
 ## v1.1 plan of action
 
@@ -17,7 +17,7 @@ Versions follow the versioning rules; the final step bumps to v1.2.0. UI steps n
    - Source: roadmap v1.1 item 3 · Files: none · Verify: sha256 of two clean builds match · Deps: none
 4. **Privacy policy and Data safety** (v1.1/4) ✅ (v1.1.2) — `docs/privacy/index.html`; `docs/play/data-safety.md`. Pages not enabled yet.
    - Source: roadmap v1.1 item 4 · Files: `docs/privacy/`, `docs/play/` · Verify: user reads both; Pages on (user) · Deps: none
-5. **Play listing** (v1.1/5) ✅ (v1.1.3) — `docs/play/listing.md`; feature graphic added. Open: screenshot ratio, icon alpha.
+5. **Play listing** (v1.1/5) ✅ (v1.1.3, v1.1.5) — `docs/play/listing.md`; feature graphic added; screenshots and icon fixed.
    - Source: roadmap v1.1 item 5 · Files: `fastlane/metadata/android/en-US/`, `docs/play/listing.md`, `ATTRIBUTION.md` · Verify: user approves graphic · Deps: none
 6. **Closed test** (v1.1/6) — 12+ testers for 14 continuous days.
    - Source: roadmap v1.1 item 6 · Files: none · Verify: Console shows 14 days · Deps: 1, 2, 4, 5

@@ -9,15 +9,16 @@ Source: `fastlane/metadata/android/en-US/`. Limits checked 2026-11-08 against th
 | Title | 30 characters | 20 ("Meditation Metronome") |
 | Short description | 80 characters | 67 |
 | Full description | 4,000 characters | 961 |
-| Icon size | 512 × 512 PNG, up to 1,024 KB | 512 × 512, 7.5 KB |
+| Icon | 32-bit PNG with alpha, 512 × 512, up to 1,024 KB | 512 × 512 RGBA PNG, 8 KB (re-saved in v1.1.5; same pixels, fully opaque) |
 | Feature graphic | 1024 × 500, JPEG or 24-bit PNG, no alpha | New: `images/featureGraphic.png`, 1024 × 500 RGB PNG, from `calm-bliss.webp` (CC0) with the app icon. Listed in `ATTRIBUTION.md`. Needs user approval. |
-| Screenshot count | 2 to 8 | 5 |
-| Screenshot format | JPEG or 24-bit PNG, no alpha, 320 to 3,840 px | 1080 × 2400 RGB PNG |
+| Screenshot count | 2 to 8 | 6 |
+| Screenshot format | JPEG or 24-bit PNG, no alpha, 320 to 3,840 px, long side at most 2× short side | 1080 × 2160 RGB PNG (2:1), no status bar |
+
+Screenshots (v1.1.5, taken with Playwright at 432 × 864, scale 2.5): 1 home, 2 session with controls (4:34 remaining), 3 session with controls hidden (0:07 elapsed), 4 settings top, 5 settings lower, 6 credits. F-Droid uses the same files.
 
 ## Needs changing
 
-1. **Screenshots are too tall.** Play says the longer side can't be more than twice the shorter side. 2400 / 1080 = 2.22. Options: retake at 1080 × 1920 (9:16, Play's recommended size), or crop the current ones to 1080 × 2160 (2:1). Retaking at 9:16 is better: it also counts for Play's "recommended" formats (at least 4 at 1080 px or more). Use a separate Play folder if F-Droid should keep the current ones.
-2. **Icon has no alpha channel.** Play asks for a 32-bit PNG with alpha. Ours is 24-bit RGB. The fix is to save it again as RGBA (same look). It may upload as is; check in the Console.
+Nothing open. A feature graphic without the dark square is waiting for user approval.
 
 ## Text
 
