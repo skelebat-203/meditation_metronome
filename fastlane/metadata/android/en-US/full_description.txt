@@ -20,4 +20,4 @@ Your privacy:
 
 Music and image credits are listed in the app.
 
-Please note: the session stops when you leave the app or turn off the screen. Playback in the background is planned for a later version.
+Please note: on some phones (such as GrapheneOS), the session stops when you leave the app or turn off the screen.

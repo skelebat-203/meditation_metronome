@@ -34,6 +34,7 @@ This project is local-only (no network access), so it uses the LOCAL severity ma
 - This is for agent checks only. The user tests in the system Firefox and Chrome, which stays the authority for the `Verify:` lines.
 
 ## Android build (agents)
+- Version sync: every version bump also updates `versionCode` in `package.json` (major*10000 + minor*100 + patch). Gradle fails the build if it doesn't match; F-Droid's update checker reads it.
 - Build tools (JDK 17, Android SDK) live in `.tools/` at the main checkout root (git-ignored), shared by all worktrees. Not part of the app. Install or repair with `scripts/setup-android-tools.sh` (pinned versions, checksums, idempotent; no sudo, nothing outside `.tools/`).
 - Set these before any build, with `{main}` the main checkout root:
   ```

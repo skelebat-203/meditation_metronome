@@ -92,14 +92,19 @@ Run as grouped subagents on a `v0.4` integration branch.
 - Settings: Move save options into a save menu at the top right
 - Add 1 and 3 minute options to length.
 
-## v1.0 — Full launch
+## v1.0 — Full launch (F-Droid)
 
-Releases before v1.0 go to beta testers (APKs, not app stores). v1.0 is the full public launch, after background playback (v0.5) is done.
+Releases before v1.0 go to beta testers (APKs, not app stores). v1.0 is the full public launch on F-Droid, after background playback (v0.5) is done. Google Play moved to v1.1 by user decision.
 
 1. Submit to F-Droid: fill the recipe (`docs/fdroid/`) — author name, license (GPL-3.0-only or -or-later), category, real versionCode, `UpdateCheckData` if F-Droid can't read the version (security-v0.4 7.1, 7.2); tag the release; merge request to `fdroiddata` from the user's GitLab account.
-2. Google Play: signed AAB, store listing, privacy policy page on GitHub Pages (states that no data is collected); submit.
-3. Update the store listing text (it says background playback is planned).
-4. Accessibility audit.
-5. Security review.
+2. Update the store listing text (it says background playback is planned).
+3. Accessibility audit.
+4. Security review.
 
 Before launch: review every item in [`0004-revisit-before-launch.md`](0004-revisit-before-launch.md).
+
+## v1.1 — Google Play release
+
+1. Google Play: signed AAB (upload key kept out of git), store listing, privacy policy page on GitHub Pages (states that no data is collected); submit from the user's Play developer account.
+2. Accessibility audit.
+3. Security review.
