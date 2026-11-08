@@ -67,8 +67,6 @@ const APP = Object.freeze({
   TIMER_UPDATE_MS: 1000,
   SESSION: Object.freeze({
     // Session length and marks interval choices, in seconds. 0 = off (length only).
-    // TEST_S is a temporary manual-test option; remove before v0.4 (0002 § Session length and marks).
-    TEST_S: 10,
     STEP_S: 300, // 5 min
     MAX_S: 3600, // 60 min
     FADE_MS: 3000, // music/metronome fade-out when the session length ends

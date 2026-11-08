@@ -91,7 +91,6 @@ function renderToggles() {
 // Duration labels for the Session length and Mark every pickers.
 function durationLabel(seconds) {
   if (seconds === 0) return 'Off';
-  if (seconds < 60) return seconds + ' s (test)';
   return seconds / 60 + ' min';
 }
 

@@ -3,13 +3,13 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.4.1 — future item added (save menu); v0.4 started. Next: groups A and B.
+v0.4.2 — 10-second test option removed. Next: step 2 (release build), group B.
 
 ## v0.4 plan of action
 
 Versions follow the global versioning rules (patch +1 per completed-work commit, `Plan-Step: v0.4/N` trailer). The final step bumps to v0.5.0. The main session coordinates subagents in worktrees off a `v0.4` integration branch; `main` gets it only after the user's end-of-version review. Human gates: blocking questions, anything outward-facing (the F-Droid submission), and the end-of-version review (store text and screenshots, a11y and security reports, plus any UI/UX changes the user notes). Security findings Low+ are fixed in the same version.
 
-1. **Remove the 10-second test option** (v0.4/1) — from Session length and Marks.
+1. ✅ (v0.4.2) **Remove the 10-second test option** (v0.4/1) — from Session length and Marks.
    - Source: roadmap v0.4 item 2; `0002` § Session length and marks
    - Files: `js/constants.js`, `docs/design/0002-app-behavior.md`
    - Verify: neither picker offers 10 s; a saved 10 s setting falls back to the default
@@ -37,4 +37,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group B: step 3 (after 1, so screenshots show the final pickers; parallel with 2)
 - Reviews: steps 5, 6 drafted by agent; **pause for user review**; step 4 after approval
 - Run mode: **grouped subagents**.
-- Status: ☐ A · ☐ B · ☐ reviews · ☐ submit
+- Status: ⏳ A (1 ✅) · ☐ B · ☐ reviews · ☐ submit

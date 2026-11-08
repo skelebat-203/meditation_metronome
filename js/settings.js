@@ -11,8 +11,8 @@ const Settings = (function () {
   const SOUNDS = Object.values(APP.METRONOME.SOUNDS);
   const SESSION = APP.SESSION;
 
-  // Interval choices in seconds: the test option, then 5–60 min in 5-minute steps.
-  const INTERVALS = [SESSION.TEST_S];
+  // Interval choices in seconds: 5–60 min in 5-minute steps.
+  const INTERVALS = [];
   for (let s = SESSION.STEP_S; s <= SESSION.MAX_S; s += SESSION.STEP_S) INTERVALS.push(s);
   const LENGTHS = [0].concat(INTERVALS); // 0 = off
 
