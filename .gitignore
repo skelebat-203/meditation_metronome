@@ -20,3 +20,6 @@ android/.gradle/
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Android build tools (project-local, see scripts/setup-android-tools.sh)
+.tools/

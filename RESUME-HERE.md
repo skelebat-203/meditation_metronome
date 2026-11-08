@@ -3,13 +3,13 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.3.1 — v0.3 step 5 done (credits check); next: v0.3 step 0 (Group A).
+v0.3.2 — v0.3 step 0 done (Android build tools); next: step 1 (WebView wrapper).
 
 ## v0.3 plan of action
 
 Versions follow the global versioning rules (patch +1 per completed-work commit, `Plan-Step: v0.3/N` trailer). The final step bumps to v0.4.0. The main session coordinates subagents in worktrees off a `v0.3` integration branch; `main` gets it only after the user's end-of-version review. Human gates: blocking questions, and the end-of-version review (icon/splash, device test, a11y and security reports, plus any UI/UX changes the user notes).
 
-0. **Android build tools** (v0.3/0) — JDK 17 and Android command-line tools installed project-local in `.tools/` (git-ignored), with a setup script pinning exact versions; usage documented in `.claude/CLAUDE.md`. Not part of the app.
+0. **Android build tools** (v0.3/0) — JDK 17 and Android command-line tools installed project-local in `.tools/` (git-ignored), with a setup script pinning exact versions; usage documented in `.claude/CLAUDE.md`. Not part of the app. ✅ (v0.3.2)
    - Source: roadmap v0.3 item 1 (prerequisite)
    - Files: `.gitignore`, `scripts/setup-android-tools.sh`, `.claude/CLAUDE.md`
    - Verify: `java -version` and `sdkmanager --list_installed` work from `.tools/`; worktrees reuse the main checkout's `.tools/`
@@ -46,4 +46,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group B: step 5 (web only; parallel with A)
 - Reviews: step 4 with the user; steps 6, 7 drafted by agent, **pause for user review** before v0.4.0 and the merge to `main`
 - Run mode: **grouped subagents**. Gates are at version end; A and B touch separate files.
-- Status: ☐ A · ✅ B · ☐ reviews
+- Status: ⏳ A (0 ✅) · ✅ B · ☐ reviews

@@ -32,3 +32,15 @@ This project is local-only (no network access), so it uses the LOCAL severity ma
   ```
   Stop the server afterwards. `--no-sandbox` is included because Chrome's own sandbox may fail inside the editor's Flatpak (untested without it).
 - This is for agent checks only. The user tests in the system Firefox and Chrome, which stays the authority for the `Verify:` lines.
+
+## Android build (agents)
+- Build tools (JDK 17, Android SDK) live in `.tools/` at the main checkout root (git-ignored), shared by all worktrees. Not part of the app. Install or repair with `scripts/setup-android-tools.sh` (pinned versions, checksums, idempotent; no sudo, nothing outside `.tools/`).
+- Set these before any build, with `{main}` the main checkout root:
+  ```
+  export JAVA_HOME={main}/.tools/jdk
+  export ANDROID_HOME={main}/.tools/android-sdk
+  export ANDROID_USER_HOME={main}/.tools/android-user
+  export GRADLE_USER_HOME={main}/.tools/gradle
+  ```
+- Build a debug APK from the checkout or worktree: `cd android && ./gradlew assembleDebug`. The web files (`index.html`, `css/`, `js/`, `assets/`) are copied into the APK at build time; there is no second copy in git. Output: `android/app/build/outputs/apk/debug/app-debug.apk`.
+- Check permissions: `$ANDROID_HOME/build-tools/35.0.0/aapt dump permissions {apk}` (no INTERNET allowed).
