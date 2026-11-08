@@ -9,11 +9,16 @@ def sdkTarget = 35
 
 // Web app version comes from the root package.json (one version for web and APK).
 // versionCode is a literal there too, so F-Droid's update checker can read it;
-// the build fails if it does not match major*10000 + minor*100 + patch.
+// the build fails if it does not match major*10000 + minor*100 + patch, or if minor or patch
+// is outside 0..99 (the formula would then collide or go out of order).
 def webRoot = rootDir.parentFile
 def pkg = new groovy.json.JsonSlurper().parse(new File(webRoot, 'package.json'))
 def appVersion = pkg.version
 def versionParts = appVersion.tokenize('.').collect { it as int }
+def versionPartMax = 99
+if (versionParts.size() != 3 || versionParts[1..2].any { it < 0 || it > versionPartMax }) {
+    throw new GradleException("package.json version ${appVersion} must be major.minor.patch with minor and patch 0..${versionPartMax}")
+}
 def appVersionCode = pkg.versionCode as int
 def expectedVersionCode = versionParts[0] * 10000 + versionParts[1] * 100 + versionParts[2]
 if (appVersionCode != expectedVersionCode) {

@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.6.3 — v1.0 accessibility audit drafted (awaiting user review). Next: security review (step 5).
+v0.6.4 — v1.0 security review in progress; fix 7.1 (versionCode range check) landed. Accessibility audit drafted, awaiting user review.
 
 ## v1.0 plan of action
 
