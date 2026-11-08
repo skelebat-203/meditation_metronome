@@ -23,3 +23,4 @@ Thumbs.db
 
 # Android build tools (project-local, see scripts/setup-android-tools.sh)
 .tools/
+*.idsig
