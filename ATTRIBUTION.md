@@ -45,3 +45,9 @@ Changes to the music: every track was re-encoded to Opus (48 kbps) with a 2 s fa
 | `assets/images/stonor-forest-mist.webp` | Misty Winter morning in Stonor Forest (16170833916) | Scott Wylie from UK | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Misty_Winter_morning_in_Stonor_Forest_(16170833916).jpg) | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0) |
 
 Changes to the images: every image was converted from JPEG to WebP (about 130–150 KB), scaled to 1920 px wide where larger, and stripped of metadata.
+
+## Store images
+
+| File | Made from | License |
+|---|---|---|
+| `fastlane/metadata/android/en-US/images/featureGraphic.png` | `assets/images/calm-bliss.webp` (CC0, see Images) with the app icon (project's own) on top | [CC0](http://creativecommons.org/publicdomain/zero/1.0/deed.en) source; the project's license for the icon |
