@@ -3,38 +3,20 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.4.5 — groups A and B done; accessibility audit (step 5) drafted, awaiting user review. Security review (step 6) drafted, uncommitted. Next: user review.
+v0.5.0 — v0.4 (release prep) complete; store submissions moved to v1.0. Next: v0.5 step 1, pending the user's call on background playback.
 
-## v0.4 plan of action
+## v0.5 plan of action
 
-Versions follow the global versioning rules (patch +1 per completed-work commit, `Plan-Step: v0.4/N` trailer). The final step bumps to v0.5.0. The main session coordinates subagents in worktrees off a `v0.4` integration branch; `main` gets it only after the user's end-of-version review. Human gates: blocking questions, anything outward-facing (the F-Droid submission), and the end-of-version review (store text and screenshots, a11y and security reports, plus any UI/UX changes the user notes). Security findings Low+ are fixed in the same version.
+Versions follow the global versioning rules (patch +1 per completed-work commit, `Plan-Step: v0.5/N` trailer). The final step bumps to v0.6.0. The main session coordinates subagents in worktrees off a `v0.5` integration branch; `main` gets it only after the user's end-of-version review. Human gates: blocking questions and the end-of-version review. Security findings Low+ are fixed in the same version.
 
-1. ✅ (v0.4.2) **Remove the 10-second test option** (v0.4/1) — from Session length and Marks.
-   - Source: roadmap v0.4 item 2; `0002` § Session length and marks
-   - Files: `js/constants.js`, `docs/design/0002-app-behavior.md`
-   - Verify: neither picker offers 10 s; a saved 10 s setting falls back to the default
-   - Deps: none
-2. ✅ (v0.4.3) **Reproducible release build** (v0.4/2) — release build with no debug flags, deterministic output (two clean builds give identical unsigned APKs), versionName/versionCode from `package.json`; F-Droid build recipe drafted.
-   - Source: roadmap v0.4 item 1
-   - Files: `android/`, `scripts/`
-   - Verify: two clean builds match byte-for-byte; no permissions; recipe builds from a clean checkout
-   - Deps: 1
-3. ✅ (v0.4.4) **Fastlane metadata** (v0.4/3) — title, short and full description, changelog, phone screenshots.
-   - Source: roadmap v0.4 item 1
-   - Files: `fastlane/metadata/android/en-US/`
-   - Verify: F-Droid metadata layout; reading level grade 10 or lower; user reviews at version end
-   - Deps: 1
-4. **Submit to F-Droid** (v0.4/4) — outward-facing: prepared by the agent, submitted only after the user's go-ahead.
-   - Source: roadmap v0.4 item 2
-   - Deps: 2, 3, reviews
-5. **Accessibility audit** (v0.4/5) — agent drafts; user reviews. Drafted (v0.4.5), awaiting user review.
-   - Report: `docs/audits/accessibility/accessibility-v0.4.md`
-6. **Security review** (v0.4/6) — agent drafts; user reviews; bumps to v0.5.0 and `v0.4` merges to `main`.
-   - Report: `docs/audits/security/security-v0.4.md`
+1. **Background playback** (v0.5/1) — keep the session playing with the screen off or the app in the background. Open: the user's testers report it already works on Android; the v0.3 GrapheneOS test recorded that it stops (`0002` § Screen). Confirm before marking complete or building a foreground service (which would need a JS-to-Android link the lockdown forbids, plus foreground-service and notification permissions).
+2. **GrapheneOS test** (v0.5/2) — with the user, on device.
+3. **Accessibility audit** (v0.5/3) — agent drafts; user reviews.
+   - Report: `docs/audits/accessibility/accessibility-v0.5.md`
+4. **Security review** (v0.5/4) — agent drafts; run `npm audit`; user reviews; bumps to v0.6.0 and `v0.5` merges to `main`.
+   - Report: `docs/audits/security/security-v0.5.md`
 
 ### Execution
-- Group A: steps 1, 2 (sequential)
-- Group B: step 3 (after 1, so screenshots show the final pickers; parallel with 2)
-- Reviews: steps 5, 6 drafted by agent; **pause for user review**; step 4 after approval
+- Steps 1–2 depend on the user's answer; steps 3–4 drafted by agent, then **pause for user review**.
 - Run mode: **grouped subagents**.
-- Status: ✅ A · ✅ B · ⏳ reviews · ☐ submit
+- Status: ☐ 1 · ☐ 2 · ☐ reviews

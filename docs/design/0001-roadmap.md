@@ -66,26 +66,24 @@ Run as grouped subagents on a `v0.2` integration branch, with one user review at
 
 Run as grouped subagents on a `v0.3` integration branch. Android build tools live project-local in `.tools/` (git-ignored, `scripts/setup-android-tools.sh`). Item 6 added mid-version.
 
-## v0.4 — F-Droid release
+## v0.4 — Release prep ✅ complete (v0.4.1 – v0.5.0)
 
-1. Reproducible build; fastlane metadata (description, screenshots).
-2. Submit to F-Droid. Remove the 10-second test option from Session length and Marks first (`0002`).
-3. Accessibility audit.
-4. Security review.
+Store submissions moved to v1.0 by user decision; the app goes to app stores at v1.0, not before.
 
-## v0.5 — Google Play release
+1. Remove the 10-second test option from Session length and Marks (`0002`). ✅ (v0.4.2)
+2. Reproducible release build; F-Droid recipe draft (`docs/fdroid/`). ✅ (v0.4.3) — two clean builds byte-identical; Google Maven + Maven Central only.
+3. Fastlane metadata (description, screenshots). ✅ (v0.4.4)
+4. Accessibility audit. ✅ (v0.4.5) — `docs/audits/accessibility/accessibility-v0.4.md`; Lighthouse 100.
+5. Security review. ✅ (v0.5.0) — `docs/audits/security/security-v0.4.md`; no Low+ findings.
 
-1. Signed AAB, store listing, privacy policy page on GitHub Pages (states that no data is collected).
-2. Submit to Google Play.
-3. Accessibility audit.
-4. Security review.
+Run as grouped subagents on a `v0.4` integration branch.
 
-## v0.6 — Background playback
+## v0.5 — Background playback
 
 1. Keep the session playing with the screen off: Android foreground service + media notification.
 2. Test on GrapheneOS.
 3. Accessibility audit.
-4. Security review; run `npm audit` (deferred from v0.2 by user decision).
+4. Security review; run `npm audit` (deferred from v0.2 by user decision; last pre-1.0 subversion).
 
 ## Future (unscoped)
 
@@ -96,6 +94,12 @@ Run as grouped subagents on a `v0.3` integration branch. Android build tools liv
 
 ## v1.0 — Full launch
 
-Releases before v1.0 go to beta testers. v1.0 is the full public launch, after background playback (v0.6) is done.
+Releases before v1.0 go to beta testers (APKs, not app stores). v1.0 is the full public launch, after background playback (v0.5) is done.
+
+1. Submit to F-Droid: fill the recipe (`docs/fdroid/`) — author name, license (GPL-3.0-only or -or-later), category, real versionCode, `UpdateCheckData` if F-Droid can't read the version (security-v0.4 7.1, 7.2); tag the release; merge request to `fdroiddata` from the user's GitLab account.
+2. Google Play: signed AAB, store listing, privacy policy page on GitHub Pages (states that no data is collected); submit.
+3. Update the store listing text (it says background playback is planned).
+4. Accessibility audit.
+5. Security review.
 
 Before launch: review every item in [`0004-revisit-before-launch.md`](0004-revisit-before-launch.md).
