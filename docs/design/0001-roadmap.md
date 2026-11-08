@@ -40,16 +40,18 @@ Behavior spec: [`0002-app-behavior.md`](0002-app-behavior.md).
 
 Run as a single session with fresh restarts. Agent browser testing (Playwright, Lighthouse) added as local dev-only tooling.
 
-## v0.2 — Real media
+## v0.2 — Real media ✅ complete (v0.2.1 – v0.3.0)
 
-1. Source ~10 music tracks (CC0 / CC BY) and record them in `ATTRIBUTION.md`.
-2. Source ~20 images (CC0 / CC BY) and record them in `ATTRIBUTION.md`.
-3. Compress media for mobile size; wire it into the app.
-4. In-app credits screen that shows the attributions.
-5. Session length (countdown that ends the session) and marks (long chime every N minutes), per `0002` § Session length and marks. Session length replaces the Images toggle on the launch screen.
-6. Settings track preview: play 5 s, fade out over 2 s, then stop (`0002` § Settings screen).
-7. Accessibility audit.
-8. Security review.
+1. Source ~10 music tracks (CC0 / CC BY) and record them in `ATTRIBUTION.md`. ✅ (v0.2.4, v0.2.12)
+2. Source ~20 images (CC0 / CC BY) and record them in `ATTRIBUTION.md`. ✅ (v0.2.5, v0.2.12)
+3. Compress media for mobile size; wire it into the app. ✅ (v0.2.6, v0.2.14 shuffled track order)
+4. In-app credits screen that shows the attributions. ✅ (v0.2.3, v0.2.9)
+5. Session length (countdown that ends the session) and marks (long chime every N minutes), per `0002` § Session length and marks. Session length replaces the Images toggle on the launch screen. ✅ (v0.2.1, v0.2.2, v0.2.11)
+6. Settings track preview: play 5 s, fade out over 2 s, then stop (`0002` § Settings screen). ✅ (v0.2.7)
+7. Accessibility audit. ✅ (v0.2.8, v0.2.10) — `docs/audits/accessibility/accessibility-v0.2.md`; Lighthouse 100.
+8. Security review. ✅ (v0.3.0) — `docs/audits/security/security-v0.2.md`; SEC-02 resolved; `npm audit` deferred to v0.6 (user decision).
+
+Run as grouped subagents on a `v0.2` integration branch, with one user review at version end. Raw media kept out of git history (compressed before commit). Items 5 and 6 added mid-version; user review replaced 5 tracks and 1 image, added shuffled track order, and started `0004-revisit-before-launch.md`.
 
 ## v0.3 — Android package
 
