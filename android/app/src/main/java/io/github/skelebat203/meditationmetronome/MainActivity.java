@@ -27,6 +27,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         webView = new WebView(this);
+        // Same color as the splash and the page, so there is no white flash while loading.
+        webView.setBackgroundColor(getResources().getColor(R.color.app_background));
         setContentView(webView);
 
         WebSettings s = webView.getSettings();

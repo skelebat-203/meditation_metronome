@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Placeholder icon (metronome). Also used as the splash icon. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path android:fillColor="@color/app_foreground" android:pathData="M48,30 L60,30 L70,80 L38,80 Z" />
+    <path android:strokeColor="@color/app_background" android:strokeWidth="3" android:strokeLineCap="round" android:pathData="M54,72 L64,40" />
+    <path android:fillColor="@color/app_background" android:pathData="M56.6,62 a3.5,3.5 0 1,0 7,0 a3.5,3.5 0 1,0 -7,0 Z" />
+</vector>

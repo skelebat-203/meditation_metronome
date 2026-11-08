@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Start window for Android 5.x: plain background (vector sizing in layer-list needs API 23). -->
+<color xmlns:android="http://schemas.android.com/apk/res/android" android:color="@color/app_background" />

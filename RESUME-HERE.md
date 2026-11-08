@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.3.3 — v0.3 step 1 done (WebView wrapper); next: step 2 (icon, name, splash).
+v0.3.4 — v0.3 step 2 done (placeholder icon, name, splash; user reviews at version end); next: step 3 (keep screen awake).
 
 ## v0.3 plan of action
 
@@ -19,7 +19,7 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `android/`, web files copied or referenced at build
    - Verify: debug APK builds; manifest has no INTERNET permission; app opens to the launch screen in an emulator or on device
    - Deps: 0
-2. **App icon, name, splash** (v0.3/2) — placeholder-quality icon and splash for user review at version end; name "Meditation Metronome"; ID `io.github.skelebat203.meditationmetronome`.
+2. **App icon, name, splash** (v0.3/2) — placeholder-quality icon and splash for user review at version end; name "Meditation Metronome"; ID `io.github.skelebat203.meditationmetronome`. ✅ (v0.3.4)
    - Source: roadmap v0.3 item 2
    - Files: `android/` resources
    - Verify: icon and name show in launcher; splash shows on start; user reviews at version end
@@ -46,4 +46,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group B: step 5 (web only; parallel with A)
 - Reviews: step 4 with the user; steps 6, 7 drafted by agent, **pause for user review** before v0.4.0 and the merge to `main`
 - Run mode: **grouped subagents**. Gates are at version end; A and B touch separate files.
-- Status: ⏳ A (0–1 ✅) · ✅ B · ☐ reviews
+- Status: ⏳ A (0–2 ✅) · ✅ B · ☐ reviews
