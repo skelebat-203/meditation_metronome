@@ -53,16 +53,18 @@ Run as a single session with fresh restarts. Agent browser testing (Playwright, 
 
 Run as grouped subagents on a `v0.2` integration branch, with one user review at version end. Raw media kept out of git history (compressed before commit). Items 5 and 6 added mid-version; user review replaced 5 tracks and 1 image, added shuffled track order, and started `0004-revisit-before-launch.md`.
 
-## v0.3 — Android package
+## v0.3 — Android package ✅ complete (v0.3.1 – v0.4.0)
 
-1. Android WebView wrapper project; no Google Play Services dependency (needed for F-Droid).
-2. App icon, name, splash screen.
-3. Keep screen awake during a session (per `0002`).
-4. Test on GrapheneOS, including what happens when the screen is turned off.
-5. Credits from a single source: stop `js/credits.js` and `ATTRIBUTION.md` drifting (one generated from the other, or a check that they match).
-6. Session timer: tap to switch elapsed/remaining (`0002` § Meditation screen). ✅ (v0.3.8)
-7. Accessibility audit.
-8. Security review.
+1. Android WebView wrapper project; no Google Play Services dependency (needed for F-Droid). ✅ (v0.3.2 build tools, v0.3.3)
+2. App icon, name, splash screen. ✅ (v0.3.4; placeholder icon approved for now)
+3. Keep screen awake during a session (per `0002`). ✅ (v0.3.5, v0.3.13 failure notice)
+4. Test on GrapheneOS, including what happens when the screen is turned off. ✅ (v0.3.7, v0.3.9–v0.3.11 end chime) — wake lock works; app switch or screen off stops the session (v0.6).
+5. Credits from a single source: stop `js/credits.js` and `ATTRIBUTION.md` drifting (one generated from the other, or a check that they match). ✅ (v0.3.1) — `npm run check-credits`.
+6. Session timer: tap to switch elapsed/remaining (`0002` § Meditation screen). ✅ (v0.3.8, v0.3.10, v0.3.12 launch label/order)
+7. Accessibility audit. ✅ (v0.3.6, v0.3.13) — `docs/audits/accessibility/accessibility-v0.3.md`; Lighthouse 100; A11Y-15 (silent wake-lock failure) fixed.
+8. Security review. ✅ (v0.4.0) — `docs/audits/security/security-v0.3.md`; all Low+ findings fixed (new fix policy in the severity matrix).
+
+Run as grouped subagents on a `v0.3` integration branch. Android build tools live project-local in `.tools/` (git-ignored, `scripts/setup-android-tools.sh`). Item 6 added mid-version.
 
 ## v0.4 — F-Droid release
 

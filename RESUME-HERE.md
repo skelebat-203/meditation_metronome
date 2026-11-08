@@ -3,53 +3,38 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.3.13 — security fixes: wake lock failure notice (8.1), SHA-256 tools check (7.1). Next: user phone check; review a11y and security drafts; then v0.4.0.
+v0.4.0 — v0.3 complete (summary in the roadmap); next: v0.4 step 1.
 
-## v0.3 plan of action
+## v0.4 plan of action
 
-Versions follow the global versioning rules (patch +1 per completed-work commit, `Plan-Step: v0.3/N` trailer). The final step bumps to v0.4.0. The main session coordinates subagents in worktrees off a `v0.3` integration branch; `main` gets it only after the user's end-of-version review. Human gates: blocking questions, and the end-of-version review (icon/splash, device test, a11y and security reports, plus any UI/UX changes the user notes).
+Versions follow the global versioning rules (patch +1 per completed-work commit, `Plan-Step: v0.4/N` trailer). The final step bumps to v0.5.0. The main session coordinates subagents in worktrees off a `v0.4` integration branch; `main` gets it only after the user's end-of-version review. Human gates: blocking questions, anything outward-facing (the F-Droid submission), and the end-of-version review (store text and screenshots, a11y and security reports, plus any UI/UX changes the user notes). Security findings Low+ are fixed in the same version.
 
-0. **Android build tools** (v0.3/0) — JDK 17 and Android command-line tools installed project-local in `.tools/` (git-ignored), with a setup script pinning exact versions; usage documented in `.claude/CLAUDE.md`. Not part of the app. ✅ (v0.3.2)
-   - Source: roadmap v0.3 item 1 (prerequisite)
-   - Files: `.gitignore`, `scripts/setup-android-tools.sh`, `.claude/CLAUDE.md`
-   - Verify: `java -version` and `sdkmanager --list_installed` work from `.tools/`; worktrees reuse the main checkout's `.tools/`
-   - Deps: user go-ahead to install
-1. **Android WebView wrapper** (v0.3/1) — plain WebView project loading the bundled web files; no Google Play Services; no INTERNET permission; no JS bridge; local files only (`0002` § Platform). Min API 21. ✅ (v0.3.3)
-   - Source: roadmap v0.3 item 1; `0002` § Platform
-   - Files: `android/`, web files copied or referenced at build
-   - Verify: debug APK builds; manifest has no INTERNET permission; app opens to the launch screen in an emulator or on device
-   - Deps: 0
-2. **App icon, name, splash** (v0.3/2) — placeholder-quality icon and splash for user review at version end; name "Meditation Metronome"; ID `io.github.skelebat203.meditationmetronome`. ✅ (v0.3.4)
-   - Source: roadmap v0.3 item 2
-   - Files: `android/` resources
-   - Verify: icon and name show in launcher; splash shows on start; user reviews at version end
-   - Deps: 1
-3. **Keep screen awake** (v0.3/3) — honors the Keep screen awake setting during a session. Open design question: the WebView lockdown forbids a JS-to-Android bridge, so use the web Screen Wake Lock API where the WebView supports it; ask the user before adding any bridge. ✅ (v0.3.5)
-   - Source: roadmap v0.3 item 3; `0002` § Screen, § Platform
-   - Files: `js/`, possibly `android/`
-   - Verify: screen stays on through a session with the setting on; turns off normally with it off
-   - Deps: 1
-4. **GrapheneOS test** (v0.3/4) — with the user on device, including screen-off behavior; results recorded in `0002` § Screen. ✅ (v0.3.7) — TalkBack, 200% font, rotation, timer/marks, icon/splash and keep-awake passed; fixes: controls now auto-hide after a tap, slower end chime.
-   - Deps: 1–3
-5. **Credits from a single source** (v0.3/5) — `js/credits.js` and `ATTRIBUTION.md` can't drift: `ATTRIBUTION.md` is the source; `scripts/check-credits.js` (Node, no deps) checks every entry's title, author, source URL and license (credits may add a `(modified: ...)` note) in order, and that every file in `assets/` is listed and exists. ✅ (v0.3.1)
-   - Source: roadmap v0.3 item 5
-   - Files: `js/credits.js`, `scripts/check-credits.js`, `package.json`
-   - Verify: `npm run check-credits` passes (exit 0); after any edit to `ATTRIBUTION.md`, `js/credits.js` or `assets/`, run it again — a mismatch or unlisted asset fails with exit 1 and names the entry
+1. **Remove the 10-second test option** (v0.4/1) — from Session length and Marks.
+   - Source: roadmap v0.4 item 2; `0002` § Session length and marks
+   - Files: `js/constants.js`, `docs/design/0002-app-behavior.md`
+   - Verify: neither picker offers 10 s; a saved 10 s setting falls back to the default
    - Deps: none
-6. **Session timer: tap to switch elapsed/remaining** (v0.3/6) — with Session length set, the timer is a button that switches elapsed / remaining for the current session (default elapsed); word label shows the mode; name states mode and value; mode change announced once via `#status`; not blocked by controls auto-hide. With length off, elapsed only, not a button. ✅ (v0.3.8)
-   - Source: roadmap v0.3 item 6; `0002` § Meditation screen
-   - Files: `index.html`, `css/style.css`, `js/app.js`, `docs/audits/accessibility/accessibility-v0.3.md`
-   - Verify: Session length 10 s + timer on: tap shows remaining and counts down; Enter/Space toggle; length off: no button; accessible name correct; Lighthouse ≥ 90; debug APK builds with no permissions
-   - Deps: none
-7. **Accessibility audit** (v0.3/7) — agent drafts; user reviews.
-   - Report: `docs/audits/accessibility/accessibility-v0.3.md` — drafted, awaiting user review (v0.3.6)
-8. **Security review** (v0.3/8) — agent drafts; user reviews; bumps to v0.4.0 and `v0.3` merges to `main`.
-   - Report: `docs/audits/security/security-v0.3.md`
+2. **Reproducible release build** (v0.4/2) — release build with no debug flags, deterministic output (two clean builds give identical unsigned APKs), versionName/versionCode from `package.json`; F-Droid build recipe drafted.
+   - Source: roadmap v0.4 item 1
+   - Files: `android/`, `scripts/`
+   - Verify: two clean builds match byte-for-byte; no permissions; recipe builds from a clean checkout
+   - Deps: 1
+3. **Fastlane metadata** (v0.4/3) — title, short and full description, changelog, phone screenshots.
+   - Source: roadmap v0.4 item 1
+   - Files: `fastlane/metadata/android/en-US/`
+   - Verify: F-Droid metadata layout; reading level grade 10 or lower; user reviews at version end
+   - Deps: 1
+4. **Submit to F-Droid** (v0.4/4) — outward-facing: prepared by the agent, submitted only after the user's go-ahead.
+   - Source: roadmap v0.4 item 2
+   - Deps: 2, 3, reviews
+5. **Accessibility audit** (v0.4/5) — agent drafts; user reviews.
+   - Report: `docs/audits/accessibility/accessibility-v0.4.md`
+6. **Security review** (v0.4/6) — agent drafts; user reviews; bumps to v0.5.0 and `v0.4` merges to `main`.
+   - Report: `docs/audits/security/security-v0.4.md`
 
 ### Execution
-- Group A: steps 0, 1, 2, 3 (Android; sequential)
-- Group B: step 5 (web only; parallel with A)
-- Group U: step 6 (web only; user feature added mid-version)
-- Reviews: step 4 with the user; steps 7, 8 drafted by agent, **pause for user review** before v0.4.0 and the merge to `main`
-- Run mode: **grouped subagents**. Gates are at version end; A and B touch separate files.
-- Status: ✅ A · ✅ B · ✅ U · ☐ reviews
+- Group A: steps 1, 2 (sequential)
+- Group B: step 3 (after 1, so screenshots show the final pickers; parallel with 2)
+- Reviews: steps 5, 6 drafted by agent; **pause for user review**; step 4 after approval
+- Run mode: **grouped subagents**.
+- Status: ☐ A · ☐ B · ☐ reviews · ☐ submit
