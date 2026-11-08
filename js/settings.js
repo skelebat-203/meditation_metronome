@@ -3,8 +3,9 @@
 // Settings state. Two layers:
 //   saved   — defaults for every session, kept in localStorage ("Persistent").
 //   session — what the current/next session uses ("This session"); starts as a copy of saved.
-// The track is saved (by its file path, a stable id) only when chosen with Persistent; with no valid
-// saved track, each app open starts on a random track.
+// Track choice (session.trackChoice): APP.MUSIC.RANDOM or a track index. A specific track is saved by
+// its file path (a stable id) with Persistent; Random is saved as the sentinel. With Random, or no valid
+// saved track, each app open starts on a random track. session.track is the index actually playing.
 
 const Settings = (function () {
   const KEY = APP.SETTINGS.STORAGE_KEY;
@@ -12,6 +13,7 @@ const Settings = (function () {
   const SOUNDS = Object.values(APP.METRONOME.SOUNDS);
   const SESSION = APP.SESSION;
   const TRACKS = APP.MUSIC.TRACKS;
+  const RANDOM = APP.MUSIC.RANDOM;
 
   // Interval choices in seconds: 5–60 min in 5-minute steps.
   const INTERVALS = [];
@@ -40,9 +42,9 @@ const Settings = (function () {
     return -1;
   }
 
-  // A valid track index from the form, or the current session track.
-  function validTrack(i, fallback) {
-    return Number.isInteger(i) && i >= 0 && i < TRACKS.length ? i : fallback;
+  // A valid track choice from the form (RANDOM or a track index), or the current one.
+  function validChoice(c, fallback) {
+    return c === RANDOM || (Number.isInteger(c) && c >= 0 && c < TRACKS.length) ? c : fallback;
   }
 
   // localStorage can throw (storage disabled); the app still works with defaults.
@@ -57,21 +59,28 @@ const Settings = (function () {
   const raw = loadRaw();
   let saved = sanitize(raw);
   const savedTrack = trackIndexOf(raw && raw.track);
-  let session = Object.assign({}, saved, { track: savedTrack >= 0 ? savedTrack : Music.randomTrackIndex() });
+  let session = Object.assign({}, saved, {
+    trackChoice: savedTrack >= 0 ? savedTrack : RANDOM,
+    track: savedTrack >= 0 ? savedTrack : Music.randomTrackIndex(),
+  });
 
   function copy(o) { return Object.assign({}, o); }
 
   // Applies to the current/next session only.
   function setSession(next) {
-    session = Object.assign(sanitize(next), { track: validTrack(next.track, session.track) });
+    const choice = validChoice(next.trackChoice, session.trackChoice);
+    let track = session.track;
+    if (choice !== RANDOM) track = choice;
+    else if (session.trackChoice !== RANDOM) track = Math.floor(Math.random() * TRACKS.length);
+    session = Object.assign(sanitize(next), { trackChoice: choice, track: track });
   }
 
   // Saves as defaults and applies to the session.
   function setPersistent(next) {
     saved = sanitize(next);
-    const track = validTrack(next.track, session.track);
+    const choice = validChoice(next.trackChoice, session.trackChoice);
     try {
-      localStorage.setItem(KEY, JSON.stringify(Object.assign({ track: TRACKS[track].src }, saved)));
+      localStorage.setItem(KEY, JSON.stringify(Object.assign({ track: choice === RANDOM ? RANDOM : TRACKS[choice].src }, saved)));
     } catch (err) {
       console.warn('Could not save settings:', err);
     }

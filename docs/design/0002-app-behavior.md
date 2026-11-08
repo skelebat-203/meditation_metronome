@@ -31,7 +31,7 @@ One screen, opened from either the launch or meditation screen. Changes are appl
 Back without pressing either button discards the changes.
 
 Controls:
-- Music on/off, volume, and track (dropdown)
+- Music on/off, volume, and track (dropdown). The first choice, Random, is selected by default; the preview plays the session's current track when Random is selected.
 - Track preview: plays the selected track for 5 s, fades it out over 2 s, then stops. Starting another preview or leaving Settings stops it.
 - Metronome on/off and volume
 - Tick sound: soft click / wood block / bell
@@ -57,7 +57,7 @@ Not a score or streak; only sound cues.
 
 ## Music
 - ~10 tracks, played in shuffled order (not just a random start track); reshuffled after each full pass; loops forever.
-- Start track: if a track was chosen in Settings and saved with Persistent, every future session starts with it, then plays the shuffled rest of the pass. With no saved track the start track is random. A track chosen with This session is not saved. (`0004` #3, v0.6.2)
+- Start track: the Settings track dropdown starts with Random (the default). If a specific track was chosen and saved with Persistent, every future session starts with it, then plays the shuffled rest of the pass. With Random saved, or nothing saved, the start track is random on each app open. Random is stored as its own sentinel value; any other stored value must be a known track path or it is ignored. Choices made with This session (a track or Random) apply to that session only and are not saved. (`0004` #3, v0.6.2, v0.6.5)
 - Opus, ~48 kbps, loops of ~2–3 minutes per track.
 
 ## Images

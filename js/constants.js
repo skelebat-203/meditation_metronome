@@ -19,6 +19,8 @@ const APP = Object.freeze({
     DEFAULT_VOLUME: 0.7, // 0..1
   }),
   MUSIC: Object.freeze({
+    RANDOM: 'random', // track choice sentinel: random start track (form value and saved value)
+    RANDOM_LABEL: 'Random',
     TRACKS: Object.freeze([
       Object.freeze({ title: 'Above the Clouds', src: 'assets/music/above-the-clouds.opus' }),
       Object.freeze({ title: 'Bathed in the Light', src: 'assets/music/bathed-in-the-light.opus' }),

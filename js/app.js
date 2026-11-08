@@ -294,7 +294,7 @@ $('#' + APP.SCREEN_IDS.MEDITATION).addEventListener('focusin', showControls);
 function fillForm(s) {
   form.music.checked = s.music;
   form.musicVolume.value = Math.round(s.musicVolume * 100);
-  form.track.value = String(s.track);
+  form.track.value = String(s.trackChoice);
   form.metronome.checked = s.metronome;
   form.metronomeVolume.value = Math.round(s.metronomeVolume * 100);
   renderVolumes();
@@ -311,7 +311,7 @@ function readForm() {
   return {
     music: form.music.checked,
     musicVolume: Number(form.musicVolume.value) / 100,
-    track: Number(form.track.value),
+    trackChoice: form.track.value === APP.MUSIC.RANDOM ? APP.MUSIC.RANDOM : Number(form.track.value),
     metronome: form.metronome.checked,
     metronomeVolume: Number(form.metronomeVolume.value) / 100,
     tickSound: form.tickSound.value,
@@ -324,6 +324,10 @@ function readForm() {
   };
 }
 
+const randomOpt = document.createElement('option');
+randomOpt.value = APP.MUSIC.RANDOM;
+randomOpt.textContent = APP.MUSIC.RANDOM_LABEL;
+form.track.appendChild(randomOpt);
 Music.getTracks().forEach(function (t, i) {
   const opt = document.createElement('option');
   opt.value = String(i);
@@ -404,7 +408,7 @@ const ACTIONS = {
   'open-settings': openSettings,
   'back': function () { history.back(); },
   'open-credits': function () { Music.stopPreview(); goTo(APP.SCREEN_IDS.CREDITS); },
-  'preview-track': function () { Music.preview(Number(form.track.value), Number(form.musicVolume.value) / 100); },
+  'preview-track': function () { Music.preview(form.track.value === APP.MUSIC.RANDOM ? Settings.getSession().track : Number(form.track.value), Number(form.musicVolume.value) / 100); },
   'apply-persistent': function () { applyAndClose(true); },
   'apply-session': function () { applyAndClose(false); },
 };

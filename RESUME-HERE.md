@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.6.4 — v1.0 security review in progress; fix 7.1 (versionCode range check) landed. Accessibility audit drafted, awaiting user review.
+v0.6.5 — v1.0 in progress; added the Random start-track choice (default) and updated the store short description. Security review fix 7.1 landed (v0.6.4); accessibility audit drafted, awaiting user review.
 
 ## v1.0 plan of action
 
