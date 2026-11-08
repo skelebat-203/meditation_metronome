@@ -69,6 +69,7 @@ Not a score or streak; only sound cues.
 ## Screen
 - Keep screen awake during a session (default on; changeable in saved settings).
 - How: the web Screen Wake Lock API (`navigator.wakeLock`), taken when a session starts with the setting on, released when the session ends or the setting is turned off, and taken back when the app returns to the foreground (the browser drops it when the page is hidden). No JavaScript-to-Android bridge (§ Platform), so Android's own keep-screen-on flag is not used.
+- If Keep screen awake is on and the lock is unsupported or refused, a notice says so once per session (same pattern as the music notice): "Could not keep the screen awake. Your screen may turn off during the session."
 - Limitation: WebView supports the API from version 84 (mid-2020). A device whose WebView was never updated past that has no wake lock; there the screen follows the system timeout and the app still runs. Confirmed on GrapheneOS (v0.3 step 4): the WebView grants the lock to the local page and the screen stays on.
 - Device test (v0.3 step 4, GrapheneOS): switching apps or turning the screen off stops the session. Expected until background playback (v0.6).
 - Turning the screen off (power button) likely stops the session; confirm in v0.3. Background playback is scoped for v0.6 (roadmap).

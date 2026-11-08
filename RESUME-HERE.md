@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.3.12 — launch screen: "Length" label; order Start, Length, Metronome, Music. Next: security fixes; user phone check; review a11y and security drafts; then v0.4.0.
+v0.3.13 — security fixes: wake lock failure notice (8.1), SHA-256 tools check (7.1). Next: user phone check; review a11y and security drafts; then v0.4.0.
 
 ## v0.3 plan of action
 

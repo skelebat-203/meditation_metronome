@@ -25,6 +25,7 @@ let timerId = null;
 let showRemaining = false; // Session timer mode; lasts for the current session
 let idleId = null;
 let wakeLock = null;
+let wakeNoticeShown = false; // wake lock failure message: once per session
 let finishing = false;   // end chime playing; launch screen follows
 let finishId = null;
 
@@ -167,14 +168,25 @@ function finishSession(chimeMs) {
   }, Math.max(chimeMs, APP.SESSION.FADE_MS));
 }
 
+// Keep screen awake is on but the lock is unsupported or refused: say so once per session (SEC 8.1).
+function wakeLockFailed() {
+  if (!inSession || wakeNoticeShown) return;
+  wakeNoticeShown = true;
+  Music.showNotice('Could not keep the screen awake. Your screen may turn off during the session.');
+}
+
 function requestWakeLock() {
-  if (!navigator.wakeLock || wakeLock) return;
+  if (wakeLock) return;
+  if (!navigator.wakeLock) { wakeLockFailed(); return; }
   navigator.wakeLock.request('screen').then(function (lock) {
     // The session may have ended while the request was pending.
     if (!inSession) { lock.release(); return; }
     wakeLock = lock;
     lock.addEventListener('release', function () { wakeLock = null; });
-  }).catch(function (err) { console.warn('Wake lock failed:', err); });
+  }).catch(function (err) {
+    console.warn('Wake lock failed:', err);
+    wakeLockFailed();
+  });
 }
 
 function releaseWakeLock() {
@@ -218,6 +230,7 @@ function applySession() {
 function startSession() {
   inSession = true;
   showRemaining = false;
+  wakeNoticeShown = false;
   sessionStartMs = Date.now();
   Metronome.beginSession(finishSession);
   applySession();

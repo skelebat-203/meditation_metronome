@@ -42,6 +42,7 @@ const Music = (function () {
   let failures = 0;
 
   // The notice sits inside the visible screen's <main> (A11Y-11); app.js moves it on screen changes.
+  // app.js also uses it for the wake lock message (SEC 8.1).
   let noticeText = null;
 
   function hideNotice() {
@@ -206,5 +207,6 @@ const Music = (function () {
     getTracks: function () { return tracks; },
     randomTrackIndex: randomTrackIndex,
     setVolume: setVolume,
+    showNotice: showNotice, // shared with app.js for the wake lock message
   });
 })();

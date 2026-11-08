@@ -9,7 +9,9 @@ JDK_URL="https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17
 JDK_SHA256="8b9b611d917e3dfd8419d3566b5949226f69b052fed7e109c1368add1dfe8711"
 
 CMDLINE_TOOLS_URL="https://dl.google.com/android/repository/commandlinetools-linux-16111833_latest.zip"
-CMDLINE_TOOLS_SHA1="e025545c62a8e64c7559119566a569fb1dec5f60"
+# Google publishes only SHA-1 for this build (repository2-3.xml). This SHA-256 was computed from a
+# download that passed that SHA-1 check, and is pinned here instead.
+CMDLINE_TOOLS_SHA256="0877a1d048fe4a24efe2eff536ca4223f7adeb58648bb81909d33c446918cfa8"
 
 # sdkmanager verifies these packages' checksums itself.
 SDK_PACKAGES=("platform-tools" "build-tools;35.0.0" "platforms;android-35")
@@ -38,7 +40,7 @@ SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
 if [ ! -x "$SDKMANAGER" ]; then
   echo "Installing Android command-line tools"
   curl -fL --proto '=https' -o "$TMP/cmdline-tools.zip" "$CMDLINE_TOOLS_URL"
-  echo "$CMDLINE_TOOLS_SHA1  $TMP/cmdline-tools.zip" | sha1sum -c -
+  echo "$CMDLINE_TOOLS_SHA256  $TMP/cmdline-tools.zip" | sha256sum -c -
   unzip -q "$TMP/cmdline-tools.zip" -d "$TMP"
   mkdir -p "$ANDROID_HOME/cmdline-tools"
   mv "$TMP/cmdline-tools" "$ANDROID_HOME/cmdline-tools/latest"
