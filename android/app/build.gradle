@@ -1,0 +1,46 @@
+// Plain Java, no AndroidX or other libraries: the APK holds the WebView shell and the web app.
+plugins {
+    id 'com.android.application'
+}
+
+def appId = 'io.github.skelebat203.meditationmetronome'
+def sdkMin = 21
+def sdkTarget = 35
+
+// Web app version comes from the root package.json (one version for web and APK).
+def webRoot = rootDir.parentFile
+def appVersion = new groovy.json.JsonSlurper().parse(new File(webRoot, 'package.json')).version
+def versionParts = appVersion.tokenize('.').collect { it as int }
+
+android {
+    namespace appId
+    compileSdk sdkTarget
+
+    defaultConfig {
+        applicationId appId
+        minSdk sdkMin
+        targetSdk sdkTarget
+        versionName appVersion
+        versionCode versionParts[0] * 10000 + versionParts[1] * 100 + versionParts[2]
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        buildConfig false
+    }
+}
+
+// Copy the web app from the repo root into the APK's assets at build time (no second copy in git).
+def webAssetsDir = layout.buildDirectory.dir('generated/web')
+def copyWebAssets = tasks.register('copyWebAssets', Sync) {
+    from(webRoot) {
+        include 'index.html', 'css/**', 'js/**', 'assets/**'
+    }
+    into webAssetsDir.map { it.dir('web') }
+}
+android.sourceSets.main.assets.srcDir(webAssetsDir)
+tasks.named('preBuild') { dependsOn copyWebAssets }

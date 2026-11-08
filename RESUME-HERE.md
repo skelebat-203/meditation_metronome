@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.3.2 — v0.3 step 0 done (Android build tools); next: step 1 (WebView wrapper).
+v0.3.3 — v0.3 step 1 done (WebView wrapper); next: step 2 (icon, name, splash).
 
 ## v0.3 plan of action
 
@@ -14,7 +14,7 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `.gitignore`, `scripts/setup-android-tools.sh`, `.claude/CLAUDE.md`
    - Verify: `java -version` and `sdkmanager --list_installed` work from `.tools/`; worktrees reuse the main checkout's `.tools/`
    - Deps: user go-ahead to install
-1. **Android WebView wrapper** (v0.3/1) — plain WebView project loading the bundled web files; no Google Play Services; no INTERNET permission; no JS bridge; local files only (`0002` § Platform). Min API 21.
+1. **Android WebView wrapper** (v0.3/1) — plain WebView project loading the bundled web files; no Google Play Services; no INTERNET permission; no JS bridge; local files only (`0002` § Platform). Min API 21. ✅ (v0.3.3)
    - Source: roadmap v0.3 item 1; `0002` § Platform
    - Files: `android/`, web files copied or referenced at build
    - Verify: debug APK builds; manifest has no INTERNET permission; app opens to the launch screen in an emulator or on device
@@ -46,4 +46,4 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
 - Group B: step 5 (web only; parallel with A)
 - Reviews: step 4 with the user; steps 6, 7 drafted by agent, **pause for user review** before v0.4.0 and the merge to `main`
 - Run mode: **grouped subagents**. Gates are at version end; A and B touch separate files.
-- Status: ⏳ A (0 ✅) · ✅ B · ☐ reviews
+- Status: ⏳ A (0–1 ✅) · ✅ B · ☐ reviews
