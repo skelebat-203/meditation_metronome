@@ -223,21 +223,28 @@ function endSession() {
 
 // ---------- Meditation controls: hide when idle, show on any input ----------
 
+// Last input was a key (not a pointer). Controls stay visible only under keyboard focus.
+let keyboardInput = false;
+
+// True when a control (not the programmatically focused heading) has keyboard focus.
+function controlHasKeyboardFocus() {
+  const el = document.activeElement;
+  return keyboardInput && el && el.tabIndex >= 0 && $('#' + APP.SCREEN_IDS.MEDITATION).contains(el);
+}
+
 function showControls() {
   document.body.classList.remove('controls-hidden');
   clearTimeout(idleId);
   idleId = setTimeout(function () {
-    // Never hide while a control has keyboard focus.
-    if (current === APP.SCREEN_IDS.MEDITATION && !$('#' + APP.SCREEN_IDS.MEDITATION).contains(document.activeElement)) {
-      document.body.classList.add('controls-hidden');
-    } else if (current === APP.SCREEN_IDS.MEDITATION) {
-      showControls();
-    }
+    if (current !== APP.SCREEN_IDS.MEDITATION) return;
+    if (controlHasKeyboardFocus()) showControls(); // never hide under keyboard focus
+    else document.body.classList.add('controls-hidden');
   }, APP.CONTROLS_IDLE_MS);
 }
 
 ['pointerdown', 'keydown'].forEach(function (type) {
   document.addEventListener(type, function () {
+    keyboardInput = type === 'keydown';
     if (current === APP.SCREEN_IDS.MEDITATION) showControls();
   }, true);
 });

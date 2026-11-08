@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v0.3.6 — v0.3 Group A done (steps 0–3); step 6 accessibility audit drafted; step 7 security review drafted (uncommitted); next: step 4 (GrapheneOS test with the user) and review of both reports.
+v0.3.7 — steps 0–5 done (step 4 device test passed, fixes landed); step 6 accessibility audit drafted; step 7 security review drafted (uncommitted); next: review of both reports.
 
 ## v0.3 plan of action
 
@@ -29,7 +29,7 @@ Versions follow the global versioning rules (patch +1 per completed-work commit,
    - Files: `js/`, possibly `android/`
    - Verify: screen stays on through a session with the setting on; turns off normally with it off
    - Deps: 1
-4. **GrapheneOS test** (v0.3/4) — with the user on device, including screen-off behavior; results recorded in `0002` § Screen.
+4. **GrapheneOS test** (v0.3/4) — with the user on device, including screen-off behavior; results recorded in `0002` § Screen. ✅ (v0.3.7) — TalkBack, 200% font, rotation, timer/marks, icon/splash and keep-awake passed; fixes: controls now auto-hide after a tap, slower end chime.
    - Deps: 1–3
 5. **Credits from a single source** (v0.3/5) — `js/credits.js` and `ATTRIBUTION.md` can't drift: `ATTRIBUTION.md` is the source; `scripts/check-credits.js` (Node, no deps) checks every entry's title, author, source URL and license (credits may add a `(modified: ...)` note) in order, and that every file in `assets/` is listed and exists. ✅ (v0.3.1)
    - Source: roadmap v0.3 item 5

@@ -37,11 +37,13 @@ const CLICK_CHIME_S = 1.2;          // noise burst becomes a resonant swell
 const CLICK_CHIME_Q = 12;
 const WOOD_CHIME_S = 1.5;
 const BELL_CHIME_STRETCH = 1.6;     // bell partial decays × this
-const NOISE_BUFFER_S = CLICK_CHIME_S;
+const END_CHIME_STRETCH = 1.5;     // each end-chime strike rings this much longer than a mark
+const END_CHIME_GAP_S = 1.5;       // time between end-chime strikes
+const NOISE_BUFFER_S = CLICK_CHIME_S * END_CHIME_STRETCH;
 // Mark: one strike. End: three strikes, lower pitch, so the two are easy to tell apart.
 const CHIMES = {
-  mark: { strikes: 1, gapS: 0, pitch: 1 },
-  end: { strikes: 3, gapS: 0.7, pitch: 0.75 },
+  mark: { strikes: 1, gapS: 0, pitch: 1, stretch: 1 },
+  end: { strikes: 3, gapS: END_CHIME_GAP_S, pitch: 0.75, stretch: END_CHIME_STRETCH },
 };
 
 const Metronome = (function () {
@@ -83,9 +85,9 @@ const Metronome = (function () {
     return g;
   }
 
-  // Each player plays one tick at `time`, or a chime when `pitch` is given; returns its length in seconds.
-  function playClick(out, time, pitch) {
-    const duration = pitch ? CLICK_CHIME_S : CLICK_DURATION_S;
+  // Each player plays one tick at `time`, or a chime when `pitch` is given (`stretch` lengthens it); returns its length in seconds.
+  function playClick(out, time, pitch, stretch) {
+    const duration = pitch ? CLICK_CHIME_S * stretch : CLICK_DURATION_S;
     const src = ctx.createBufferSource();
     src.buffer = noiseBuffer;
     const filter = ctx.createBiquadFilter();
@@ -99,8 +101,8 @@ const Metronome = (function () {
     return duration;
   }
 
-  function playWood(out, time, pitch) {
-    const duration = pitch ? WOOD_CHIME_S : WOOD_DURATION_S;
+  function playWood(out, time, pitch, stretch) {
+    const duration = pitch ? WOOD_CHIME_S * stretch : WOOD_DURATION_S;
     const freq = WOOD_FREQ_HZ * (pitch || 1);
     const osc = ctx.createOscillator();
     osc.type = 'triangle';
@@ -116,11 +118,11 @@ const Metronome = (function () {
     return duration;
   }
 
-  function playBell(out, time, pitch) {
-    const stretch = pitch ? BELL_CHIME_STRETCH : 1;
+  function playBell(out, time, pitch, stretch) {
+    const decayScale = pitch ? BELL_CHIME_STRETCH * stretch : 1;
     let longest = 0;
     BELL_PARTIALS.forEach(function (p) {
-      const decay = p.decay * stretch;
+      const decay = p.decay * decayScale;
       longest = Math.max(longest, decay);
       const osc = ctx.createOscillator();
       osc.type = 'sine';
@@ -147,7 +149,7 @@ const Metronome = (function () {
     let endS = 0;
     for (let i = 0; i < c.strikes; i++) {
       const offset = i * c.gapS;
-      endS = Math.max(endS, offset + PLAYERS[sound](out, time + offset, c.pitch));
+      endS = Math.max(endS, offset + PLAYERS[sound](out, time + offset, c.pitch, c.stretch));
     }
     return endS * 1000;
   }
