@@ -13,6 +13,9 @@ const ATTRIBUTION_FILE = path.join(ROOT, 'ATTRIBUTION.md');
 const CREDITS_FILE = path.join(ROOT, 'js', 'credits.js');
 const ASSETS_DIR = path.join(ROOT, 'assets');
 
+const CREDITS_HEADER = '| File | Title |';
+const IGNORED_DIRS = ['to_add']; // assets/to_add holds media waiting for attribution; never shipped
+
 const errors = [];
 const linkText = (cell) => cell.replace(/^\[(.*)\]\((.*)\)$/, '$1');
 const linkUrl = (cell) => (cell.match(/^\[.*\]\((.*)\)$/) || [])[1];
@@ -22,8 +25,10 @@ function parseAttribution() {
   const sections = [];
   for (const line of fs.readFileSync(ATTRIBUTION_FILE, 'utf8').split('\n')) {
     const heading = line.match(/^## (.+)$/);
-    if (heading) { sections.push({ heading: heading[1].trim(), items: [] }); continue; }
-    if (!line.startsWith('| `') || !sections.length) continue;
+    if (heading) { sections.push({ heading: heading[1].trim(), items: [], listed: true }); continue; }
+    // Only tables headed "| File | Title | ..." are shown in the app; others (e.g. Store images) are skipped.
+    if (line.startsWith('| File |') && sections.length) sections[sections.length - 1].listed = line.startsWith(CREDITS_HEADER);
+    if (!line.startsWith('| `') || !sections.length || !sections[sections.length - 1].listed) continue;
     const cells = line.split(' | ').map((c) => c.replace(/^\| |\s*\|$/g, '').trim());
     if (cells.length !== 5) { errors.push(`ATTRIBUTION.md: malformed row: ${line}`); continue; }
     const [file, title, author, source, license] = cells;
@@ -41,7 +46,7 @@ function loadCredits() {
 }
 
 function listAssets(dir) {
-  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
+  return fs.readdirSync(dir, { withFileTypes: true }).filter((e) => !IGNORED_DIRS.includes(e.name)).flatMap((e) => {
     const full = path.join(dir, e.name);
     return e.isDirectory() ? listAssets(full) : [path.relative(ROOT, full).split(path.sep).join('/')];
   });
