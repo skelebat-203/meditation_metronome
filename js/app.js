@@ -349,13 +349,6 @@ Music.getTracks().forEach(function (t, i) {
   form.track.appendChild(opt);
 });
 
-Object.keys(APP.MUSIC.REPEAT).forEach(function (k) {
-  const opt = document.createElement('option');
-  opt.value = APP.MUSIC.REPEAT[k];
-  opt.textContent = APP.MUSIC.REPEAT_LABELS[opt.value];
-  form.musicRepeat.appendChild(opt);
-});
-
 const saveToggle = $('#save-toggle');
 const savePanel = $('#save-panel');
 const saveMenu = $('#save-menu');

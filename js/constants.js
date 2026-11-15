@@ -38,7 +38,6 @@ const APP = Object.freeze({
       LIST: 'list', // play the whole shuffled list, then reshuffle (default)
       TRACK: 'track', // repeat the current track forever
     }),
-    REPEAT_LABELS: Object.freeze({ list: 'Whole list', track: 'Current track' }),
     PREVIEW_MS: 5000, // settings track preview: full-volume play time
     PREVIEW_FADE_MS: 2000, // then fades out over this long and stops
     NOTICE_MS: 30000, // how long a playback-error message stays on screen (A11Y-09); it also has a close button

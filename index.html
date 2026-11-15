@@ -65,8 +65,13 @@
           <label class="setting" for="track"><span>Track</span></label>
           <select id="track" name="track"></select>
           <button type="button" class="btn track-preview" data-action="preview-track"><span aria-hidden="true">▶</span> Play 5 s of track</button>
-          <label class="setting" for="music-repeat"><span>Music repeat</span></label>
-          <select id="music-repeat" name="musicRepeat"></select>
+          <fieldset id="music-repeat" class="segmented" role="radiogroup">
+            <legend>Loop:</legend>
+            <div class="segmented-pill">
+              <label><input type="radio" name="musicRepeat" value="list" class="visually-hidden"><span>All</span></label>
+              <label><input type="radio" name="musicRepeat" value="track" class="visually-hidden"><span>Selected</span></label>
+            </div>
+          </fieldset>
         </section>
         <section class="settings-group" aria-labelledby="settings-metronome">
           <h2 id="settings-metronome">Metronome</h2>

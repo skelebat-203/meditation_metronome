@@ -32,7 +32,7 @@ Back with no changes leaves at once. Back with unsaved changes asks "Discard cha
 
 Controls:
 - Music on/off, volume, and track (dropdown). The first choice, Random, is selected by default; the preview plays the session's current track when Random is selected.
-- Music repeat (select): Whole list (default) or Current track. Persistent saves it; This session applies for the session only. A change made mid-session takes effect when the current track ends. Unknown saved values fall back to Whole list.
+- Loop (two-option switch, "Loop:"): All (default; whole shuffled list, stored `list`) or Selected (repeat the current track, stored `track`). Persistent saves it; This session applies for the session only. A change made mid-session takes effect when the current track ends. Unknown saved values fall back to All.
 - Track preview: plays the selected track for 5 s, fades it out over 2 s, then stops. Starting another preview or leaving Settings stops it.
 - Metronome on/off and volume
 - Tick sound: soft click / wood block / bell
@@ -57,7 +57,7 @@ Not a score or streak; only sound cues.
 - **Chime sounds**: Web Audio, no files. Each is a distinct, longer version of the selected tick sound (soft click / wood block / bell). The mark chime and the end chime differ from each other, so the user can tell them apart: a mark is one strike; the end chime is three slower, lower strikes with widening gaps (2 s, then 2.5 s), each 50% longer than a mark strike. The return to the launch screen waits for the last strike to finish.
 
 ## Music
-- ~10 tracks, played in shuffled order (not just a random start track); reshuffled after each full pass; loops forever. With Music repeat set to Current track, the playing track repeats forever instead; the shuffled list is not advanced.
+- ~10 tracks, played in shuffled order (not just a random start track); reshuffled after each full pass; loops forever. With Loop set to Selected, the playing track repeats forever instead; the shuffled list is not advanced.
 - Start track: the Settings track dropdown starts with Random (the default). If a specific track was chosen and saved with Persistent, every future session starts with it, then plays the shuffled rest of the pass. With Random saved, or nothing saved, the start track is random on each app open. Random is stored as its own sentinel value; any other stored value must be a known track path or it is ignored. Choices made with This session (a track or Random) apply to that session only and are not saved. (`0004` #3, v0.6.2, v0.6.5)
 - Opus, ~48 kbps, loops of ~2–3 minutes per track.
 

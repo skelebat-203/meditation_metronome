@@ -16,6 +16,8 @@
   --color-pressed-text: #0b1020;
   --color-dim: rgba(11, 16, 32, 0.6);
   --radius: 0.75rem;
+  --radius-pill: 999px;
+  --focus-ring-width: 3px;
   --target-min: 36px;
   --target-large: 56px;
   --font-size-start: 1.5rem;
@@ -339,6 +341,64 @@ body.controls-hidden .controls {
 .settings-group select {
   width: 100%;
   min-height: var(--target-min);
+}
+
+/* Two-option switch: one pill outline, selected half filled, no gap between halves. */
+.segmented {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-gap);
+  min-width: 0;
+  margin: var(--control-margin) 0;
+  padding: 0;
+  border: 0;
+}
+
+.segmented legend {
+  float: left;
+  padding: 0;
+  margin-right: var(--space-gap);
+}
+
+.segmented-pill {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 100%;
+  border: var(--rule-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+}
+
+.segmented label:first-child {
+  border-radius: var(--radius-pill) 0 0 var(--radius-pill);
+}
+
+.segmented label:last-child {
+  border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
+}
+
+.segmented label {
+  display: flex;
+  min-height: var(--target-min);
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-gap);
+  color: var(--color-pressed-bg);
+  cursor: pointer;
+}
+
+.segmented label + label {
+  box-shadow: inset var(--rule-width) 0 0 var(--color-border);
+}
+
+.segmented label:has(input:checked) {
+  background: var(--color-pressed-bg);
+  color: var(--color-pressed-text);
+  font-weight: 700;
+}
+
+.segmented-pill:has(input:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--color-focus);
 }
 
 .switch {
