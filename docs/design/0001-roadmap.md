@@ -88,7 +88,6 @@ Run as grouped subagents on a `v0.4` integration branch.
 ## Future (unscoped)
 
 - Background playback on GrapheneOS: Android foreground service with a media notification (`0004` #5). The test GrapheneOS device lets some apps play with the screen off; this may be a per-app permission setting, so check that before building a service.
-- Apply mid-session settings changes immediately instead of up to 1.5 s later (`0004` #1).
 
 ## v1.0 — Full launch (F-Droid)
 

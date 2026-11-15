@@ -73,6 +73,7 @@ def webAssetsDir = layout.buildDirectory.dir('generated/web')
 def copyWebAssets = tasks.register('copyWebAssets', Sync) {
     from(webRoot) {
         include 'index.html', 'css/**', 'js/**', 'assets/**'
+        exclude 'assets/to_add/**' // media waiting for attribution; never ships in the app
     }
     into webAssetsDir.map { it.dir('web') }
 }
