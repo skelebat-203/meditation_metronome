@@ -113,7 +113,7 @@ One screen. Opened from the launch screen (Settings) or the meditation screen (S
 │  Session timer      [ off ]  │
 │  Keep screen awake  [ on  ]  │
 │                              │
-│  Credits                  >  │  ← attributions (v0.2)
+│  Credits       Add media >   │  ← attributions (v0.2) · own media (0005)
 │                              │
 └──────────────────────────────┘
 ```
@@ -159,7 +159,7 @@ Items are plain text buttons with no borders and no hint lines (accessible names
 │  Images         [ on  ]    ( ) Wood block [▶]  │
 │  Session timer  [ off ]    ( ) Bell       [▶]  │
 │  Keep awake     [ on  ]                        │
-│  Credits  >                                    │
+│  Credits                          Add media >  │
 └────────────────────────────────────────────────┘
 ```
 Two columns; the screen scrolls if it does not fit.
@@ -176,3 +176,7 @@ Changes are applied from the **Save** menu at the top right.
 - **Back:** top left. Never saves. With no changes it leaves at once. With unsaved changes it shows an inline "Discard changes?" notice inside `<main>` with [Discard] and [Keep editing]; focus moves to the notice heading, and Keep editing returns focus to Back. No dialog role. Android Back follows the same rules: it closes an open Save panel first, then asks if there are changes, then leaves.
 - After a save, the status region announces "Settings saved" or "Settings applied to this session" (or "Session started").
 - The panel has a visible 3:1 border and a solid background; nothing is hover-only.
+
+## My media screen
+
+Opened from the Settings button "Add media" (Add media >, bottom right, in line with Credits). Wireframe, text and behavior: [`0005`](0005-own-media.md) § My media screen. Same header pattern as Credits (Back, title). Expanders for Music, Images and Metronome sounds; notices appear inside `<main>`. In the Settings dropdown and tick sound list, the user's own items follow the built-ins under a non-selectable "Uploaded" heading.

@@ -7,6 +7,7 @@ const APP = Object.freeze({
     MEDITATION: 'screen-meditation',
     SETTINGS: 'screen-settings',
     CREDITS: 'screen-credits',
+    MEDIA: 'screen-media',
   }),
   METRONOME: Object.freeze({
     INTERVAL_S: 1,
@@ -68,6 +69,22 @@ const APP = Object.freeze({
     ]),
     SHOW_MS: 60000, // time each image is shown
     FADE_MS: 5000, // cross-fade; 0 under prefers-reduced-motion
+  }),
+  // The user's own media (docs/design/0005-own-media.md).
+  OWN_MEDIA: Object.freeze({
+    DB_NAME: 'meditation-metronome-media',
+    STORE: 'media',
+    ID_PREFIX: 'own:', // saved id of an own item: ID_PREFIX + uuid
+    UPLOADED_LABEL: 'Uploaded', // non-selectable group heading in the Settings choices
+    MAX_IMAGE_LONG_SIDE_PX: 4096, // longer images are rejected
+    MIN_IMAGE_LONG_SIDE_PX: 1280, // shorter images may not fill the screen (hint only)
+    DECODE_TIMEOUT_MS: 10000, // audio validation gives up after this long
+    MAX_TICK_S: 1, // a custom tick sound plays at most this long
+    TICK_FADE_S: 0.05, // fade-out at the end of a cut tick
+    CHIME_RATE: 0.8, // custom sound as a mark chime: playback rate (end chime: times its pitch)
+    CHIME_FADE_S: 0.2, // fade-out at the end of a chime
+    BYTES_PER_MB: 1048576,
+    KINDS: Object.freeze({ MUSIC: 'music', IMAGE: 'image', TICK: 'tick' }),
   }),
   START_WORDS: Object.freeze(['recovering', 'relaxing', 'centering', 'breathing']),
   CONTROLS_IDLE_MS: 4000, // meditation-screen controls hide after this long without input

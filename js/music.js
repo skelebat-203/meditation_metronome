@@ -1,15 +1,19 @@
 'use strict';
 
-// Music player: plays APP.MUSIC.TRACKS in shuffled order, reshuffling after each full pass, forever
-// (or repeats the current track, per the Music repeat setting).
+// Music player: plays the built-in tracks plus the user's own in shuffled order, reshuffling after each
+// full pass, forever (or repeats the current track, per the Music repeat setting).
 // One <audio> element; the next track loads when the current one ends.
+// A track is { id, title, src, own? }: id is the saved id (built-in: its path; own: OwnMedia id), src is
+// what the <audio> loads (a blob: URL for own tracks).
 
 const Music = (function () {
-  const tracks = APP.MUSIC.TRACKS;
+  const builtIn = APP.MUSIC.TRACKS.map(function (t) { return { id: t.src, title: t.title, src: t.src }; });
+  let tracks = builtIn.slice();
   const audio = new Audio();
   let order = shuffledIndices(tracks.length);
   let pos = 0; // position of the current track in `order`
-  let index = order[0];
+  let current = tracks[order[0]];
+  let orphans = []; // blob: URLs of removed own tracks, revoked once the player has moved off them
   let playing = false;
   let repeatTrack = false; // true: replay the current track when it ends
 
@@ -17,15 +21,43 @@ const Music = (function () {
   audio.volume = APP.MUSIC.DEFAULT_VOLUME;
 
   function load(i) {
-    index = i;
-    audio.src = tracks[index].src;
+    current = tracks[i];
+    audio.src = current.src;
+    orphans = orphans.filter(function (url) {
+      if (url === audio.src) return true;
+      URL.revokeObjectURL(url);
+      return false;
+    });
+  }
+
+  function indexOfId(id) {
+    return tracks.findIndex(function (t) { return t.id === id; });
+  }
+
+  // Replaces the user's own tracks. The current track keeps playing even if it was removed; its URL is
+  // revoked when the player moves on. The pass restarts: the current track first, then a fresh shuffle.
+  function setOwnTracks(own) {
+    const kept = {};
+    own.forEach(function (t) { kept[t.id] = true; });
+    tracks.forEach(function (t) {
+      if (!t.own || kept[t.id]) return;
+      if (t.src === audio.src) orphans.push(t.src); else URL.revokeObjectURL(t.src);
+    });
+    tracks = builtIn.concat(own.map(function (t) { return { id: t.id, title: t.title, src: t.src, own: true }; }));
+    order = shuffledIndices(tracks.length);
+    pos = 0;
+    if (!audio.src) { current = tracks[order[0]]; return; } // nothing loaded yet: the random start may be an own track
+    const at = indexOfId(current.id);
+    if (at === -1) { pos = -1; return; } // current track was removed: the next one starts a fresh pass
+    order[order.indexOf(at)] = order[0];
+    order[0] = at;
   }
 
   // Loads the next track in the shuffled order; after a full pass, reshuffles without repeating the last track.
   function loadNext() {
     pos++;
     if (pos >= order.length) {
-      order = shuffledIndices(tracks.length, index);
+      order = shuffledIndices(tracks.length, indexOfId(current.id));
       pos = 0;
     }
     load(order[pos]);
@@ -81,8 +113,8 @@ const Music = (function () {
   }
 
   function handleFailure() {
-    const title = tracks[index].title;
-    console.warn('Music track failed:', tracks[index].src, audio.error);
+    const title = current.title;
+    console.warn('Music track failed:', current.id, audio.error);
     failures++;
     if (failures >= tracks.length) {
       playing = false;
@@ -101,7 +133,7 @@ const Music = (function () {
   audio.addEventListener('playing', function () { failures = 0; });
 
   audio.addEventListener('ended', function () {
-    if (repeatTrack) load(index); else loadNext();
+    if (repeatTrack && indexOfId(current.id) !== -1) load(indexOfId(current.id)); else loadNext();
     if (playing) play();
   });
 
@@ -111,7 +143,7 @@ const Music = (function () {
     if (playing) return;
     playing = true;
     failures = 0;
-    if (!audio.src) load(index);
+    if (!audio.src) load(indexOfId(current.id));
     // A track that already failed to load while idle is reported now that the user asked for music.
     if (audio.error) { handleFailure(); return; }
     play();
@@ -142,7 +174,9 @@ const Music = (function () {
 
   // Switches track; keeps playing if already playing. Starts the track from the beginning.
   // The chosen track starts a new shuffled pass, so every other track still plays once before a repeat.
-  function setTrack(i) {
+  function setTrack(id) {
+    const i = indexOfId(id);
+    if (i === -1) return;
     order = shuffledIndices(tracks.length);
     const at = order.indexOf(i);
     order[at] = order[0];
@@ -161,9 +195,8 @@ const Music = (function () {
     audio.volume = Math.min(1, Math.max(0, v));
   }
 
-  // The first track of the session's shuffled order.
-  function randomTrackIndex() {
-    return order[0];
+  function randomTrackId() {
+    return tracks[Math.floor(Math.random() * tracks.length)].id;
   }
 
   // Settings preview: plays track i on its own element at volume v for APP.MUSIC.PREVIEW_MS,
@@ -172,15 +205,17 @@ const Music = (function () {
   let previewTimer = null;
   let previewFadeId = null;
 
-  function preview(i, v) {
+  function preview(id, v) {
+    const track = tracks[indexOfId(id)];
+    if (!track) return;
     stopPreview();
-    previewAudio.src = tracks[i].src;
+    previewAudio.src = track.src;
     previewAudio.volume = Math.min(1, Math.max(0, v));
     const p = previewAudio.play();
     if (p && p.catch) {
       p.catch(function (err) {
         console.warn('Music preview failed:', err);
-        if (previewAudio.error) showNotice('Could not play "' + tracks[i].title + '".');
+        if (previewAudio.error) showNotice('Could not play "' + track.title + '".');
       });
     }
     previewTimer = setTimeout(fadePreview, APP.MUSIC.PREVIEW_MS);
@@ -210,9 +245,11 @@ const Music = (function () {
     fadeOut: fadeOut,
     isPlaying: function () { return playing; },
     setTrack: setTrack,
-    getTrackIndex: function () { return index; },
-    getTracks: function () { return tracks; },
-    randomTrackIndex: randomTrackIndex,
+    getTrackId: function () { return current.id; },
+    getTracks: function () { return tracks.slice(); },
+    hasTrack: function (id) { return indexOfId(id) !== -1; },
+    setOwnTracks: setOwnTracks,
+    randomTrackId: randomTrackId,
     setVolume: setVolume,
     setRepeat: setRepeat,
     showNotice: showNotice, // shared with app.js for the wake lock message

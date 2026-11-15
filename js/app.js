@@ -10,6 +10,14 @@ SCREEN_TITLES[APP.SCREEN_IDS.LAUNCH] = 'Meditation Metronome';
 SCREEN_TITLES[APP.SCREEN_IDS.MEDITATION] = 'Meditating — Meditation Metronome';
 SCREEN_TITLES[APP.SCREEN_IDS.SETTINGS] = 'Settings — Meditation Metronome';
 SCREEN_TITLES[APP.SCREEN_IDS.CREDITS] = 'Credits — Meditation Metronome';
+SCREEN_TITLES[APP.SCREEN_IDS.MEDIA] = 'My media — Meditation Metronome';
+
+// History entries above the launch screen, so the end of a session can go back to it from any screen.
+const SCREEN_DEPTH = {};
+SCREEN_DEPTH[APP.SCREEN_IDS.MEDITATION] = 1;
+SCREEN_DEPTH[APP.SCREEN_IDS.SETTINGS] = 2;
+SCREEN_DEPTH[APP.SCREEN_IDS.CREDITS] = 3;
+SCREEN_DEPTH[APP.SCREEN_IDS.MEDIA] = 3;
 
 const form = $('#settings-form');
 const timerEl = $('#session-timer');
@@ -63,8 +71,8 @@ window.addEventListener('popstate', function () {
     endSession();
     return;
   }
-  if (current === APP.SCREEN_IDS.CREDITS) {
-    showScreen(APP.SCREEN_IDS.SETTINGS, $('[data-action="open-credits"]'));
+  if (current === APP.SCREEN_IDS.CREDITS || current === APP.SCREEN_IDS.MEDIA) {
+    showScreen(APP.SCREEN_IDS.SETTINGS, $('[data-action="' + (current === APP.SCREEN_IDS.MEDIA ? 'open-media' : 'open-credits') + '"]'));
   } else if (current === APP.SCREEN_IDS.SETTINGS) {
     if (!leavingSettings && (saveMenuOpen() || settingsDirty())) {
       // Stay: put the entry back, then close the menu or ask about unsaved changes.
@@ -173,7 +181,7 @@ function finishSession(chimeMs) {
   Metronome.fadeOut(APP.SESSION.FADE_MS);
   finishId = setTimeout(function () {
     // Settings may be open on top of the meditation screen.
-    history.go(current === APP.SCREEN_IDS.MEDITATION ? -1 : -2);
+    history.go(-SCREEN_DEPTH[current]);
   }, Math.max(chimeMs, APP.SESSION.FADE_MS));
 }
 
@@ -215,7 +223,7 @@ function applySession() {
   Music.setRepeat(s.musicRepeat);
   Metronome.setVolume(s.metronomeVolume);
   Metronome.setSound(s.tickSound);
-  if (Music.getTrackIndex() !== s.track) Music.setTrack(s.track);
+  if (Music.getTrackId() !== s.track) Music.setTrack(s.track);
   if (!inSession) return;
 
   if (s.music) Music.start(); else Music.stop();
@@ -306,7 +314,7 @@ $('#' + APP.SCREEN_IDS.MEDITATION).addEventListener('focusin', showControls);
 function fillForm(s) {
   form.music.checked = s.music;
   form.musicVolume.value = Math.round(s.musicVolume * 100);
-  form.track.value = String(s.trackChoice);
+  form.track.value = s.trackChoice;
   form.musicRepeat.value = s.musicRepeat;
   form.metronome.checked = s.metronome;
   form.metronomeVolume.value = Math.round(s.metronomeVolume * 100);
@@ -325,7 +333,7 @@ function readForm() {
     music: form.music.checked,
     musicVolume: Number(form.musicVolume.value) / 100,
     musicRepeat: form.musicRepeat.value,
-    trackChoice: form.track.value === APP.MUSIC.RANDOM ? APP.MUSIC.RANDOM : Number(form.track.value),
+    trackChoice: form.track.value,
     metronome: form.metronome.checked,
     metronomeVolume: Number(form.metronomeVolume.value) / 100,
     tickSound: form.tickSound.value,
@@ -338,16 +346,59 @@ function readForm() {
   };
 }
 
-const randomOpt = document.createElement('option');
-randomOpt.value = APP.MUSIC.RANDOM;
-randomOpt.textContent = APP.MUSIC.RANDOM_LABEL;
-form.track.appendChild(randomOpt);
-Music.getTracks().forEach(function (t, i) {
+function option(value, text) {
   const opt = document.createElement('option');
-  opt.value = String(i);
-  opt.textContent = t.title;
-  form.track.appendChild(opt);
-});
+  opt.value = value;
+  opt.textContent = text;
+  return opt;
+}
+
+// Track dropdown: Random, the built-in tracks, then the user's own under a non-selectable "Uploaded" group.
+function renderTrackOptions() {
+  form.track.textContent = '';
+  form.track.appendChild(option(APP.MUSIC.RANDOM, APP.MUSIC.RANDOM_LABEL));
+  const own = document.createElement('optgroup');
+  own.label = APP.OWN_MEDIA.UPLOADED_LABEL;
+  Music.getTracks().forEach(function (t) {
+    (t.own ? own : form.track).appendChild(option(t.id, t.title));
+  });
+  if (own.children.length) form.track.appendChild(own);
+}
+
+// Tick sounds: the built-in radios stay in the HTML; the user's own follow in the "Uploaded" group.
+const tickUploaded = $('#tick-uploaded');
+
+function bindPreview(btn) {
+  btn.addEventListener('click', function () {
+    Metronome.setVolume(Number(form.metronomeVolume.value) / 100);
+    Metronome.preview(btn.dataset.preview);
+  });
+}
+
+function renderTickOptions() {
+  $$('.tick-sound', tickUploaded).forEach(function (row) { row.remove(); });
+  const own = OwnMedia.list(APP.OWN_MEDIA.KINDS.TICK);
+  own.forEach(function (rec) {
+    const row = document.createElement('div');
+    row.className = 'tick-sound';
+    const label = document.createElement('label');
+    const radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = 'tickSound';
+    radio.value = rec.id;
+    label.append(radio, ' ' + rec.name);
+    const play = document.createElement('button');
+    play.type = 'button';
+    play.className = 'btn btn-small';
+    play.dataset.preview = rec.id;
+    play.setAttribute('aria-label', 'Play ' + rec.name);
+    play.textContent = '▶';
+    bindPreview(play);
+    row.append(label, ' ', play);
+    tickUploaded.appendChild(row);
+  });
+  tickUploaded.hidden = !own.length;
+}
 
 const saveToggle = $('#save-toggle');
 const savePanel = $('#save-panel');
@@ -441,12 +492,7 @@ document.addEventListener('pointerdown', function (e) {
   if (saveMenuOpen() && !saveMenu.contains(e.target)) setSaveMenu(false);
 });
 
-$$('[data-preview]').forEach(function (btn) {
-  btn.addEventListener('click', function () {
-    Metronome.setVolume(Number(form.metronomeVolume.value) / 100);
-    Metronome.preview(btn.dataset.preview);
-  });
-});
+$$('[data-preview]').forEach(bindPreview);
 
 // Volume sliders show and announce their value as a percentage.
 function renderVolumes() {
@@ -501,8 +547,9 @@ const ACTIONS = {
   'back-settings': backFromSettings,
   'discard': discardAndLeave,
   'keep-editing': function () { hideDiscardNotice(); $('[data-action="back-settings"]').focus(); },
+  'open-media': function () { Music.stopPreview(); goTo(APP.SCREEN_IDS.MEDIA); },
   'open-credits': function () { Music.stopPreview(); goTo(APP.SCREEN_IDS.CREDITS); },
-  'preview-track': function () { Music.preview(form.track.value === APP.MUSIC.RANDOM ? Settings.getSession().track : Number(form.track.value), Number(form.musicVolume.value) / 100); },
+  'preview-track': function () { Music.preview(form.track.value === APP.MUSIC.RANDOM ? Settings.getSession().track : form.track.value, Number(form.musicVolume.value) / 100); },
   'apply-persistent': function () { applyAndClose(true); },
   'apply-session': function () { applyAndClose(false); },
 };
@@ -511,13 +558,50 @@ $$('[data-action]').forEach(function (btn) {
   btn.addEventListener('click', function () { ACTIONS[btn.dataset.action](); });
 });
 
+// ---------- Own media ----------
+
+// Puts the user's own media into the player, slideshow and Settings choices. The Settings form keeps
+// its current (possibly unedited) values; a value that no longer exists falls back as Settings decides.
+function syncOwnMedia() {
+  const dirty = settingsDirty();
+  const trackValue = form.track.value;
+  const tickValue = form.tickSound.value;
+  Music.setOwnTracks(OwnMedia.list(APP.OWN_MEDIA.KINDS.MUSIC).map(function (r) {
+    return { id: r.id, title: r.name, src: r.url };
+  }));
+  Slideshow.setOwnImages(OwnMedia.list(APP.OWN_MEDIA.KINDS.IMAGE).map(function (r) { return r.url; }));
+  Settings.reconcile();
+  const s = Settings.getSession();
+  renderTrackOptions();
+  renderTickOptions();
+  form.track.value = trackValue;
+  if (form.track.value !== trackValue) form.track.value = s.trackChoice;
+  form.tickSound.value = tickValue;
+  if (form.tickSound.value !== tickValue) form.tickSound.value = s.tickSound;
+  if (!dirty) formSnapshot = JSON.stringify(readForm());
+  if (inSession) Metronome.setSound(s.tickSound);
+  if (!inSession) Music.setTrack(s.track);
+}
+
+OwnMedia.onChange(syncOwnMedia);
+
 // ---------- Init ----------
 
-$('#start').textContent = 'Start ' + APP.START_WORDS[Math.floor(Math.random() * APP.START_WORDS.length)];
-Music.setTrack(Settings.getSession().track);
-renderCredits();
-Slideshow.mount(slideshowEl);
-Slideshow.show();
-renderToggles();
-history.replaceState({ screen: APP.SCREEN_IDS.LAUNCH }, '');
-showScreen(APP.SCREEN_IDS.LAUNCH, $('#start'));
+// Own media loads first (asynchronously); the app starts with built-ins only if it cannot.
+let unreadable = 0;
+OwnMedia.init().then(function (skipped) {
+  unreadable = skipped;
+}, function (err) {
+  console.warn('Own media unavailable:', err);
+}).then(function () {
+  MediaScreen.init(function (text) { statusEl.textContent = text; });
+  $('#start').textContent = 'Start ' + APP.START_WORDS[Math.floor(Math.random() * APP.START_WORDS.length)];
+  syncOwnMedia();
+  renderCredits();
+  Slideshow.mount(slideshowEl);
+  Slideshow.show();
+  renderToggles();
+  history.replaceState({ screen: APP.SCREEN_IDS.LAUNCH }, '');
+  showScreen(APP.SCREEN_IDS.LAUNCH, $('#start'));
+  if (unreadable) Music.showNotice('Some of your files could not be read and were removed.');
+});

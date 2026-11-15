@@ -1,10 +1,12 @@
 'use strict';
 
-// Image slideshow: shows APP.IMAGES.SOURCES in shuffled order, reshuffling after each full pass, forever.
+// Image slideshow: shows the built-in images plus the user's own (blob: URLs) in shuffled order, reshuffling after each full pass, forever.
 // Two stacked <img> layers cross-fade; under prefers-reduced-motion images switch without a fade.
 
 const Slideshow = (function () {
-  const sources = APP.IMAGES.SOURCES;
+  const builtIn = APP.IMAGES.SOURCES;
+  let ownUrls = [];
+  let sources = builtIn;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let layers = null; // [back, front]
   let order = [];
@@ -22,6 +24,16 @@ const Slideshow = (function () {
       pos = 0;
     }
     return order[pos++];
+  }
+
+  // Replaces the user's own images (blob: URLs). URLs of removed ones are revoked; the image on screen stays.
+  // The pass restarts with a fresh shuffle.
+  function setOwnImages(urls) {
+    ownUrls.forEach(function (u) { if (urls.indexOf(u) === -1) URL.revokeObjectURL(u); });
+    ownUrls = urls;
+    sources = builtIn.concat(urls);
+    order = shuffle();
+    pos = 0;
   }
 
   // Builds the layers inside `container` (once). Call before start().
@@ -80,6 +92,7 @@ const Slideshow = (function () {
 
   return Object.freeze({
     mount: mount,
+    setOwnImages: setOwnImages,
     show: show,
     start: start,
     stop: stop,

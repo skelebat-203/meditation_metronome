@@ -486,8 +486,52 @@ body.controls-hidden .controls {
   margin-top: var(--space-gap);
 }
 
-.credits-link {
+.settings-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-gap);
   margin-top: var(--space-section);
+}
+
+/* My media */
+.media-section h2 {
+  margin: var(--space-section) 0 var(--space-gap);
+  font-size: var(--font-size-h2);
+}
+
+.media-expander {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-h2);
+  text-align: left;
+}
+
+.media-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.media-item,
+.media-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-gap);
+  margin-bottom: var(--space-gap);
+}
+
+.media-name {
+  flex: 1 1 4rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.media-hint {
+  margin: var(--space-gap) 0;
 }
 
 /* Credits */

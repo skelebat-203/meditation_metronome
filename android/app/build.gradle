@@ -1,4 +1,4 @@
-// Plain Java, no AndroidX or other libraries: the APK holds the WebView shell and the web app.
+// Plain Java; the one library is androidx.webkit (WebViewAssetLoader), from google() Maven only.
 plugins {
     id 'com.android.application'
 }
@@ -61,6 +61,11 @@ android {
     buildFeatures {
         buildConfig false
     }
+}
+
+dependencies {
+    // Exact version, published 2025-06-04; 1.15+ needs minSdk 23. No permissions, no Play services.
+    implementation 'androidx.webkit:webkit:1.14.0'
 }
 
 // Copy the web app from the repo root into the APK's assets at build time (no second copy in git).

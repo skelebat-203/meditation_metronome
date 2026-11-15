@@ -46,6 +46,10 @@ const CHIMES = {
   end: { gapsS: END_CHIME_GAPS_S, pitch: 0.75, stretch: END_CHIME_STRETCH },
 };
 
+// Own sounds (0005): a tick plays at most OWN_MEDIA.MAX_TICK_S with a short fade; a chime plays the whole
+// sample at a lower rate (so lower and longer).
+const OWN = APP.OWN_MEDIA;
+
 const Metronome = (function () {
   let ctx = null;
   let master = null;       // volume
@@ -138,10 +142,63 @@ const Metronome = (function () {
     return longest;
   }
 
+  // Own sounds: decoded AudioBuffers by id.
+  const samples = {};
+
+  function readBuffer(blob) {
+    return new Promise(function (resolve, reject) {
+      const reader = new FileReader();
+      reader.onload = function () { resolve(reader.result); };
+      reader.onerror = function () { reject(reader.error); };
+      reader.readAsArrayBuffer(blob);
+    });
+  }
+
+  function loadSample(name) {
+    if (samples[name]) return Promise.resolve();
+    const blob = OwnMedia.blobOf(name);
+    if (!blob) return Promise.reject(new Error('Unknown sound: ' + name));
+    ensureContext();
+    return readBuffer(blob).then(function (data) {
+      return new Promise(function (resolve, reject) { ctx.decodeAudioData(data, resolve, reject); });
+    }).then(function (buffer) { samples[name] = buffer; });
+  }
+
+  function sampleFailed(err) {
+    console.warn('Metronome sound failed:', err);
+    Music.showNotice('Could not load the metronome sound.');
+  }
+
+  function playSample(name, out, time, pitch) {
+    const buffer = samples[name];
+    if (!buffer) return 0; // still decoding
+    const rate = pitch ? OWN.CHIME_RATE * pitch : 1;
+    const duration = pitch ? buffer.duration / rate : Math.min(buffer.duration, OWN.MAX_TICK_S);
+    const fade = Math.min(pitch ? OWN.CHIME_FADE_S : OWN.TICK_FADE_S, duration);
+    const src = ctx.createBufferSource();
+    src.buffer = buffer;
+    src.playbackRate.value = rate;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(1, time);
+    g.gain.setValueAtTime(1, time + duration - fade);
+    g.gain.linearRampToValueAtTime(0, time + duration);
+    src.connect(g).connect(out);
+    src.start(time);
+    src.stop(time + duration);
+    return duration;
+  }
+
   const PLAYERS = {};
   PLAYERS[APP.METRONOME.SOUNDS.SOFT_CLICK] = playClick;
   PLAYERS[APP.METRONOME.SOUNDS.WOOD_BLOCK] = playWood;
   PLAYERS[APP.METRONOME.SOUNDS.BELL] = playBell;
+
+  // The player for a built-in or own sound name, or null.
+  function playerFor(name) {
+    if (PLAYERS[name]) return PLAYERS[name];
+    if (name.indexOf(OWN.ID_PREFIX) !== 0) return null;
+    return function (out, time, pitch) { return playSample(name, out, time, pitch); };
+  }
 
   // Plays a mark or end chime of the selected sound at `time`; returns its length in ms.
   function playChime(kind, out, time) {
@@ -151,7 +208,7 @@ const Metronome = (function () {
     // One strike, then one more after each gap.
     for (let i = 0; i <= c.gapsS.length; i++) {
       if (i > 0) offset += c.gapsS[i - 1];
-      endS = Math.max(endS, offset + PLAYERS[sound](out, time + offset, c.pitch, c.stretch));
+      endS = Math.max(endS, offset + playerFor(sound)(out, time + offset, c.pitch, c.stretch));
     }
     return endS * 1000;
   }
@@ -169,7 +226,7 @@ const Metronome = (function () {
         return;
       }
       if (markBeats && beat > 0 && beat % markBeats === 0) playChime('mark', cueBus, nextBeatTime);
-      else if (tickBus) PLAYERS[sound](tickBus, nextBeatTime);
+      else if (tickBus) playerFor(sound)(tickBus, nextBeatTime);
       beat++;
       nextBeatTime += APP.METRONOME.INTERVAL_S;
     }
@@ -225,8 +282,9 @@ const Metronome = (function () {
 
   // Takes effect on ticks not yet queued (up to SCHEDULE_AHEAD_S later).
   function setSound(name) {
-    if (!PLAYERS[name]) throw new Error('Unknown tick sound: ' + name);
+    if (!playerFor(name)) throw new Error('Unknown tick sound: ' + name);
     sound = name;
+    if (!PLAYERS[name]) loadSample(name).catch(sampleFailed);
   }
 
   function setVolume(v) {
@@ -241,9 +299,11 @@ const Metronome = (function () {
 
   // Plays one tick of the given sound now (settings preview).
   function preview(name) {
-    if (!PLAYERS[name]) throw new Error('Unknown tick sound: ' + name);
+    const player = playerFor(name);
+    if (!player) throw new Error('Unknown tick sound: ' + name);
     ensureContext();
-    PLAYERS[name](master, ctx.currentTime);
+    if (PLAYERS[name]) { player(master, ctx.currentTime); return; }
+    loadSample(name).then(function () { player(master, ctx.currentTime); }).catch(sampleFailed);
   }
 
   // Fades queued and future ticks to silence over `ms`, then stops.

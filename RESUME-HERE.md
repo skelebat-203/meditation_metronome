@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v1.2.5 — added the track Glory in Her Mind (California Sound Healing Collective; license left blank by user decision, full length). v1.2.4 — Music repeat is now a Loop: All | Selected pill toggle; v1.2.3 added the Settings save menu; v1.2.2 added the Music repeat setting; v1.2.1 added 1 and 3 min options to Length and Mark every. v1.2 plan of action in place; `0004` #2 decided (chimes keep the metronome volume). v1.1 still open: Play Console signup (blocked by Google's new-account check), tester recruiting, then PEPK export of the F-Droid key; its commits land under the current v1.2.x number. Next: steps 2–4 in parallel worktrees (`v1.2-step-N`), first approved takes the next patch number.
+v1.2.6 — own media (Add media screen, WebViewAssetLoader origin, file chooser); needs the user's phone tests (standard Android, GrapheneOS). v1.2.5 — added the track Glory in Her Mind (California Sound Healing Collective; license left blank by user decision, full length). v1.2.4 — Music repeat is now a Loop: All | Selected pill toggle; v1.2.3 added the Settings save menu; v1.2.2 added the Music repeat setting; v1.2.1 added 1 and 3 min options to Length and Mark every. v1.2 plan of action in place; `0004` #2 decided (chimes keep the metronome volume). v1.1 still open: Play Console signup (blocked by Google's new-account check), tester recruiting, then PEPK export of the F-Droid key; its commits land under the current v1.2.x number. Next: small credits-check patch (v1.2.7), then accessibility audit and security review.
 
 ## v1.2 plan of action
 
@@ -15,7 +15,7 @@ Versions follow the versioning rules: each feature gets its own patch version an
    - Source: roadmap v1.2 item 2 · Files: `index.html`, `js/music.js`, `js/settings.js`, `js/constants.js`, `js/app.js`, `0002`, `0003` · Verify: each mode loops as described; saved with Persistent · Deps: user approves UI
 3. **Save menu** (v1.2/3) ✅ (v1.2.3) — move Persistent / This session into a menu at the top right of Settings; wireframe in `0003` approved first.
    - Source: roadmap v1.2 item 3 · Files: `0003`, `index.html`, `css/`, `js/app.js` · Verify: user approves; keyboard and screen reader can open the menu and save · Deps: user approves wireframe
-4. **Own media** (v1.2/4) — user adds their own music and images; design note first (storage, size limits, removal, credits), with 3 UI mockups for the user to choose from.
+4. **Own media** (v1.2/4) ✅ (v1.2.6; device tests pending) — user adds their own music and images; design note first (storage, size limits, removal, credits), with 3 UI mockups for the user to choose from.
    - Source: roadmap v1.2 item 4 · Files: new design note, `index.html`, `js/`, `0002`, `0003` · Verify: added files play/show after restart, with no network access; user approves · Deps: user approves design
 5. **Accessibility audit** (v1.2/5) — with the user.
    - Source: roadmap v1.2 item 5 · Files: `docs/audits/accessibility/` · Verify: Lighthouse ≥90, manual checks · Deps: 1–4
@@ -27,7 +27,7 @@ Versions follow the versioning rules: each feature gets its own patch version an
 - Steps 2, 3 and 4 touch the Settings form and will conflict; the main session resolves conflicts at merge.
 - Steps 3 and 4 start with design only (wireframe / 3 mockups); no code until the user chooses.
 - Reviews 5, 6 in the main session with the user, after steps 1–4 land.
-- Status: ✅ 1 · ✅ 2 · ✅ 3 · ⏳ 4 (design approved, building) · ☐ reviews
+- Status: ✅ 1 · ✅ 2 · ✅ 3 · ✅ 4 (user tests on standard Android and GrapheneOS) · ☐ reviews
 
 ## v1.1 plan of action
 
