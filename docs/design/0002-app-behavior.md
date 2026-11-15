@@ -35,7 +35,7 @@ Controls:
 - Loop (two-option switch, "Loop:"): All (default; whole shuffled list, stored `list`) or Selected (repeat the current track, stored `track`). Persistent saves it; This session applies for the session only. A change made mid-session takes effect when the current track ends. Unknown saved values fall back to All.
 - Track preview: plays the selected track for 5 s, fades it out over 2 s, then stops. Starting another preview or leaving Settings stops it.
 - Metronome on/off and volume
-- Tick sound: soft click / wood block / bell, then an "Uploaded" group with the user's own sounds (`0005`)
+- Tick sound (dropdown): soft click / wood block / bell, then an "Uploaded" group with the user's own sounds (`0005`). One "Play tick sound" button plays the selected sound. A removed uploaded sound falls back to soft click.
 - Images on/off
 - Session length: off / 1 min / 3 min / 5–60 min in 5-minute steps (default off)
 - Marks on/off and interval: 1 min / 3 min / 5–60 min in 5-minute steps (default on, 5 min)

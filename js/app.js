@@ -365,39 +365,18 @@ function renderTrackOptions() {
   if (own.children.length) form.track.appendChild(own);
 }
 
-// Tick sounds: the built-in radios stay in the HTML; the user's own follow in the "Uploaded" group.
-const tickUploaded = $('#tick-uploaded');
-
-function bindPreview(btn) {
-  btn.addEventListener('click', function () {
-    Metronome.setVolume(Number(form.metronomeVolume.value) / 100);
-    Metronome.preview(btn.dataset.preview);
-  });
-}
-
+// Tick dropdown: the built-in sounds, then the user's own under the same "Uploaded" group.
 function renderTickOptions() {
-  $$('.tick-sound', tickUploaded).forEach(function (row) { row.remove(); });
-  const own = OwnMedia.list(APP.OWN_MEDIA.KINDS.TICK);
-  own.forEach(function (rec) {
-    const row = document.createElement('div');
-    row.className = 'tick-sound';
-    const label = document.createElement('label');
-    const radio = document.createElement('input');
-    radio.type = 'radio';
-    radio.name = 'tickSound';
-    radio.value = rec.id;
-    label.append(radio, ' ' + rec.name);
-    const play = document.createElement('button');
-    play.type = 'button';
-    play.className = 'btn btn-small';
-    play.dataset.preview = rec.id;
-    play.setAttribute('aria-label', 'Play ' + rec.name);
-    play.textContent = '▶';
-    bindPreview(play);
-    row.append(label, ' ', play);
-    tickUploaded.appendChild(row);
+  form.tickSound.textContent = '';
+  Object.values(APP.METRONOME.SOUNDS).forEach(function (id) {
+    form.tickSound.appendChild(option(id, APP.METRONOME.SOUND_LABELS[id]));
   });
-  tickUploaded.hidden = !own.length;
+  const own = OwnMedia.list(APP.OWN_MEDIA.KINDS.TICK);
+  if (!own.length) return;
+  const group = document.createElement('optgroup');
+  group.label = APP.OWN_MEDIA.UPLOADED_LABEL;
+  own.forEach(function (rec) { group.appendChild(option(rec.id, rec.name)); });
+  form.tickSound.appendChild(group);
 }
 
 const saveToggle = $('#save-toggle');
@@ -492,8 +471,6 @@ document.addEventListener('pointerdown', function (e) {
   if (saveMenuOpen() && !saveMenu.contains(e.target)) setSaveMenu(false);
 });
 
-$$('[data-preview]').forEach(bindPreview);
-
 // Volume sliders show and announce their value as a percentage.
 function renderVolumes() {
   [form.musicVolume, form.metronomeVolume].forEach(function (input) {
@@ -550,6 +527,10 @@ const ACTIONS = {
   'open-media': function () { Music.stopPreview(); goTo(APP.SCREEN_IDS.MEDIA); },
   'open-credits': function () { Music.stopPreview(); goTo(APP.SCREEN_IDS.CREDITS); },
   'preview-track': function () { Music.preview(form.track.value === APP.MUSIC.RANDOM ? Settings.getSession().track : form.track.value, Number(form.musicVolume.value) / 100); },
+  'preview-tick': function () {
+    Metronome.setVolume(Number(form.metronomeVolume.value) / 100);
+    Metronome.preview(form.tickSound.value);
+  },
   'apply-persistent': function () { applyAndClose(true); },
   'apply-session': function () { applyAndClose(false); },
 };

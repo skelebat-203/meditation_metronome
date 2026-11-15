@@ -16,6 +16,11 @@ const APP = Object.freeze({
       WOOD_BLOCK: 'wood-block',
       BELL: 'bell',
     }),
+    SOUND_LABELS: Object.freeze({
+      'soft-click': 'Soft click',
+      'wood-block': 'Wood block',
+      'bell': 'Bell',
+    }),
     DEFAULT_SOUND: 'soft-click',
     DEFAULT_VOLUME: 0.7, // 0..1
   }),

@@ -64,7 +64,7 @@
           <input type="range" id="music-volume" name="musicVolume" min="0" max="100" step="5">
           <label class="setting" for="track"><span>Track</span></label>
           <select id="track" name="track"></select>
-          <button type="button" class="btn track-preview" data-action="preview-track"><span aria-hidden="true">▶</span> Play 5 s of track</button>
+          <button type="button" class="btn btn-preview" data-action="preview-track"><span aria-hidden="true">▶</span> Play 5 s of track</button>
           <fieldset id="music-repeat" class="segmented" role="radiogroup">
             <legend>Loop:</legend>
             <div class="segmented-pill">
@@ -78,15 +78,9 @@
           <label class="setting"><span>Metronome</span> <input type="checkbox" id="metronome" name="metronome" class="switch"></label>
           <label class="setting" for="metronome-volume"><span>Metronome volume</span> <output for="metronome-volume" class="volume-value" aria-hidden="true"></output></label>
           <input type="range" id="metronome-volume" name="metronomeVolume" min="0" max="100" step="5">
-          <fieldset id="tick-sound" class="tick-sounds">
-            <legend>Tick sound</legend>
-            <div class="tick-sound"><label><input type="radio" name="tickSound" value="soft-click"> Soft click</label> <button type="button" class="btn btn-small" data-preview="soft-click" aria-label="Play soft click">▶</button></div>
-              <div class="tick-sound"><label><input type="radio" name="tickSound" value="wood-block"> Wood block</label> <button type="button" class="btn btn-small" data-preview="wood-block" aria-label="Play wood block">▶</button></div>
-              <div class="tick-sound"><label><input type="radio" name="tickSound" value="bell"> Bell</label> <button type="button" class="btn btn-small" data-preview="bell" aria-label="Play bell">▶</button></div>
-            <fieldset id="tick-uploaded" class="tick-sounds" hidden>
-              <legend>Uploaded</legend>
-            </fieldset>
-          </fieldset>
+          <label class="setting" for="tick-sound"><span>Tick sound</span></label>
+          <select id="tick-sound" name="tickSound"></select>
+          <button type="button" class="btn btn-preview" data-action="preview-tick"><span aria-hidden="true">▶</span> Play tick sound</button>
         </section>
         <section class="settings-group" aria-labelledby="settings-session">
           <h2 id="settings-session">Session</h2>

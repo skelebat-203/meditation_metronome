@@ -1,6 +1,6 @@
 # 0005 — Own Media
 
-Design for roadmap v1.2 item 4: the user adds their own music and images. Status: **approved by the user 2026-11-15** (option A; third expander for tick sounds; image long side max 4096 px only; WebViewAssetLoader origin; chime and overlap behavior for custom ticks; short-sound text under Metronome sounds). Behavior baseline: [`0002`](0002-app-behavior.md). Layout style: [`0003`](0003-ui-design.md).
+Design for roadmap v1.2 item 4: the user adds their own music and images. Status: **approved by the user 2026-11-15** (tick sound dropdown; third expander for tick sounds; image long side max 4096 px only; WebViewAssetLoader origin; chime and overlap behavior for custom ticks; short-sound text under Metronome sounds). Behavior baseline: [`0002`](0002-app-behavior.md). Layout style: [`0003`](0003-ui-design.md).
 
 ## Chosen design (option A)
 
@@ -10,14 +10,7 @@ Design for roadmap v1.2 item 4: the user adds their own music and images. Status
 - In the Track dropdown (and the image choice list), built-ins come first, then uploaded items under a non-selectable group heading **"Uploaded"** (`<optgroup label="Uploaded">` or equivalent; must stay accessible, check with a screen reader on both test devices).
 - All lists are sorted alphabetically: the Uploaded group in the dropdown and the expander lists on My media.
 - **Decided (user, 2026-11-15): custom metronome (tick) sounds live inside Add media**, same UI as Music and Images: a third expander **"Metronome sounds"**, an **"Add metronome sounds"** button, an alphabetical list, per-item Remove. The category is the user's choice by which Add button they use, so **no content detection** (no duration heuristic). Own store `kind: "tick"`, own `<input type="file" accept="audio/*" multiple>`, same decode check and failure handling as Music.
-- **Tick sound control on Settings** (today radio buttons, each with a preview ▶ button). Uploaded tick sounds appear below a non-selectable **"Uploaded"** heading, after the built-ins. Options for the control:
-
-  | Option | Notes |
-  |---|---|
-  | A. Keep the radio list; add an "Uploaded" `<fieldset>`/group heading with its own radios, each with a ▶ preview | Same pattern as today, keeps one-tap preview per item. The list grows with uploads (long for many). |
-  | B. Replace with a dropdown with an "Uploaded" `<optgroup>` | Compact at any count, matches Track. Loses the inline ▶ preview per choice; needs one separate Preview button for the selected sound. |
-
-  **Decided: A** while uploads are few (keeps the approved preview behavior and no control type change); switch to B only if on-device testing shows the list is too long. Heading must be a real group label for screen readers (check TalkBack).
+- **Tick sound control on Settings** (decided, user, 2026-11-15): a dropdown labelled "Tick sound", like Track. Built-ins (Soft click, Wood block, Bell) first, then uploaded sounds alphabetically under a non-selectable **"Uploaded"** `<optgroup>`. One **"Play tick sound"** button plays the selected sound (replaces the earlier radio list with a ▶ per option). Stored values are unchanged (`soft-click`, `wood-block`, `bell`, `own:{id}`). Check the group label with TalkBack.
 - Images have no choice control today (Images is an on/off toggle); uploaded images join the slideshow pool, so the Settings screen gets no image list.
 - Settings gets no other new controls. Settings keeps its Persistent / This session model; add/remove on My media is immediate and says so.
 

@@ -1,7 +1,7 @@
 {
   "name": "meditation-metronome",
-  "version": "1.2.8",
-  "versionCode": 10208,
+  "version": "1.2.9",
+  "versionCode": 10209,
   "private": true,
   "description": "Meditation Metronome. Plain HTML/CSS/JS app; this file holds dev-only test tooling.",
   "license": "SEE LICENSE IN LICENSE",

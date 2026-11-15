@@ -101,10 +101,8 @@ One screen. Opened from the launch screen (Settings) or the meditation screen (S
 │                              │
 │  Metronome          [ on  ]  │
 │  Metronome volume ───●─────  │
-│  Tick sound                  │
-│   (•) Soft click  [▶]        │
-│   ( ) Wood block  [▶]        │  ← [▶] previews the sound
-│   ( ) Bell        [▶]        │
+│  Tick sound  [ Soft click ▾] │  ← dropdown, Uploaded group last
+│  [▶ Play tick sound]         │  ← previews the selected sound
 │                              │
 │  Images             [ on  ]  │
 │                              │
@@ -154,10 +152,10 @@ Items are plain text buttons with no borders and no hint lines (accessible names
 │                                 └────────────────────┘
 │  Music          [ on  ]   Metronome    [ on  ] │
 │  Music vol ───●──────     Metro vol  ───●──    │
-│  Track [Still Water ▾]    Tick sound           │
-│  Loop: [All|Selected]      (•) Soft click [▶]  │
-│  Images         [ on  ]    ( ) Wood block [▶]  │
-│  Session timer  [ off ]    ( ) Bell       [▶]  │
+│  Track [Still Water ▾]    Tick [Soft click ▾]  │
+│  Loop: [All|Selected]      [▶ Play tick sound] │
+│  Images         [ on  ]                        │
+│  Session timer  [ off ]                        │
 │  Keep awake     [ on  ]                        │
 │  Credits                          Add media >  │
 └────────────────────────────────────────────────┘
@@ -179,4 +177,4 @@ Changes are applied from the **Save** menu at the top right.
 
 ## My media screen
 
-Opened from the Settings button "Add media" (Add media >, bottom right, in line with Credits). Wireframe, text and behavior: [`0005`](0005-own-media.md) § My media screen. Same header pattern as Credits (Back, title). Expanders for Music, Images and Metronome sounds; notices appear inside `<main>`. In the Settings dropdown and tick sound list, the user's own items follow the built-ins under a non-selectable "Uploaded" heading.
+Opened from the Settings button "Add media" (Add media >, bottom right, in line with Credits). Wireframe, text and behavior: [`0005`](0005-own-media.md) § My media screen. Same header pattern as Credits (Back, title). Expanders for Music, Images and Metronome sounds; notices appear inside `<main>`. In the Track and Tick sound dropdowns on Settings, the user's own items follow the built-ins under a non-selectable "Uploaded" heading.
