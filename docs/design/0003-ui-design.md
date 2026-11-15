@@ -97,6 +97,7 @@ One screen. Opened from the launch screen (Settings) or the meditation screen (S
 │  Music              [ on  ]  │
 │  Music volume   ──────●───   │
 │  Track     [ Still Water ▾]  │  ← change music dropdown
+│  Music repeat [Whole list ▾] │  ← Whole list / Current track
 │                              │
 │  Metronome          [ on  ]  │
 │  Metronome volume ───●─────  │
@@ -126,7 +127,7 @@ One screen. Opened from the launch screen (Settings) or the meditation screen (S
 │  Music          [ on  ]   Metronome    [ on  ] │
 │  Music vol ───●──────     Metro vol  ───●──    │
 │  Track [Still Water ▾]    Tick sound           │
-│                            (•) Soft click [▶]  │
+│  Repeat [Whole list ▾]     (•) Soft click [▶]  │
 │  Images         [ on  ]    ( ) Wood block [▶]  │
 │  Session timer  [ off ]    ( ) Bell       [▶]  │
 │  Keep awake     [ on  ]                        │

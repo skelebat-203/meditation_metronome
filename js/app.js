@@ -202,6 +202,7 @@ document.addEventListener('visibilitychange', function () {
 function applySession() {
   const s = Settings.getSession();
   Music.setVolume(s.musicVolume);
+  Music.setRepeat(s.musicRepeat);
   Metronome.setVolume(s.metronomeVolume);
   Metronome.setSound(s.tickSound);
   if (Music.getTrackIndex() !== s.track) Music.setTrack(s.track);
@@ -295,6 +296,7 @@ function fillForm(s) {
   form.music.checked = s.music;
   form.musicVolume.value = Math.round(s.musicVolume * 100);
   form.track.value = String(s.trackChoice);
+  form.musicRepeat.value = s.musicRepeat;
   form.metronome.checked = s.metronome;
   form.metronomeVolume.value = Math.round(s.metronomeVolume * 100);
   renderVolumes();
@@ -311,6 +313,7 @@ function readForm() {
   return {
     music: form.music.checked,
     musicVolume: Number(form.musicVolume.value) / 100,
+    musicRepeat: form.musicRepeat.value,
     trackChoice: form.track.value === APP.MUSIC.RANDOM ? APP.MUSIC.RANDOM : Number(form.track.value),
     metronome: form.metronome.checked,
     metronomeVolume: Number(form.metronomeVolume.value) / 100,
@@ -333,6 +336,13 @@ Music.getTracks().forEach(function (t, i) {
   opt.value = String(i);
   opt.textContent = t.title;
   form.track.appendChild(opt);
+});
+
+Object.keys(APP.MUSIC.REPEAT).forEach(function (k) {
+  const opt = document.createElement('option');
+  opt.value = APP.MUSIC.REPEAT[k];
+  opt.textContent = APP.MUSIC.REPEAT_LABELS[opt.value];
+  form.musicRepeat.appendChild(opt);
 });
 
 function openSettings() {

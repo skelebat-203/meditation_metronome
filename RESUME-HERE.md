@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v1.2.1 — 1 and 3 min options added to Length and Mark every. v1.2 plan of action in place; `0004` #2 decided (chimes keep the metronome volume). v1.1 still open: Play Console signup (blocked by Google's new-account check), tester recruiting, then PEPK export of the F-Droid key; its commits land under the current v1.2.x number. Next: steps 2–4 in parallel worktrees (`v1.2-step-N`), first approved takes the next patch number.
+v1.2.2 — Music repeat setting added; v1.2.1 added 1 and 3 min options to Length and Mark every. v1.2 plan of action in place; `0004` #2 decided (chimes keep the metronome volume). v1.1 still open: Play Console signup (blocked by Google's new-account check), tester recruiting, then PEPK export of the F-Droid key; its commits land under the current v1.2.x number. Next: steps 2–4 in parallel worktrees (`v1.2-step-N`), first approved takes the next patch number.
 
 ## v1.2 plan of action
 
@@ -11,7 +11,7 @@ Versions follow the versioning rules: each feature gets its own patch version an
 
 1. **Length and Mark every: 1 and 3 min** (v1.2/1) ✅ (v1.2.1) — add 1 and 3 minute choices to both pickers.
    - Source: roadmap v1.2 item 1 · Files: `js/constants.js`, `js/app.js`, `docs/design/0002-app-behavior.md` · Verify: both pickers list 1, 3, 5–60 min; a 1-min session ends on time · Deps: none
-2. **Music repeat mode** (v1.2/2) — Settings choice: loop the whole shuffled list, or repeat the current track.
+2. **Music repeat mode** (v1.2/2) ✅ (v1.2.2) — Settings choice: loop the whole shuffled list, or repeat the current track.
    - Source: roadmap v1.2 item 2 · Files: `index.html`, `js/music.js`, `js/settings.js`, `js/constants.js`, `js/app.js`, `0002`, `0003` · Verify: each mode loops as described; saved with Persistent · Deps: user approves UI
 3. **Save menu** (v1.2/3) — move Persistent / This session into a menu at the top right of Settings; wireframe in `0003` approved first.
    - Source: roadmap v1.2 item 3 · Files: `0003`, `index.html`, `css/`, `js/app.js` · Verify: user approves; keyboard and screen reader can open the menu and save · Deps: user approves wireframe
@@ -27,7 +27,7 @@ Versions follow the versioning rules: each feature gets its own patch version an
 - Steps 2, 3 and 4 touch the Settings form and will conflict; the main session resolves conflicts at merge.
 - Steps 3 and 4 start with design only (wireframe / 3 mockups); no code until the user chooses.
 - Reviews 5, 6 in the main session with the user, after steps 1–4 land.
-- Status: ✅ 1 · ⏳ 2 (built, UI review) · ⏳ 3 · ⏳ 4 (design) · ☐ reviews
+- Status: ✅ 1 · ✅ 2 · ⏳ 3 (built, UI review) · ⏳ 4 (design, awaiting approval) · ☐ reviews
 
 ## v1.1 plan of action
 

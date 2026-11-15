@@ -14,6 +14,7 @@ const Settings = (function () {
   const SESSION = APP.SESSION;
   const TRACKS = APP.MUSIC.TRACKS;
   const RANDOM = APP.MUSIC.RANDOM;
+  const REPEATS = Object.values(APP.MUSIC.REPEAT);
 
   // Interval choices in seconds: 1 min, 3 min, then 5–60 min in 5-minute steps.
   const INTERVALS = SESSION.SHORT_S.slice();
@@ -27,6 +28,7 @@ const Settings = (function () {
       const v = raw && raw[k];
       out[k] = typeof v === typeof DEFAULTS[k] ? v : DEFAULTS[k];
     });
+    if (REPEATS.indexOf(out.musicRepeat) === -1) out.musicRepeat = DEFAULTS.musicRepeat;
     if (SOUNDS.indexOf(out.tickSound) === -1) out.tickSound = DEFAULTS.tickSound;
     if (LENGTHS.indexOf(out.sessionLength) === -1) out.sessionLength = DEFAULTS.sessionLength;
     if (INTERVALS.indexOf(out.markInterval) === -1) out.markInterval = DEFAULTS.markInterval;

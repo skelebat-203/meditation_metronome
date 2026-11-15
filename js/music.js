@@ -1,6 +1,7 @@
 'use strict';
 
-// Music player: plays APP.MUSIC.TRACKS in shuffled order, reshuffling after each full pass, forever.
+// Music player: plays APP.MUSIC.TRACKS in shuffled order, reshuffling after each full pass, forever
+// (or repeats the current track, per the Music repeat setting).
 // One <audio> element; the next track loads when the current one ends.
 
 const Music = (function () {
@@ -10,6 +11,7 @@ const Music = (function () {
   let pos = 0; // position of the current track in `order`
   let index = order[0];
   let playing = false;
+  let repeatTrack = false; // true: replay the current track when it ends
 
   audio.preload = 'auto';
   audio.volume = APP.MUSIC.DEFAULT_VOLUME;
@@ -99,7 +101,7 @@ const Music = (function () {
   audio.addEventListener('playing', function () { failures = 0; });
 
   audio.addEventListener('ended', function () {
-    loadNext();
+    if (repeatTrack) load(index); else loadNext();
     if (playing) play();
   });
 
@@ -148,6 +150,11 @@ const Music = (function () {
     pos = 0;
     load(i);
     if (playing) play();
+  }
+
+  // Takes effect when the current track ends.
+  function setRepeat(mode) {
+    repeatTrack = mode === APP.MUSIC.REPEAT.TRACK;
   }
 
   function setVolume(v) {
@@ -207,6 +214,7 @@ const Music = (function () {
     getTracks: function () { return tracks; },
     randomTrackIndex: randomTrackIndex,
     setVolume: setVolume,
+    setRepeat: setRepeat,
     showNotice: showNotice, // shared with app.js for the wake lock message
   });
 })();

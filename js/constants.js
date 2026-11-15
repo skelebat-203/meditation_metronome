@@ -34,6 +34,11 @@ const APP = Object.freeze({
       Object.freeze({ title: 'Post Drone', src: 'assets/music/post-drone.opus' }),
     ]),
     DEFAULT_VOLUME: 0.5, // 0..1
+    REPEAT: Object.freeze({
+      LIST: 'list', // play the whole shuffled list, then reshuffle (default)
+      TRACK: 'track', // repeat the current track forever
+    }),
+    REPEAT_LABELS: Object.freeze({ list: 'Whole list', track: 'Current track' }),
     PREVIEW_MS: 5000, // settings track preview: full-volume play time
     PREVIEW_FADE_MS: 2000, // then fades out over this long and stops
     NOTICE_MS: 30000, // how long a playback-error message stays on screen (A11Y-09); it also has a close button
@@ -80,6 +85,7 @@ const APP = Object.freeze({
     DEFAULTS: Object.freeze({
       music: true,
       musicVolume: 0.5,
+      musicRepeat: 'list', // APP.MUSIC.REPEAT value
       metronome: true,
       metronomeVolume: 0.7,
       tickSound: 'soft-click',
