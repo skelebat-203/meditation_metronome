@@ -87,10 +87,8 @@ Run as grouped subagents on a `v0.4` integration branch.
 
 ## Future (unscoped)
 
-- Settings: let the user add their own music and images.
-- Settings: music repeat mode — loop the whole (shuffled) list, or repeat a single track.
-- Settings: Move save options into a save menu at the top right
-- Add 1 and 3 minute options to length.
+- Background playback on GrapheneOS: Android foreground service with a media notification (`0004` #5). The test GrapheneOS device lets some apps play with the screen off; this may be a per-app permission setting, so check that before building a service.
+- Apply mid-session settings changes immediately instead of up to 1.5 s later (`0004` #1).
 
 ## v1.0 — Full launch (F-Droid)
 
@@ -116,3 +114,17 @@ Started 2026-11-08 while F-Droid waits (user decision). Play requires new person
 7. Apply for production access and submit.
 8. Accessibility audit.
 9. Security review.
+
+## v1.2 — Settings features
+
+Started 2026-11-15 while v1.1 (Google Play) waits on the user's account and the closed test (user decision). The v1.2.0 commit holds the plan docs; v1.1 steps that land later are committed under the current v1.2.x number. Each feature gets its own patch version and exactly one commit.
+
+1. Length and Mark every: add 1 and 3 minute options to both.
+2. Music repeat mode: loop the whole (shuffled) list, or repeat a single track.
+3. Save menu: move the save options (This session / Persistent) into a menu at the top right of Settings. UI design approved by the user before code.
+4. Own media: let the user add their own music and images. Design decided with the user before code (storage, limits, removal, credits).
+5. Accessibility audit.
+6. Security review — last; bumps to v1.3.0.
+
+Dropped from v1.2: separate chime volume (`0004` #2 decided 2026-11-15, same volume by design); a Marks "Off" option (the app already has a Marks switch).
+
