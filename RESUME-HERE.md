@@ -3,7 +3,7 @@
 Roadmap: [`docs/design/0001-roadmap.md`](docs/design/0001-roadmap.md) · Behavior spec: [`docs/design/0002-app-behavior.md`](docs/design/0002-app-behavior.md)
 
 ## Current version
-v1.2.4 — Music repeat is now a Loop: All | Selected pill toggle; v1.2.3 added the Settings save menu; v1.2.2 added the Music repeat setting; v1.2.1 added 1 and 3 min options to Length and Mark every. v1.2 plan of action in place; `0004` #2 decided (chimes keep the metronome volume). v1.1 still open: Play Console signup (blocked by Google's new-account check), tester recruiting, then PEPK export of the F-Droid key; its commits land under the current v1.2.x number. Next: steps 2–4 in parallel worktrees (`v1.2-step-N`), first approved takes the next patch number.
+v1.2.5 — added the track Glory in Her Mind (California Sound Healing Collective; license left blank by user decision, full length). v1.2.4 — Music repeat is now a Loop: All | Selected pill toggle; v1.2.3 added the Settings save menu; v1.2.2 added the Music repeat setting; v1.2.1 added 1 and 3 min options to Length and Mark every. v1.2 plan of action in place; `0004` #2 decided (chimes keep the metronome volume). v1.1 still open: Play Console signup (blocked by Google's new-account check), tester recruiting, then PEPK export of the F-Droid key; its commits land under the current v1.2.x number. Next: steps 2–4 in parallel worktrees (`v1.2-step-N`), first approved takes the next patch number.
 
 ## v1.2 plan of action
 

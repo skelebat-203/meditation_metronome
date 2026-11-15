@@ -25,6 +25,7 @@ const APP = Object.freeze({
       Object.freeze({ title: 'Above the Clouds', src: 'assets/music/above-the-clouds.opus' }),
       Object.freeze({ title: 'Bathed in the Light', src: 'assets/music/bathed-in-the-light.opus' }),
       Object.freeze({ title: 'Ephemera', src: 'assets/music/ephemera.opus' }),
+      Object.freeze({ title: 'Glory in Her Mind', src: 'assets/music/glory-in-her-mind.opus' }),
       Object.freeze({ title: 'Healing', src: 'assets/music/healing.opus' }),
       Object.freeze({ title: 'Meditation Impromptu 01', src: 'assets/music/meditation-impromptu-01.opus' }),
       Object.freeze({ title: 'Meditation Impromptu 02', src: 'assets/music/meditation-impromptu-02.opus' }),

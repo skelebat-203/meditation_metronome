@@ -126,5 +126,7 @@ Started 2026-11-15 while v1.1 (Google Play) waits on the user's account and the 
 5. Accessibility audit.
 6. Security review — last; bumps to v1.3.0.
 
+Added during v1.2: music track Glory in Her Mind, with no license listed (user decision; exception to the license rule) ✅ (v1.2.5).
+
 Dropped from v1.2: separate chime volume (`0004` #2 decided 2026-11-15, same volume by design); a Marks "Off" option (the app already has a Marks switch).
 

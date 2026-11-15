@@ -478,6 +478,7 @@ function renderCredits() {
       h3.textContent = item.title;
       li.appendChild(h3);
       [['Author', item.author], ['Source', item.source], ['License', item.license]].forEach(function (row) {
+        if (!row[1]) return; // no license listed for one track
         const p = document.createElement('p');
         p.textContent = row[0] + ': ' + row[1];
         li.appendChild(p);

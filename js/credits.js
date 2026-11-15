@@ -18,6 +18,7 @@ const CREDITS = Object.freeze([
       { title: 'Monday Meditation', author: 'Wayne Kinos', source: 'https://commons.wikimedia.org/wiki/File:Wayne_Kinos_-_02_-_Monday_Meditation.ogg', license: 'CC BY 4.0 (modified: re-encoded, faded, trimmed)' },
       { title: 'Penumbra', author: 'Scott Buckley', source: 'https://commons.wikimedia.org/wiki/File:Scott_Buckley_-_Penumbra.oga', license: 'CC BY 4.0 (modified: re-encoded, faded, trimmed)' },
       { title: 'Post Drone', author: 'Uuriter', source: 'https://commons.wikimedia.org/wiki/File:Uuriter_-_10_-_Post_Drone.ogg', license: 'CC BY 4.0 (modified: re-encoded, faded, trimmed)' },
+      { title: 'Glory in Her Mind', author: 'California Sound Healing Collective', source: 'https://ctmusic.itch.io/glory-in-her-mind', license: '' },
     ]),
   }),
   Object.freeze({

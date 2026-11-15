@@ -16,8 +16,9 @@ Third-party assets used in Meditation Metronome. Only CC0, public domain, and CC
 | `assets/music/monday-meditation.opus` | Monday Meditation | Wayne Kinos | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Wayne_Kinos_-_02_-_Monday_Meditation.ogg) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0) |
 | `assets/music/penumbra.opus` | Penumbra | Scott Buckley | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Scott_Buckley_-_Penumbra.oga) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0) |
 | `assets/music/post-drone.opus` | Post Drone | Uuriter | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Uuriter_-_10_-_Post_Drone.ogg) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0) |
+| `assets/music/glory-in-her-mind.opus` | Glory in Her Mind | California Sound Healing Collective | [itch.io](https://ctmusic.itch.io/glory-in-her-mind) |  |
 
-Changes to the music: every track was re-encoded to Opus (48 kbps) with a 2 s fade-in and 3 s fade-out so it loops smoothly. Healing was trimmed to 1:00–4:00 of the original; Ephemera and Penumbra to 1:00–4:00; Above the Clouds to 0:30–3:30; Post Drone to 3:10–6:10; Meditation Impromptu 01–03 and Monday Meditation to their first 3:00. Bathed in the Light is full length.
+Changes to the music: every track was re-encoded to Opus (48 kbps) with a 2 s fade-in and 3 s fade-out so it loops smoothly. Healing was trimmed to 1:00–4:00 of the original; Ephemera and Penumbra to 1:00–4:00; Above the Clouds to 0:30–3:30; Post Drone to 3:10–6:10; Meditation Impromptu 01–03 and Monday Meditation to their first 3:00. Bathed in the Light and Glory in Her Mind are full length. Glory in Her Mind has no license listed (user decision, 2026-11-15; an exception to the license rule).
 
 ## Images
 
