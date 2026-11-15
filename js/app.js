@@ -28,6 +28,8 @@ let wakeLock = null;
 let wakeNoticeShown = false; // wake lock failure message: once per session
 let finishing = false;   // end chime playing; launch screen follows
 let finishId = null;
+let formSnapshot = '';   // form contents when Settings opened; differs = unsaved changes
+let leavingSettings = false; // next Back out of Settings is approved (saved or discarded)
 
 // ---------- Screens and navigation ----------
 
@@ -49,8 +51,9 @@ function showScreen(id, focusEl) {
 }
 
 // Forward navigation pushes a history entry so Android Back (and the browser's Back) returns.
-function goTo(id) {
-  history.pushState({ screen: id }, '');
+// `replace` swaps the current entry instead (Settings -> session, so Back skips Settings).
+function goTo(id, replace) {
+  if (replace) history.replaceState({ screen: id }, ''); else history.pushState({ screen: id }, '');
   showScreen(id);
 }
 
@@ -63,6 +66,13 @@ window.addEventListener('popstate', function () {
   if (current === APP.SCREEN_IDS.CREDITS) {
     showScreen(APP.SCREEN_IDS.SETTINGS, $('[data-action="open-credits"]'));
   } else if (current === APP.SCREEN_IDS.SETTINGS) {
+    if (!leavingSettings && (saveMenuOpen() || settingsDirty())) {
+      // Stay: put the entry back, then close the menu or ask about unsaved changes.
+      history.pushState({ screen: APP.SCREEN_IDS.SETTINGS }, '');
+      if (saveMenuOpen()) setSaveMenu(false, true); else showDiscardNotice();
+      return;
+    }
+    leavingSettings = false;
     Metronome.setVolume(Settings.getSession().metronomeVolume); // undo any preview volume
     Music.stopPreview();
     if (inSession) {
@@ -227,14 +237,15 @@ function applySession() {
   if (!finishing) Metronome.setCues(s.marks ? s.markInterval : 0, s.sessionLength);
 }
 
-function startSession() {
+// `replace`: start from Settings, replacing its history entry.
+function startSession(replace) {
   inSession = true;
   showRemaining = false;
   wakeNoticeShown = false;
   sessionStartMs = Date.now();
   Metronome.beginSession(finishSession);
   applySession();
-  goTo(APP.SCREEN_IDS.MEDITATION);
+  goTo(APP.SCREEN_IDS.MEDITATION, replace === true);
   showControls();
   statusEl.textContent = 'Session started';
 }
@@ -345,21 +356,97 @@ Object.keys(APP.MUSIC.REPEAT).forEach(function (k) {
   form.musicRepeat.appendChild(opt);
 });
 
+const saveToggle = $('#save-toggle');
+const savePanel = $('#save-panel');
+const saveMenu = $('#save-menu');
+const discardNotice = $('#discard-notice');
+
+function settingsDirty() { return JSON.stringify(readForm()) !== formSnapshot; }
+
+function saveMenuOpen() { return !savePanel.hidden; }
+
+// Disclosure: Save toggles the panel; `returnFocus` puts focus back on Save.
+function setSaveMenu(open, returnFocus) {
+  savePanel.hidden = !open;
+  saveToggle.setAttribute('aria-expanded', String(open));
+  $('#save-chevron').textContent = open ? '▴' : '▾';
+  if (!open && returnFocus) saveToggle.focus();
+}
+
+function saveItems() { return $$('.save-item', savePanel); }
+
+function showDiscardNotice() {
+  discardNotice.hidden = false;
+  $('#discard-title').focus();
+}
+
+function hideDiscardNotice() { discardNotice.hidden = true; }
+
 function openSettings() {
   fillForm(Settings.getSession());
+  formSnapshot = JSON.stringify(readForm());
+  setSaveMenu(false);
+  hideDiscardNotice();
   goTo(APP.SCREEN_IDS.SETTINGS);
 }
 
-// Applying closes settings; history.back() lands on the screen settings was opened from.
+// Back button on Settings: leave at once, or ask first when there are unsaved changes.
+function backFromSettings() {
+  if (saveMenuOpen()) setSaveMenu(false);
+  if (settingsDirty()) showDiscardNotice(); else history.back();
+}
+
+function discardAndLeave() {
+  leavingSettings = true;
+  history.back();
+}
+
+// Persistent: save defaults, apply, then history.back() lands on the screen Settings was opened from
+// (launch screen, or the running session). This session: apply; from the launch screen the session
+// starts, from a running session it returns to it.
 function applyAndClose(persistent) {
   const next = readForm();
   Music.stopPreview();
   if (persistent) Settings.setPersistent(next); else Settings.setSession(next);
+  setSaveMenu(false);
+  hideDiscardNotice();
+  if (!persistent && !inSession) {
+    renderToggles();
+    startSession(true);
+    return;
+  }
   applySession();
   renderToggles();
   statusEl.textContent = persistent ? 'Settings saved' : 'Settings applied to this session';
+  leavingSettings = true;
   history.back();
 }
+
+saveToggle.addEventListener('click', function () { setSaveMenu(!saveMenuOpen()); });
+
+saveMenu.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' && saveMenuOpen()) {
+    e.preventDefault();
+    setSaveMenu(false, true);
+  } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    const items = saveItems();
+    const i = items.indexOf(document.activeElement);
+    if (i === -1 && e.key === 'ArrowUp') return;
+    e.preventDefault();
+    if (!saveMenuOpen()) setSaveMenu(true);
+    const step = e.key === 'ArrowDown' ? 1 : -1;
+    items[(i + step + items.length) % items.length].focus();
+  }
+});
+
+// Tab out of the menu closes it; focus stays where Tab sent it.
+saveMenu.addEventListener('focusout', function (e) {
+  if (e.relatedTarget && !saveMenu.contains(e.relatedTarget)) setSaveMenu(false);
+});
+
+document.addEventListener('pointerdown', function (e) {
+  if (saveMenuOpen() && !saveMenu.contains(e.target)) setSaveMenu(false);
+});
 
 $$('[data-preview]').forEach(function (btn) {
   btn.addEventListener('click', function () {
@@ -413,10 +500,13 @@ function renderCredits() {
 // ---------- Actions ----------
 
 const ACTIONS = {
-  'start': startSession,
+  'start': function () { startSession(false); },
   'end': function () { history.back(); },
   'open-settings': openSettings,
   'back': function () { history.back(); },
+  'back-settings': backFromSettings,
+  'discard': discardAndLeave,
+  'keep-editing': function () { hideDiscardNotice(); $('[data-action="back-settings"]').focus(); },
   'open-credits': function () { Music.stopPreview(); goTo(APP.SCREEN_IDS.CREDITS); },
   'preview-track': function () { Music.preview(form.track.value === APP.MUSIC.RANDOM ? Settings.getSession().track : Number(form.track.value), Number(form.musicVolume.value) / 100); },
   'apply-persistent': function () { applyAndClose(true); },

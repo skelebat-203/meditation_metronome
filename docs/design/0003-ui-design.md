@@ -92,7 +92,7 @@ One screen. Opened from the launch screen (Settings) or the meditation screen (S
 ### Portrait
 ```
 ┌──────────────────────────────┐
-│ [← Back]        Settings     │
+│ [← Back]  Settings  [Save ▾] │  ← Save opens the save menu
 │                              │
 │  Music              [ on  ]  │
 │  Music volume   ──────●───   │
@@ -115,15 +115,43 @@ One screen. Opened from the launch screen (Settings) or the meditation screen (S
 │                              │
 │  Credits                  >  │  ← attributions (v0.2)
 │                              │
-│ [ Persistent ] [This session]│  ← how to apply the changes
+└──────────────────────────────┘
+```
+
+#### Portrait, save menu open
+```
+┌──────────────────────────────┐
+│ [← Back]  Settings  [Save ▴] │
+│                  ┌───────────┴┐
+│  Music           │ Persistent │  ← saved as defaults, applied now
+│  Music volume    │────────────│
+│  Track  [Still W │This session│  ← this session only
+│  ...             └────────────┘
+└──────────────────────────────┘
+```
+Items are plain text buttons with no borders and no hint lines (accessible names are just "Persistent" and "This session"), separated by a thin horizontal rule.
+
+#### Portrait, Back with unsaved changes
+```
+┌──────────────────────────────┐
+│ [← Back]  Settings  [Save ▾] │
+│ ┌──────────────────────────┐ │
+│ │ Discard changes?         │ │  ← inline notice inside <main>
+│ │ [Discard] [Keep editing] │ │
+│ └──────────────────────────┘ │
+│  Music              [ on  ]  │
 └──────────────────────────────┘
 ```
 
 ### Landscape
 ```
 ┌────────────────────────────────────────────────┐
-│ [← Back]              Settings                 │
-│                                                │
+│ [← Back]            Settings          [Save ▴] │
+│                                 ┌──────────────┴─────┐
+│                                 │ Persistent         │
+│                                 │────────────────────│
+│                                 │ This session       │
+│                                 └────────────────────┘
 │  Music          [ on  ]   Metronome    [ on  ] │
 │  Music vol ───●──────     Metro vol  ───●──    │
 │  Track [Still Water ▾]    Tick sound           │
@@ -132,13 +160,19 @@ One screen. Opened from the launch screen (Settings) or the meditation screen (S
 │  Session timer  [ off ]    ( ) Bell       [▶]  │
 │  Keep awake     [ on  ]                        │
 │  Credits  >                                    │
-│                                                │
-│         [ Persistent ]  [ This session ]       │
 └────────────────────────────────────────────────┘
 ```
 Two columns; the screen scrolls if it does not fit.
 
 ### Applying changes
-- **Persistent** — saves the changes as defaults for every future session, and applies them now.
-- **This session** — applies the changes to the current session only (or, from the launch screen, to the next session). Defaults are unchanged.
-- **Back** without pressing either button discards the changes.
+
+Changes are applied from the **Save** menu at the top right.
+
+- **Save button:** visible text "Save" plus a ▾/▴ chevron (decorative, hidden from assistive tech). Same size as Back. Accessible name "Save changes" (starts with the visible word, so voice control works), `aria-expanded`, `aria-controls` the panel.
+- **Pattern: disclosure, not ARIA menu.** Native `<button>`; the panel is a `<ul>` of native `<button>`s shown/hidden with `hidden`. No `role="menu"`/`menuitem`. The panel follows the Save button in the DOM, so Tab goes straight into it.
+- **Persistent** — saves the changes as defaults for every future session, applies them now, and returns to where Settings was opened: the launch screen, or the running session.
+- **This session** — applies the changes without changing defaults. From the launch screen it also **starts the session** (Back from that session goes to the launch screen, not Settings). Opened mid-session, it returns to the running session.
+- **Keyboard:** Enter/Space/tap toggles the panel; focus stays on Save when it opens. Up/Down on Save or inside the panel moves between items. Escape closes the panel and returns focus to Save. Choosing an item, tapping outside, or Tab past the panel also closes it.
+- **Back:** top left. Never saves. With no changes it leaves at once. With unsaved changes it shows an inline "Discard changes?" notice inside `<main>` with [Discard] and [Keep editing]; focus moves to the notice heading, and Keep editing returns focus to Back. No dialog role. Android Back follows the same rules: it closes an open Save panel first, then asks if there are changes, then leaves.
+- After a save, the status region announces "Settings saved" or "Settings applied to this session" (or "Session started").
+- The panel has a visible 3:1 border and a solid background; nothing is hover-only.

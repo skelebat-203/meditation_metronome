@@ -25,6 +25,8 @@
   --font-size-h2: 1.5rem;
   --settings-max-width: 60rem;
   --settings-column-min: 18rem;
+  --save-panel-min-width: 15rem;
+  --rule-width: 1px;
   --controls-fade: 400ms;
   --control-margin: 5px;
   --font-size-timer-mode: 1rem;
@@ -364,12 +366,56 @@ body.controls-hidden .controls {
   height: var(--space-section);
 }
 
-.settings-actions {
+.save-menu {
+  position: relative;
+  margin-left: auto;
+}
+
+.save-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 5;
+  min-width: var(--save-panel-min-width);
+  margin: var(--space-gap) 0 0;
+  padding: var(--space-gap);
+  list-style: none;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+}
+
+.save-panel li + li {
+  margin-top: var(--space-gap);
+  padding-top: var(--space-gap);
+  border-top: var(--rule-width) solid var(--color-border);
+}
+
+.save-item {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.discard-notice {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  align-items: center;
   gap: var(--space-gap);
-  padding-block: var(--space-section);
+  max-width: var(--settings-max-width);
+  margin: var(--space-gap) auto 0;
+  padding: var(--space-gap) var(--space-edge);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+}
+
+.discard-notice h2 {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: var(--font-size-base);
 }
 
 .volume-value {
@@ -422,4 +468,22 @@ body.controls-hidden .controls {
   display: flex;
   align-items: center;
   gap: var(--space-gap);
+}
+
+/* Portrait: the notice spans the full screen width. */
+@media (orientation: portrait) {
+  .music-notice {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+    justify-content: center;
+    border-inline: 0;
+    border-bottom: 0;
+    border-radius: 0;
+    padding-bottom: max(var(--space-gap), env(safe-area-inset-bottom));
+  }
 }

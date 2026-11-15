@@ -21,14 +21,14 @@ What the app does and how it behaves. Scope and build order live in the [roadmap
 - Controls hide after a few seconds idle and reappear on tap.
 
 ### Settings screen
-One screen, opened from either the launch or meditation screen. Changes are applied with one of two buttons:
+One screen, opened from either the launch or meditation screen. Changes are applied from the **Save** menu (top right), which has two choices:
 
-| Button | Applies to |
+| Choice | What it does |
 |---|---|
-| Persistent | Saved as defaults for every future session, and applied now |
-| This session | The current session only (from the launch screen: the next session). Defaults unchanged |
+| Persistent | Saves the changes as defaults for every future session, applies them now, and returns to where Settings was opened (launch screen, or the running session) |
+| This session | Applies the changes without changing defaults. From the launch screen it starts the session; from a running session it returns to that session |
 
-Back without pressing either button discards the changes.
+Back with no changes leaves at once. Back with unsaved changes asks "Discard changes?" first (Discard / Keep editing); Android Back does the same. Layout and keyboard behavior: `0003` § Settings screen.
 
 Controls:
 - Music on/off, volume, and track (dropdown). The first choice, Random, is selected by default; the preview plays the session's current track when Random is selected.

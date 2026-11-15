@@ -40,9 +40,21 @@
 
   <main id="screen-settings" class="screen screen-settings" aria-labelledby="settings-title" hidden>
     <header class="settings-header">
-      <button type="button" class="btn" data-action="back"><span aria-hidden="true">←</span> Back</button>
+      <button type="button" class="btn" data-action="back-settings"><span aria-hidden="true">←</span> Back</button>
       <h1 id="settings-title" tabindex="-1">Settings</h1>
+      <div id="save-menu" class="save-menu">
+        <button type="button" id="save-toggle" class="btn" aria-label="Save changes" aria-expanded="false" aria-controls="save-panel">Save <span id="save-chevron" aria-hidden="true">▾</span></button>
+        <ul id="save-panel" class="save-panel" hidden>
+          <li><button type="button" class="btn save-item" data-action="apply-persistent">Persistent</button></li>
+          <li><button type="button" class="btn save-item" data-action="apply-session">This session</button></li>
+        </ul>
+      </div>
     </header>
+    <div id="discard-notice" class="discard-notice" hidden>
+      <h2 id="discard-title" tabindex="-1">Discard changes?</h2>
+      <button type="button" class="btn" data-action="discard">Discard</button>
+      <button type="button" class="btn" data-action="keep-editing">Keep editing</button>
+    </div>
     <form id="settings-form" class="settings-form">
       <div class="settings-columns">
         <section class="settings-group" aria-labelledby="settings-music">
@@ -84,10 +96,6 @@
         </section>
       </div>
       <button type="button" class="btn credits-link" data-action="open-credits">Credits <span aria-hidden="true">›</span></button>
-      <div class="settings-actions">
-        <button type="button" class="btn" data-action="apply-persistent">Persistent</button>
-        <button type="button" class="btn" data-action="apply-session">This session</button>
-      </div>
     </form>
   </main>
 

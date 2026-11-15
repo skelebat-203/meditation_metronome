@@ -121,7 +121,7 @@ Started 2026-11-15 while v1.1 (Google Play) waits on the user's account and the 
 
 1. Length and Mark every: add 1 and 3 minute options to both. ✅ (v1.2.1)
 2. Music repeat mode: loop the whole (shuffled) list, or repeat a single track. ✅ (v1.2.2)
-3. Save menu: move the save options (This session / Persistent) into a menu at the top right of Settings. UI design approved by the user before code.
+3. Save menu: move the save options (This session / Persistent) into a menu at the top right of Settings. UI design approved by the user before code. ✅ (v1.2.3)
 4. Own media: let the user add their own music, images and metronome (tick) sounds; Android WebView moves to `WebViewAssetLoader`. Design decided with the user before code (storage, limits, removal, credits).
 5. Accessibility audit.
 6. Security review — last; bumps to v1.3.0.
