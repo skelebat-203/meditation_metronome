@@ -8,7 +8,7 @@ What the app does and how it behaves. Scope and build order live in the [roadmap
 - **Start button**, centered. Label is `Start {word}`; `{word}` is picked at random on each app open from: recovering, relaxing, centering, breathing.
 - Order, top to bottom: Start, Length, then the Metronome and Music toggles.
 - **Two on/off toggles** in a row under the Length picker: Metronome, Music. They start from the saved defaults (all on by default) and apply only to the next session. Persistent changes are made in saved settings.
-- **Length** picker (Session length; labeled "Length" on the launch screen) between the Start button and the toggles (replaces the former Images toggle; Images is now in Settings only). Options: off (open-ended), 5–60 min in 5-minute steps; default off. Applies to the next session only; the saved default is set in Settings. See § Session length and marks.
+- **Length** picker (Session length; labeled "Length" on the launch screen) between the Start button and the toggles (replaces the former Images toggle; Images is now in Settings only). Options: off (open-ended), 1 min, 3 min, 5–60 min in 5-minute steps; default off. Applies to the next session only; the saved default is set in Settings. See § Session length and marks.
 - On each app open, the start image is chosen at random. The start track is random unless one was saved (see § Music).
 - **Settings button**, top right. Opens the settings screen.
 - Nothing plays until the user taps Start.
@@ -36,8 +36,8 @@ Controls:
 - Metronome on/off and volume
 - Tick sound: soft click / wood block / bell
 - Images on/off
-- Session length: off / 5–60 min (default off)
-- Marks on/off and interval: 5–60 min in 5-minute steps (default on, 5 min)
+- Session length: off / 1 min / 3 min / 5–60 min in 5-minute steps (default off)
+- Marks on/off and interval: 1 min / 3 min / 5–60 min in 5-minute steps (default on, 5 min)
 - Session timer (default off) — shows elapsed time; separate from Session length
 - Keep screen awake (default on)
 
@@ -51,7 +51,7 @@ Controls:
 ## Session length and marks
 Not a score or streak; only sound cues.
 - **Session length** (countdown): when it reaches zero, the end chime plays, music and metronome fade out, and the app returns to the launch screen once the chime finishes. Off = session runs until End.
-- **Marks**: a long chime every `{interval}` minutes, counted from Start. Sound only; no screen-reader announcement (the chime is the cue). No mark plays at the same moment as the end chime.
+- **Marks**: a long chime every `{interval}` minutes, counted from Start. Sound only; no screen-reader announcement (the chime is the cue). No mark plays at the same moment as the end chime, including when the interval equals or divides the length (e.g. a 1-min mark with a 3-min length marks at 1 and 2 min only).
 - **One beat clock**: ticks, marks and the end chime are timed on the same beat clock, counted from Start. A mark or the end chime falls exactly on a beat and replaces the tick on that beat (no tick plus chime). This holds after the tick sound changes mid-session; the chimes then use the new sound.
 - **Chime sounds**: Web Audio, no files. Each is a distinct, longer version of the selected tick sound (soft click / wood block / bell). The mark chime and the end chime differ from each other, so the user can tell them apart: a mark is one strike; the end chime is three slower, lower strikes with widening gaps (2 s, then 2.5 s), each 50% longer than a mark strike. The return to the launch screen waits for the last strike to finish.
 

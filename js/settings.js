@@ -15,8 +15,8 @@ const Settings = (function () {
   const TRACKS = APP.MUSIC.TRACKS;
   const RANDOM = APP.MUSIC.RANDOM;
 
-  // Interval choices in seconds: 5–60 min in 5-minute steps.
-  const INTERVALS = [];
+  // Interval choices in seconds: 1 min, 3 min, then 5–60 min in 5-minute steps.
+  const INTERVALS = SESSION.SHORT_S.slice();
   for (let s = SESSION.STEP_S; s <= SESSION.MAX_S; s += SESSION.STEP_S) INTERVALS.push(s);
   const LENGTHS = [0].concat(INTERVALS); // 0 = off
 

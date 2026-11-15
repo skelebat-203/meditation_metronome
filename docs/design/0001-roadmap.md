@@ -119,10 +119,10 @@ Started 2026-11-08 while F-Droid waits (user decision). Play requires new person
 
 Started 2026-11-15 while v1.1 (Google Play) waits on the user's account and the closed test (user decision). The v1.2.0 commit holds the plan docs; v1.1 steps that land later are committed under the current v1.2.x number. Each feature gets its own patch version and exactly one commit.
 
-1. Length and Mark every: add 1 and 3 minute options to both.
+1. Length and Mark every: add 1 and 3 minute options to both. ✅ (v1.2.1)
 2. Music repeat mode: loop the whole (shuffled) list, or repeat a single track.
 3. Save menu: move the save options (This session / Persistent) into a menu at the top right of Settings. UI design approved by the user before code.
-4. Own media: let the user add their own music and images. Design decided with the user before code (storage, limits, removal, credits).
+4. Own media: let the user add their own music, images and metronome (tick) sounds; Android WebView moves to `WebViewAssetLoader`. Design decided with the user before code (storage, limits, removal, credits).
 5. Accessibility audit.
 6. Security review — last; bumps to v1.3.0.
 
